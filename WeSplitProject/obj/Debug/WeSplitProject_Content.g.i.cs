@@ -8,6 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("resources/images/sora.jpg")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("wesplitdb.context.tt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("wesplitdb.tt")]
 
 

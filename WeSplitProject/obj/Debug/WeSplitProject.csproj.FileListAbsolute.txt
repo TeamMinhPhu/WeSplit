@@ -22,3 +22,60 @@ C:\Users\Admin\source\repos\WeSplitProject\WeSplitProject\obj\Debug\WeSplitProje
 C:\Users\Admin\source\repos\WeSplitProject\WeSplitProject\obj\Debug\WeSplitProject.csproj.CoreCompileInputs.cache
 C:\Users\Admin\source\repos\WeSplitProject\WeSplitProject\obj\Debug\WeSplitProject.csproj.CopyComplete
 C:\Users\Admin\source\repos\WeSplitProject\WeSplitProject\bin\Debug\Resources\Images\sora.jpg
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\bin\Debug\Resources\Images\sora.jpg
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\bin\Debug\WeSplitProject.exe.config
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\bin\Debug\WeSplitProject.exe
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\bin\Debug\WeSplitProject.pdb
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\bin\Debug\MaterialDesignColors.dll
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\bin\Debug\MaterialDesignColors.pdb
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.csprojAssemblyReference.cache
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\obj\Debug\MainWindow.g.cs
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\obj\Debug\App.g.cs
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\obj\Debug\WeSplitProject_MarkupCompile.cache
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\obj\Debug\WeSplitProject_MarkupCompile.lref
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\obj\Debug\App.baml
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\obj\Debug\MainWindow.baml
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.g.resources
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.Properties.Resources.resources
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.csproj.GenerateResource.cache
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.csproj.CoreCompileInputs.cache
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.csproj.CopyComplete
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.exe
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.pdb
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\bin\Debug\Resources\Images\sora.jpg
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\bin\Debug\WeSplitProject.exe.config
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\bin\Debug\WeSplitProject.exe
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\bin\Debug\WeSplitProject.pdb
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\bin\Debug\EntityFramework.dll
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\bin\Debug\EntityFramework.SqlServer.dll
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\bin\Debug\MaterialDesignColors.dll
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\bin\Debug\MaterialDesignThemes.Wpf.dll
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\bin\Debug\Microsoft.WindowsAPICodePack.dll
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\bin\Debug\EntityFramework.xml
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\bin\Debug\EntityFramework.SqlServer.xml
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\bin\Debug\MaterialDesignColors.pdb
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\bin\Debug\MaterialDesignThemes.Wpf.pdb
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\bin\Debug\MaterialDesignThemes.Wpf.xml
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\bin\Debug\Microsoft.WindowsAPICodePack.xml
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\bin\Debug\Microsoft.WindowsAPICodePack.Shell.xml
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\obj\Debug\WeSplitProject.csprojAssemblyReference.cache
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\obj\Debug\MainWindow.g.cs
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\obj\Debug\App.g.cs
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\obj\Debug\WeSplitProject_Content.g.cs
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\obj\Debug\WeSplitProject_MarkupCompile.cache
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\obj\Debug\WeSplitProject_MarkupCompile.lref
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\obj\Debug\App.baml
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\obj\Debug\MainWindow.baml
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\obj\Debug\WeSplitProject.g.resources
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\obj\Debug\WeSplitProject.Properties.Resources.resources
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\obj\Debug\WeSplitProject.csproj.GenerateResource.cache
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\obj\Debug\WeSplitProject.csproj.CoreCompileInputs.cache
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\obj\Debug\WeSplitProject.csproj.CopyComplete
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\obj\Debug\WeSplitProject.exe
+D:\Minh\This Week\Window\Project2\version1.0\WeSplitProject\obj\Debug\WeSplitProject.pdb

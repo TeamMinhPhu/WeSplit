@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e1dfda4290bc4002a3f5134baa6bc383" Name="Diagram1">
+        <EntityTypeShape EntityType="WeSplitDBModel.EXPENSE" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeSplitDBModel.MEMBER" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeSplitDBModel.sysdiagram" Width="1.5" PointX="5.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeSplitDBModel.TRIP" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeSplitDBModel.TRIP_SPLIT" Width="1.5" PointX="6" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeSplitDBModel.VISIT_LOCATION" Width="1.5" PointX="3" PointY="10" IsExpanded="true" />
+        <AssociationConnector Association="WeSplitDBModel.FK_E_T" ManuallyRouted="false" />
+        <AssociationConnector Association="WeSplitDBModel.FK_TS_M" ManuallyRouted="false" />
+        <AssociationConnector Association="WeSplitDBModel.FK_TS_T" ManuallyRouted="false" />
+        <AssociationConnector Association="WeSplitDBModel.FK_VL_T" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

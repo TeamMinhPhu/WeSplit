@@ -1,0 +1,391 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="WeSplitDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="EXPENSE">
+          <Key>
+            <PropertyRef Name="TRIP_ID" />
+            <PropertyRef Name="EXPENSE_ID" />
+          </Key>
+          <Property Name="TRIP_ID" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="EXPENSE_ID" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="EXPENSE_DESCRIPTION" Type="ntext" />
+          <Property Name="COST" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="MEMBER">
+          <Key>
+            <PropertyRef Name="MEMBER_ID" />
+          </Key>
+          <Property Name="MEMBER_ID" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="MEMBER_NAME" Type="char" MaxLength="10" />
+          <Property Name="PHONE" Type="varchar" MaxLength="10" />
+          <Property Name="EMAIL" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TRIP">
+          <Key>
+            <PropertyRef Name="TRIP_ID" />
+          </Key>
+          <Property Name="TRIP_ID" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="TRIP_NAME" Type="nvarchar" MaxLength="100" />
+          <Property Name="TRIP_DESTINATION" Type="nvarchar" MaxLength="100" />
+          <Property Name="TRIP_DESCRIPTION" Type="ntext" />
+          <Property Name="DATE_BEGIN" Type="datetime" />
+          <Property Name="DATE_FINISH" Type="datetime" />
+          <Property Name="TRIP_STATUS" Type="int" />
+        </EntityType>
+        <EntityType Name="TRIP_SPLIT">
+          <Key>
+            <PropertyRef Name="TRIP_ID" />
+            <PropertyRef Name="MEMBER_ID" />
+            <PropertyRef Name="PAYMENT_ID" />
+          </Key>
+          <Property Name="TRIP_ID" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="MEMBER_ID" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="PAYMENT_ID" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="PAYMENT_DESCRIPTION" Type="nvarchar" MaxLength="100" />
+          <Property Name="PAID_COST" Type="varchar" MaxLength="30" />
+        </EntityType>
+        <EntityType Name="VISIT_LOCATION">
+          <Key>
+            <PropertyRef Name="TRIP_ID" />
+            <PropertyRef Name="VISIT_LOC_ID" />
+          </Key>
+          <Property Name="TRIP_ID" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="VISIT_LOC_ID" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="VISIT_LOC_DESTINATION" Type="nvarchar" MaxLength="100" />
+          <Property Name="VISIT_LOC_DESCRIPTION" Type="ntext" />
+          <Property Name="DATE_BEGIN" Type="datetime" />
+          <Property Name="DATE_FINISH" Type="datetime" />
+        </EntityType>
+        <Association Name="FK_E_T">
+          <End Role="TRIP" Type="Self.TRIP" Multiplicity="1" />
+          <End Role="EXPENSE" Type="Self.EXPENSE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRIP">
+              <PropertyRef Name="TRIP_ID" />
+            </Principal>
+            <Dependent Role="EXPENSE">
+              <PropertyRef Name="TRIP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TS_M">
+          <End Role="MEMBER" Type="Self.MEMBER" Multiplicity="1" />
+          <End Role="TRIP_SPLIT" Type="Self.TRIP_SPLIT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MEMBER">
+              <PropertyRef Name="MEMBER_ID" />
+            </Principal>
+            <Dependent Role="TRIP_SPLIT">
+              <PropertyRef Name="MEMBER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TS_T">
+          <End Role="TRIP" Type="Self.TRIP" Multiplicity="1" />
+          <End Role="TRIP_SPLIT" Type="Self.TRIP_SPLIT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRIP">
+              <PropertyRef Name="TRIP_ID" />
+            </Principal>
+            <Dependent Role="TRIP_SPLIT">
+              <PropertyRef Name="TRIP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VL_T">
+          <End Role="TRIP" Type="Self.TRIP" Multiplicity="1" />
+          <End Role="VISIT_LOCATION" Type="Self.VISIT_LOCATION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRIP">
+              <PropertyRef Name="TRIP_ID" />
+            </Principal>
+            <Dependent Role="VISIT_LOCATION">
+              <PropertyRef Name="TRIP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WeSplitDBModelStoreContainer">
+          <EntitySet Name="EXPENSE" EntityType="Self.EXPENSE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MEMBER" EntityType="Self.MEMBER" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TRIP" EntityType="Self.TRIP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TRIP_SPLIT" EntityType="Self.TRIP_SPLIT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VISIT_LOCATION" EntityType="Self.VISIT_LOCATION" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_E_T" Association="Self.FK_E_T">
+            <End Role="TRIP" EntitySet="TRIP" />
+            <End Role="EXPENSE" EntitySet="EXPENSE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TS_M" Association="Self.FK_TS_M">
+            <End Role="MEMBER" EntitySet="MEMBER" />
+            <End Role="TRIP_SPLIT" EntitySet="TRIP_SPLIT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TS_T" Association="Self.FK_TS_T">
+            <End Role="TRIP" EntitySet="TRIP" />
+            <End Role="TRIP_SPLIT" EntitySet="TRIP_SPLIT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VL_T" Association="Self.FK_VL_T">
+            <End Role="TRIP" EntitySet="TRIP" />
+            <End Role="VISIT_LOCATION" EntitySet="VISIT_LOCATION" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="WeSplitDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="EXPENSE">
+          <Key>
+            <PropertyRef Name="TRIP_ID" />
+            <PropertyRef Name="EXPENSE_ID" />
+          </Key>
+          <Property Name="TRIP_ID" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="EXPENSE_ID" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="EXPENSE_DESCRIPTION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="COST" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TRIP" Relationship="Self.FK_E_T" FromRole="EXPENSE" ToRole="TRIP" />
+        </EntityType>
+        <EntityType Name="MEMBER">
+          <Key>
+            <PropertyRef Name="MEMBER_ID" />
+          </Key>
+          <Property Name="MEMBER_ID" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="MEMBER_NAME" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="PHONE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TRIP_SPLIT" Relationship="Self.FK_TS_M" FromRole="MEMBER" ToRole="TRIP_SPLIT" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TRIP">
+          <Key>
+            <PropertyRef Name="TRIP_ID" />
+          </Key>
+          <Property Name="TRIP_ID" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="TRIP_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TRIP_DESTINATION" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="TRIP_DESCRIPTION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DATE_BEGIN" Type="DateTime" Precision="3" />
+          <Property Name="DATE_FINISH" Type="DateTime" Precision="3" />
+          <Property Name="TRIP_STATUS" Type="Int32" />
+          <NavigationProperty Name="EXPENSEs" Relationship="Self.FK_E_T" FromRole="TRIP" ToRole="EXPENSE" />
+          <NavigationProperty Name="TRIP_SPLIT" Relationship="Self.FK_TS_T" FromRole="TRIP" ToRole="TRIP_SPLIT" />
+          <NavigationProperty Name="VISIT_LOCATION" Relationship="Self.FK_VL_T" FromRole="TRIP" ToRole="VISIT_LOCATION" />
+        </EntityType>
+        <EntityType Name="TRIP_SPLIT">
+          <Key>
+            <PropertyRef Name="TRIP_ID" />
+            <PropertyRef Name="MEMBER_ID" />
+            <PropertyRef Name="PAYMENT_ID" />
+          </Key>
+          <Property Name="TRIP_ID" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="MEMBER_ID" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="PAYMENT_ID" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="PAYMENT_DESCRIPTION" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PAID_COST" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="MEMBER" Relationship="Self.FK_TS_M" FromRole="TRIP_SPLIT" ToRole="MEMBER" />
+          <NavigationProperty Name="TRIP" Relationship="Self.FK_TS_T" FromRole="TRIP_SPLIT" ToRole="TRIP" />
+        </EntityType>
+        <EntityType Name="VISIT_LOCATION">
+          <Key>
+            <PropertyRef Name="TRIP_ID" />
+            <PropertyRef Name="VISIT_LOC_ID" />
+          </Key>
+          <Property Name="TRIP_ID" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="VISIT_LOC_ID" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="VISIT_LOC_DESTINATION" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="VISIT_LOC_DESCRIPTION" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DATE_BEGIN" Type="DateTime" Precision="3" />
+          <Property Name="DATE_FINISH" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="TRIP" Relationship="Self.FK_VL_T" FromRole="VISIT_LOCATION" ToRole="TRIP" />
+        </EntityType>
+        <Association Name="FK_E_T">
+          <End Role="TRIP" Type="Self.TRIP" Multiplicity="1" />
+          <End Role="EXPENSE" Type="Self.EXPENSE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRIP">
+              <PropertyRef Name="TRIP_ID" />
+            </Principal>
+            <Dependent Role="EXPENSE">
+              <PropertyRef Name="TRIP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TS_M">
+          <End Role="MEMBER" Type="Self.MEMBER" Multiplicity="1" />
+          <End Role="TRIP_SPLIT" Type="Self.TRIP_SPLIT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="MEMBER">
+              <PropertyRef Name="MEMBER_ID" />
+            </Principal>
+            <Dependent Role="TRIP_SPLIT">
+              <PropertyRef Name="MEMBER_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TS_T">
+          <End Role="TRIP" Type="Self.TRIP" Multiplicity="1" />
+          <End Role="TRIP_SPLIT" Type="Self.TRIP_SPLIT" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRIP">
+              <PropertyRef Name="TRIP_ID" />
+            </Principal>
+            <Dependent Role="TRIP_SPLIT">
+              <PropertyRef Name="TRIP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VL_T">
+          <End Role="TRIP" Type="Self.TRIP" Multiplicity="1" />
+          <End Role="VISIT_LOCATION" Type="Self.VISIT_LOCATION" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TRIP">
+              <PropertyRef Name="TRIP_ID" />
+            </Principal>
+            <Dependent Role="VISIT_LOCATION">
+              <PropertyRef Name="TRIP_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="WeSplitDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EXPENSEs" EntityType="Self.EXPENSE" />
+          <EntitySet Name="MEMBERs" EntityType="Self.MEMBER" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="TRIPs" EntityType="Self.TRIP" />
+          <EntitySet Name="TRIP_SPLIT" EntityType="Self.TRIP_SPLIT" />
+          <EntitySet Name="VISIT_LOCATION" EntityType="Self.VISIT_LOCATION" />
+          <AssociationSet Name="FK_E_T" Association="Self.FK_E_T">
+            <End Role="TRIP" EntitySet="TRIPs" />
+            <End Role="EXPENSE" EntitySet="EXPENSEs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TS_M" Association="Self.FK_TS_M">
+            <End Role="MEMBER" EntitySet="MEMBERs" />
+            <End Role="TRIP_SPLIT" EntitySet="TRIP_SPLIT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TS_T" Association="Self.FK_TS_T">
+            <End Role="TRIP" EntitySet="TRIPs" />
+            <End Role="TRIP_SPLIT" EntitySet="TRIP_SPLIT" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VL_T" Association="Self.FK_VL_T">
+            <End Role="TRIP" EntitySet="TRIPs" />
+            <End Role="VISIT_LOCATION" EntitySet="VISIT_LOCATION" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="WeSplitDBModelStoreContainer" CdmEntityContainer="WeSplitDBEntities">
+          <EntitySetMapping Name="EXPENSEs">
+            <EntityTypeMapping TypeName="WeSplitDBModel.EXPENSE">
+              <MappingFragment StoreEntitySet="EXPENSE">
+                <ScalarProperty Name="TRIP_ID" ColumnName="TRIP_ID" />
+                <ScalarProperty Name="EXPENSE_ID" ColumnName="EXPENSE_ID" />
+                <ScalarProperty Name="EXPENSE_DESCRIPTION" ColumnName="EXPENSE_DESCRIPTION" />
+                <ScalarProperty Name="COST" ColumnName="COST" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MEMBERs">
+            <EntityTypeMapping TypeName="WeSplitDBModel.MEMBER">
+              <MappingFragment StoreEntitySet="MEMBER">
+                <ScalarProperty Name="MEMBER_ID" ColumnName="MEMBER_ID" />
+                <ScalarProperty Name="MEMBER_NAME" ColumnName="MEMBER_NAME" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="WeSplitDBModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRIPs">
+            <EntityTypeMapping TypeName="WeSplitDBModel.TRIP">
+              <MappingFragment StoreEntitySet="TRIP">
+                <ScalarProperty Name="TRIP_ID" ColumnName="TRIP_ID" />
+                <ScalarProperty Name="TRIP_NAME" ColumnName="TRIP_NAME" />
+                <ScalarProperty Name="TRIP_DESTINATION" ColumnName="TRIP_DESTINATION" />
+                <ScalarProperty Name="TRIP_DESCRIPTION" ColumnName="TRIP_DESCRIPTION" />
+                <ScalarProperty Name="DATE_BEGIN" ColumnName="DATE_BEGIN" />
+                <ScalarProperty Name="DATE_FINISH" ColumnName="DATE_FINISH" />
+                <ScalarProperty Name="TRIP_STATUS" ColumnName="TRIP_STATUS" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TRIP_SPLIT">
+            <EntityTypeMapping TypeName="WeSplitDBModel.TRIP_SPLIT">
+              <MappingFragment StoreEntitySet="TRIP_SPLIT">
+                <ScalarProperty Name="TRIP_ID" ColumnName="TRIP_ID" />
+                <ScalarProperty Name="MEMBER_ID" ColumnName="MEMBER_ID" />
+                <ScalarProperty Name="PAYMENT_ID" ColumnName="PAYMENT_ID" />
+                <ScalarProperty Name="PAYMENT_DESCRIPTION" ColumnName="PAYMENT_DESCRIPTION" />
+                <ScalarProperty Name="PAID_COST" ColumnName="PAID_COST" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VISIT_LOCATION">
+            <EntityTypeMapping TypeName="WeSplitDBModel.VISIT_LOCATION">
+              <MappingFragment StoreEntitySet="VISIT_LOCATION">
+                <ScalarProperty Name="TRIP_ID" ColumnName="TRIP_ID" />
+                <ScalarProperty Name="VISIT_LOC_ID" ColumnName="VISIT_LOC_ID" />
+                <ScalarProperty Name="VISIT_LOC_DESTINATION" ColumnName="VISIT_LOC_DESTINATION" />
+                <ScalarProperty Name="VISIT_LOC_DESCRIPTION" ColumnName="VISIT_LOC_DESCRIPTION" />
+                <ScalarProperty Name="DATE_BEGIN" ColumnName="DATE_BEGIN" />
+                <ScalarProperty Name="DATE_FINISH" ColumnName="DATE_FINISH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
