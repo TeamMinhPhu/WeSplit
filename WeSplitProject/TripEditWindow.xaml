@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WeSplitProject"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="CreateNewTrip" Height="750" Width="1250"
+        Title="CreateNewTrip" Height="800" Width="1250"
         WindowStartupLocation="CenterScreen" 
         Loaded="Window_Loaded" WindowStyle="None"
         AllowsTransparency="True">
@@ -25,36 +25,36 @@
                     <Label Content="Thêm chuyến đi mới" Foreground="White" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalContentAlignment="Center"></Label>
                 </Grid>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                    <StackPanel Height="680" Width="650">
+                    <StackPanel Height="730" Width="650">
                         <Border BorderThickness="1" BorderBrush="Black" Height="40" Width="400" Margin="0,30,0,30">
-                            <TextBox Foreground="{DynamicResource PrimaryHueMidBrush}" Name="tripName" Padding="5,0,5,0" Height="40" Width="400" FontSize="20" Background="Transparent" BorderThickness="0" Panel.ZIndex="2" materialDesign:HintAssist.Hint="Tên chuyến đi"></TextBox>
+                            <TextBox Foreground="{DynamicResource PrimaryHueMidBrush}" Name="tripNameTextBox" Padding="5,0,5,0" Height="40" Width="400" FontSize="20" Background="Transparent" BorderThickness="0" Panel.ZIndex="2" materialDesign:HintAssist.Hint="Tên chuyến đi"></TextBox>
                         </Border>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
                             <StackPanel Margin="30,0,20,0">
-                                <ComboBox Foreground="{DynamicResource PrimaryHueMidBrush}" Padding="10,5,10,5" Name="tripDestination" Width="250" Margin="0,0,0,20" FontSize="16" materialDesign:HintAssist.Hint="Địa điểm" IsEditable="True">
+                                <ComboBox Foreground="{DynamicResource PrimaryHueMidBrush}" Padding="10,5,10,5" Name="tripDestinationComboBox" Width="250" Margin="0,0,0,20" FontSize="16" materialDesign:HintAssist.Hint="Địa điểm" IsEditable="True">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding typeName}"/>
+                                            <TextBlock Text="{Binding Trip_Destination}"/>
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
-                                <ComboBox Foreground="{DynamicResource PrimaryHueMidBrush}" Name="tripStatus" Width="250"  Margin="0,0,0,20" FontSize="16" Padding="10,5,10,5" materialDesign:HintAssist.Hint="Giai đoạn">
+                                <ComboBox Foreground="{DynamicResource PrimaryHueMidBrush}" Name="tripStatusTextBox" Width="250"  Margin="0,0,0,20" FontSize="16" Padding="10,5,10,5" materialDesign:HintAssist.Hint="Giai đoạn">
                                     <ComboBoxItem>Lên kế hoạch</ComboBoxItem>
                                     <ComboBoxItem>Bắt đầu</ComboBoxItem>
                                     <ComboBoxItem>Đang đi</ComboBoxItem>
                                     <ComboBoxItem>Kết thúc</ComboBoxItem>
                                 </ComboBox>
-                                <DatePicker Name="dateBegin" Padding="10,5,10,5" Width="250" Margin="0,0,0,20" materialDesign:HintAssist.Hint="Chọn ngày bắt đầu" FontSize="16" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
-                                <DatePicker Name="dateFinish" Padding="10,5,10,5" Width="250" Margin="0,0,0,20" materialDesign:HintAssist.Hint="Chọn ngày kết thúc" FontSize="16" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                <DatePicker Name="dateBeginDatePicker" Padding="10,5,10,5" Width="250" Margin="0,0,0,20" materialDesign:HintAssist.Hint="Chọn ngày bắt đầu" FontSize="16" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                <DatePicker Name="dateFinishDatePicker" Padding="10,5,10,5" Width="250" Margin="0,0,0,20" materialDesign:HintAssist.Hint="Chọn ngày kết thúc" FontSize="16" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
 
                             </StackPanel>
 
 
                             <Border BorderThickness="1" BorderBrush="Black" Height="190" Width="280" Margin="30,0,0,10" HorizontalAlignment="Left">
-                                <TextBox Foreground="{DynamicResource PrimaryHueMidBrush}" Name="tripDescription" Padding="5" AcceptsReturn="True" TextAlignment="Justify" TextWrapping="Wrap" Height="190" Width="280" FontSize="18" Background="Transparent" BorderThickness="0" materialDesign:HintAssist.Hint="Mô tả chuyến đi"  materialDesign:HintAssist.IsFloating="True"/>
+                                <TextBox Foreground="{DynamicResource PrimaryHueMidBrush}" Name="tripDescriptionTextBox" Padding="5" AcceptsReturn="True" TextAlignment="Justify" TextWrapping="Wrap" Height="190" Width="280" FontSize="18" Background="Transparent" BorderThickness="0" materialDesign:HintAssist.Hint="Mô tả chuyến đi"  materialDesign:HintAssist.IsFloating="True"/>
                             </Border>
                         </StackPanel>
-                        <Grid Height="330">
+                        <Grid Height="410">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="13*"/>
                                 <ColumnDefinition Width="12*"/>
@@ -62,15 +62,17 @@
                             <StackPanel Grid.Column="1" Margin="2.4,0,-0.4,0">
                                 <Border BorderThickness="1" BorderBrush="Black" Height="180" Width="280" Margin="0,30,10,0">
                                     <Canvas Background="Transparent">
-                                        <Image Height="178" x:Name="TripImage" Source="Resources/Icons/picture.png" Stretch="Fill" Width="278" PreviewMouseLeftButtonDown="TripImage_PreviewMouseLeftButtonDown" AllowDrop="True" Drop="TripImage_Drop"/>
-                                        <TextBlock Foreground="{DynamicResource PrimaryHueMidBrush}" x:Name="ImageHint" Text="Chọn hình chuyến đi" FontSize="18"  Canvas.Bottom="20" Canvas.Left="60" Canvas.Right="100"/>
+                                        <Image Height="178" x:Name="tripImage" Source="Resources/Icons/picture.png" Stretch="Fill" Width="278" PreviewMouseLeftButtonDown="TripImage_PreviewMouseLeftButtonDown" AllowDrop="True" Drop="TripImage_Drop"/>
+                                        <TextBlock Foreground="{DynamicResource PrimaryHueMidBrush}" x:Name="tripImageHint" Text="Chọn hình chuyến đi" FontSize="18"  Canvas.Bottom="20" Canvas.Left="60" Canvas.Right="100"/>
                                     </Canvas>
                                 </Border>
                                 <TextBlock x:Name="totalExpenseTextBlock" Text="Tổng chi phí: 0" Margin="0,30,0,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+
+                                <Button x:Name="doneBtn" Margin="190,30,10,0" FontSize="18" Content="Hoàn thành" Width="110" Padding="0,5,0,5" Height="110" Foreground="White" Click="deleteMemberBtn_Click" materialDesign:ButtonAssist.CornerRadius="60"/>
                             </StackPanel>
-                            <StackPanel HorizontalAlignment="Center" Margin="10,0,0,0" Grid.Column="0" Width="290">
+                            <StackPanel HorizontalAlignment="Center" Margin="10,0,0,0" Grid.Column="0" Width="350">
                                 <TextBlock Text="Chi phí dự kiến" Margin="10,30,0,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
-                                <ScrollViewer Margin="0,10,0,20" Width="290" MaxHeight="200" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                                <ScrollViewer Margin="0,10,0,20" Width="290" MaxHeight="290" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                                     <StackPanel Name="SPExpense">
                                     </StackPanel>
                                 </ScrollViewer>
@@ -79,54 +81,33 @@
                             </StackPanel>
                         </Grid>
                     </StackPanel>
-                    <StackPanel Height="710" Width="550" Margin="20,0,0,0">
+                    <StackPanel Height="760" Width="550" Margin="20,0,0,0">
                         <Label FontSize="20" FontWeight="Bold" Margin="30,20,30,0" Content="Địa điểm tham quan"/>
-                        <!--<Border BorderThickness="1" BorderBrush="Black" Height="200" Width="370" Margin="0,32,0,20">
-                            <TextBox Foreground="{DynamicResource PrimaryHueMidBrush}" Name="StepDescriptionTextBox" Padding="5" TextAlignment="Justify" AcceptsReturn="True" TextWrapping="Wrap" Height="200" Width="370" FontSize="18" Background="Transparent" BorderThickness="0" materialDesign:HintAssist.Hint="Mô tả bước làm"  materialDesign:HintAssist.IsFloating="True"/>
-                        </Border>
-                        <Border BorderThickness="1" BorderBrush="Black" Height="190" Width="370" Margin="0,20,0,20">
-                            <Canvas>
-                                <TextBlock Foreground="{DynamicResource PrimaryHueMidBrush}" x:Name="imageInput"  Height="190" Width="368" Panel.ZIndex="5"></TextBlock>
-
-                                <ListView Name="imagePreview" Height="188" Width="368"  HorizontalContentAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden">
-                                    <ListView.ItemsPanel>
-                                        <ItemsPanelTemplate>
-                                            <WrapPanel Margin="2" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                        </ItemsPanelTemplate>
-                                    </ListView.ItemsPanel>
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <Image Width="105" Height="75" Stretch="Fill" Source="{Binding ImageLink}"/>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                </ListView>
-                            </Canvas>
-                        </Border>-->
-
-
-                        <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button Name="removeStepBtn" Content="Del Step" Margin="0,30,10,0" Width="100" Height="40" Foreground="White" />
-                            <Button Name="addStepBtn" Content="Add Step" Margin="10,30,10,0" Width="100" Height="40" Foreground="White" />
-                            <Button Name="doneBtn" Content="Done" Margin="10,30,0,0" Width="100" Height="40" Foreground="White" />
-                        </StackPanel>-->
-                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0" Height="250" VerticalAlignment="Top">
+                       
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0" Height="320" VerticalAlignment="Top">
                             <StackPanel>
-                                <ComboBox Foreground="{DynamicResource PrimaryHueMidBrush}" Padding="10,5,10,5" Name="visitLocDestination" Width="250" Margin="0,0,0,20" FontSize="16" materialDesign:HintAssist.Hint="Địa điểm" IsEditable="True">
+                                <ComboBox Foreground="{DynamicResource PrimaryHueMidBrush}" Padding="10,5,10,5" Name="visitLocDestinationComboBox" Width="250" Margin="0,0,0,20" FontSize="16" materialDesign:HintAssist.Hint="Địa điểm" IsEditable="True">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding typeName}"/>
+                                            <TextBlock Text="{Binding Trip_Destination}"/>
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
-                                <DatePicker Name="visitLocDateBegin" Padding="10,5,10,5" Width="250" Margin="0,0,0,20" materialDesign:HintAssist.Hint="Chọn ngày bắt đầu" FontSize="16" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
-                                <DatePicker Name="visitLocDateFinish" Padding="10,5,10,5" Width="250" Margin="0,0,0,20" materialDesign:HintAssist.Hint="Chọn ngày kết thúc" FontSize="16" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
-                                <Border BorderThickness="1" BorderBrush="Black" Height="98" Width="280" Margin="10,0,0,10" HorizontalAlignment="Left">
-                                    <TextBox Foreground="{DynamicResource PrimaryHueMidBrush}" Name="visitLocDescription" Padding="5" AcceptsReturn="True" TextAlignment="Justify" TextWrapping="Wrap" Height="98" Width="280" FontSize="18" Background="Transparent" BorderThickness="0" materialDesign:HintAssist.Hint="Mô tả địa điểm tham quan"  materialDesign:HintAssist.IsFloating="True"/>
+                                <DatePicker Name="visitLocDateBeginDatePicker" Padding="10,5,10,5" Width="250" Margin="0,0,0,20" materialDesign:HintAssist.Hint="Chọn ngày bắt đầu" FontSize="16" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                <DatePicker Name="visitLocDateFinishDatePicker" Padding="10,5,10,5" Width="250" Margin="0,0,0,20" materialDesign:HintAssist.Hint="Chọn ngày kết thúc" FontSize="16" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                <Border BorderThickness="1" BorderBrush="Black" Height="126" Width="280" Margin="10,0,0,10" HorizontalAlignment="Left">
+                                    <TextBox Foreground="{DynamicResource PrimaryHueMidBrush}" Name="visitLocDescriptionTextBox" Padding="5" AcceptsReturn="True" TextAlignment="Justify" TextWrapping="Wrap" Height="125" Width="280" FontSize="18" Background="Transparent" BorderThickness="0" materialDesign:HintAssist.Hint="Mô tả địa điểm tham quan"  materialDesign:HintAssist.IsFloating="True"/>
                                 </Border>
                             </StackPanel>
                             <StackPanel>
-                                <TextBlock Text="Danh sách địa điểm" Margin="10,5,0,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
-                                <ListBox Foreground="{DynamicResource PrimaryHueMidBrush}" x:Name="vitsitLocList" Margin="20,5,20,0" FontSize="14" MaxHeight="180" Width="220">
+                                <Border BorderThickness="1" BorderBrush="Black" Height="130" Width="220" Margin="10,0,0,0">
+                                    <Canvas Background="Transparent">
+                                        <Image Height="128" x:Name="visitLocImage" Source="Resources/Icons/picture.png" Stretch="Fill" Width="218.5" PreviewMouseLeftButtonDown="visitLocImage_PreviewMouseLeftButtonDown" AllowDrop="True" Drop="visitLocImage_Drop"/>
+                                        <TextBlock Foreground="{DynamicResource PrimaryHueMidBrush}" x:Name="visitLocImageHint" Text="Chọn hình địa điểm" FontSize="18"  Canvas.Bottom="20" Canvas.Left="30" Canvas.Right="100"/>
+                                    </Canvas>
+                                </Border>
+                                <TextBlock Text="Danh sách địa điểm" Margin="10,20,0,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                <ListBox Foreground="{DynamicResource PrimaryHueMidBrush}" x:Name="vitsitLocList" Margin="20,5,20,0" FontSize="14" MaxHeight="100" Width="220">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding typeName}"/>
@@ -139,7 +120,7 @@
                                 </StackPanel>
                             </StackPanel>                            
                         </StackPanel>
-                        <Label FontSize="20" FontWeight="Bold" Margin="30,20,20,0" Content="Thành viên"/>
+                        <Label FontSize="20" FontWeight="Bold" Margin="30,0,20,0" Content="Thành viên"/>
                         <StackPanel Orientation="Horizontal" Height="320">
                             <StackPanel>
                                 <TextBlock Text="Thông tin" Margin="10,0,10,5" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
@@ -168,8 +149,14 @@
                                 <Button x:Name="deleteMemberBtn" Margin="10,30,10,0" Content="Xóa" Width="55" Padding="0,5,0,5" Height="35" Foreground="White" Click="deleteMemberBtn_Click"/>                                
                             </StackPanel>
                             <StackPanel Margin="-10,0,0,0">
-                                <TextBlock Text="Danh sách thành viên" Margin="10,0,0,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
-                                <ListBox Foreground="{DynamicResource PrimaryHueMidBrush}" x:Name="memberListBox" Margin="20,5,20,0" FontSize="14" Height="190" Width="220" BorderThickness="0.5" BorderBrush="Black">
+                                <Border BorderThickness="1" BorderBrush="Black" Height="100" Width="100" Margin="10,30,0,0">
+                                    <Canvas Background="Transparent">
+                                        <Image Height="100" x:Name="avatarImage" Source="Resources/Icons/picture.png" Stretch="Fill" Width="100" PreviewMouseLeftButtonDown="avatarImage_PreviewMouseLeftButtonDown" AllowDrop="True" Drop="avatarImage_Drop"/>
+                                        <TextBlock Foreground="{DynamicResource PrimaryHueMidBrush}" x:Name="avatarImageHint" Text="Avatar" FontSize="18"  Canvas.Bottom="10" Canvas.Left="25" Canvas.Right="100"/>
+                                    </Canvas>
+                                </Border>
+                                <TextBlock Text="Danh sách thành viên" Margin="10,20,0,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                <ListBox Foreground="{DynamicResource PrimaryHueMidBrush}" x:Name="memberListBox" Margin="20,5,20,0" FontSize="14" MaxHeight="130" Width="220">
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
                                             <TextBlock Text="{Binding typeName}"/>
