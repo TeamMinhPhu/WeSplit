@@ -14,6 +14,24 @@
         ResizeMode="CanResizeWithGrip"
         Background="#fff">
     <Window.Resources>
+        <Style x:Key="arrowButton" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Cursor" Value="Hand"></Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="30">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#DAB7B7B7"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
         <!--Close button - turnoff button style-->
         <Style x:Key="closeButton" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="Transparent"/>
@@ -133,7 +151,74 @@
                     </ComboBoxItem>
                 </ComboBox>
             </Grid>
-            <ScrollViewer Background="#fff">
+
+            <!-- ~~~~~~~~~~~~~~~~~~~Begin View for paging~~~~~~~~~~~~~~~~~~~-->
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Bottom" Height="60" HorizontalAlignment="Center">
+                <Button  Width="40" Height="40" Click="previousButton_Click" Padding="0" BorderThickness="0" Style="{StaticResource arrowButton}">
+                    <Grid  RenderTransformOrigin="0.5,0.5" Width="30" Height="30" HorizontalAlignment="Center" Margin="0,-1,0,0.6" Background="Transparent">
+                        <!--draw arrow-->
+                        <Rectangle Width="20" Height="5"  Margin="7,12,3,0" Fill="#FF515151" HorizontalAlignment="Center" VerticalAlignment="Top">
+                            <Rectangle.RenderTransform>
+                                <RotateTransform Angle="45">
+                                </RotateTransform>
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                        <Rectangle Width="20" Height="5" Margin="8,5,2,0" Fill="#FF515151" HorizontalAlignment="Center" VerticalAlignment="Top">
+                            <Rectangle.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-45"/>
+                                    <TranslateTransform X="-4.14213562373095" Y="10"/>
+                                </TransformGroup>
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                    </Grid>
+                </Button>
+
+                <ComboBox Cursor="Hand" Margin="10 0 0 0" Name="paging" Height="40" SelectionChanged="paging_SelectionChanged" Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                          SelectedItem="{Binding SimpleStringProperty, Mode=TwoWay}" Text="Select Option" FontSize="20">
+                    <ComboBox.ItemsSource>
+                        <Binding Path="ListString" BindsDirectlyToSource="True" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged"></Binding>
+                    </ComboBox.ItemsSource>
+                    <!--<ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock FontSize="20" Text="{Binding PageSelection}"></TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>-->
+                </ComboBox>
+                <TextBlock Height="30" FontSize="20" Name="viewTotalPages" Margin="0 0 10 0" Foreground="{DynamicResource PrimaryHueMidBrush}"></TextBlock>
+
+                <Button  Width="40" Height="40" Click="nextButton_Click" Padding="0" Style="{StaticResource arrowButton}">
+                    <Grid  RenderTransformOrigin="0.5,0.5" Width="30" Height="30" HorizontalAlignment="Center" Background="Transparent">
+                        <!--draw arrow-->
+                        <Rectangle Width="20" Height="5"  Margin="7,12,3,0" Fill="#FF515151" HorizontalAlignment="Center" VerticalAlignment="Top">
+                            <Rectangle.RenderTransform>
+                                <RotateTransform Angle="45">
+                                </RotateTransform>
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                        <Rectangle Width="20" Height="5" Margin="8,5,2,0" Fill="#FF515151" HorizontalAlignment="Center" VerticalAlignment="Top">
+                            <Rectangle.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform/>
+                                    <SkewTransform/>
+                                    <RotateTransform Angle="-45"/>
+                                    <TranslateTransform X="-4.14213562373095" Y="10"/>
+                                </TransformGroup>
+                            </Rectangle.RenderTransform>
+                        </Rectangle>
+                        <Grid.RenderTransform>
+                            <ScaleTransform ScaleX="-1">
+                            </ScaleTransform>
+                        </Grid.RenderTransform>
+                    </Grid>
+                </Button>
+            </StackPanel>
+            <!-- ~~~~~~~~~~~~~~~~~~~End View for paging~~~~~~~~~~~~~~~~~~~-->
+
+            <!-- ~~~~~~~~~~~~~~~~~~~Begin View for items~~~~~~~~~~~~~~~~~~~-->
+            <ScrollViewer Background="#fff" Name="itemsView">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <RadioButton GroupName="Status" Name="All">Tất cả</RadioButton>
@@ -164,7 +249,7 @@
                                                         <TextBlock Margin="5 0 0 5" Text="{Binding Name}" FontSize="18" Foreground="White"/>
                                                     </StackPanel>
                                                     <Grid VerticalAlignment="Stretch" HorizontalAlignment="Right">
-                                                        <materialDesign:PackIcon Margin="0 0 5 0" Foreground="White" Kind="Pencil" Width="20" Height="20" HorizontalContentAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Center"></materialDesign:PackIcon> 
+                                                        <materialDesign:PackIcon Margin="0 0 5 0" Foreground="White" Kind="Pencil" Width="20" Height="20" HorizontalContentAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Center"></materialDesign:PackIcon>
                                                     </Grid>
                                                 </Grid>
                                             </Border>
@@ -181,6 +266,7 @@
                     </Grid>
                 </StackPanel>
             </ScrollViewer>
+            <!-- ~~~~~~~~~~~~~~~~~~~End View for items~~~~~~~~~~~~~~~~~~~-->
         </DockPanel>
     </Border>
 </Window>
