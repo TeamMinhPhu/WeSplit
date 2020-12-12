@@ -4,16 +4,28 @@
 winexe
 C#
 .cs
+<<<<<<< HEAD
 C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\
+=======
+D:\Minh\This Week\Window\Project2\version1.3\WeSplitProject\obj\Debug\
+>>>>>>> 989995598f2681a9039c517d2d8a15fe3f870dab
 WeSplitProject
 none
 false
 DEBUG;TRACE
+<<<<<<< HEAD
 C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\App.xaml
 3-517687464
 2-250514652
 22-422256177
 22-866182582
+=======
+D:\Minh\This Week\Window\Project2\version1.3\WeSplitProject\App.xaml
+3-517687464
+2-250514652
+21-2033264712
+22-2069788347
+>>>>>>> 989995598f2681a9039c517d2d8a15fe3f870dab
 TripEditWindow.xaml;MainWindow.xaml;MemberModifyWindow.xaml;
 
 False
