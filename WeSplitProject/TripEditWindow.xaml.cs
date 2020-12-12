@@ -29,8 +29,7 @@ namespace WeSplitProject
     {
         class TripDestination
         {
-            public string Trip_Id { get; set; }
-            public string Trip_Destination { get; set; }
+            public string Destination { get; set; }
         }
 
         class ExpenseInput
@@ -52,6 +51,7 @@ namespace WeSplitProject
         BindingList<TRIP_SPLIT> myTripSplit;
         BindingList<MEMBER> myMember;
         BindingList<TripDestination> myTripDes;
+        BindingList<TripDestination> myVisitDes;
         List<ExpenseInput> myExpenseInput;
 
         long expenseTotalCost;
@@ -68,16 +68,32 @@ namespace WeSplitProject
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             expenseTotalCost = 0;
+            myExpenseInput = new List<ExpenseInput>();
 
-            var temp = db.TRIPs.Select(c => new { c.TRIP_ID, c.TRIP_DESTINATION }).ToList();
+            myVisitLoc = new BindingList<VISIT_LOCATION>();
+            vitsitLocList.ItemsSource = myVisitLoc;
+
+            //Add recommend destination
+            var query_TripDes = db.TRIPs.OrderBy(c => c.TRIP_DESTINATION).Select(c => c.TRIP_DESTINATION).Distinct().ToList();
             myTripDes = new BindingList<TripDestination>();
-            foreach(var item in temp)
+            foreach(var item in query_TripDes)
             {
-                myTripDes.Add(new TripDestination { Trip_Id = item.TRIP_ID, Trip_Destination = item.TRIP_DESTINATION });
+                myTripDes.Add(new TripDestination { Destination = item });
             }
+            // add to combobox
             tripDestinationComboBox.ItemsSource = myTripDes;
 
-            myExpenseInput = new List<ExpenseInput>();
+            //Add recommend visit location
+            var query_visitLocDes = db.VISIT_LOCATION.OrderBy(c=>c.VISIT_LOC_DESTINATION).Select(c => c.VISIT_LOC_DESTINATION).Distinct().ToList();
+            myVisitDes = new BindingList<TripDestination>();
+            foreach(var item in query_visitLocDes)
+            {
+                myVisitDes.Add(new TripDestination { Destination = item });
+            }
+
+            //Add to combobox
+            visitLocDestinationComboBox.ItemsSource = myVisitDes;
+
         }
 
         public static bool IsImageFile(string fileName)
@@ -289,12 +305,58 @@ namespace WeSplitProject
 
         private void addVisitLocBtn_Click(object sender, RoutedEventArgs e)
         {
+            string _selectedItem = "";
+
+            _selectedItem = visitLocDestinationComboBox.Text;
+
+            if (_selectedItem.Length > 0)
+            {
+                if (visitLocDateBeginDatePicker.SelectedDate == null)
+                {
+                    if (MessageBox.Show("Chưa chọn ngày bắt đầu, Bạn có muốn tiếp tục không?", "Cảnh báo", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                    {
+                        return;
+                    }
+                }
+
+                if (visitLocDateFinishDatePicker.SelectedDate == null)
+                {
+                    if (MessageBox.Show("Chưa chọn ngày kết thúc, Bạn có muốn tiếp tục không?", "Cảnh báo", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                    {
+                        return;
+                    }
+                }
+
+                if (visitLocDescriptionTextBox.Text.Length <= 0)
+                {
+                    if (MessageBox.Show("Chưa nhập mô tả điểm tham quan, Bạn có muốn tiếp tục không?", "Cảnh báo", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                    {
+                        return;
+                    }
+                }
+
+                myVisitLoc.Add(new VISIT_LOCATION { VISIT_LOC_DESTINATION = _selectedItem, DATE_BEGIN = visitLocDateBeginDatePicker.SelectedDate, DATE_FINISH = visitLocDateFinishDatePicker.SelectedDate, VISIT_LOC_DESCRIPTION = visitLocDescriptionTextBox.Text });
+                visitLocDestinationComboBox.Text = "";
+                visitLocDescriptionTextBox.Text = "";
+                visitLocDateBeginDatePicker.SelectedDate = null;
+                visitLocDateFinishDatePicker.SelectedDate = null;
+                myVisitDes.Add(new TripDestination { Destination = _selectedItem });
+            }
+            else
+            {
+                MessageBox.Show("Lỗi: chưa chọn địa điểm tham quan");
+            }
+
 
         }
 
         private void deleteVisitLocBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            int index = vitsitLocList.SelectedIndex;
+            if (index >= 0) 
+            {
+                myVisitLoc.RemoveAt(index);
+            }
         }
 
         private void addMemberBtn_Click(object sender, RoutedEventArgs e)
@@ -372,6 +434,10 @@ namespace WeSplitProject
             if (textbox.Text.Length > 0)
             {
                 checkInt = Int32.TryParse(textbox.Text, out result);
+                if (!checkInt)
+                {
+                    MessageBox.Show("Lỗi: Số tiền nhập không phải là số hoặc vượt quá giới hạn");
+                }
             }
             
 

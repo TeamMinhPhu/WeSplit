@@ -34,7 +34,7 @@
                                 <ComboBox Foreground="{DynamicResource PrimaryHueMidBrush}" Padding="10,5,10,5" Name="tripDestinationComboBox" Width="250" Margin="0,0,0,20" FontSize="16" materialDesign:HintAssist.Hint="Địa điểm" IsEditable="True">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Trip_Destination}"/>
+                                            <TextBlock Text="{Binding Destination}"/>
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
@@ -89,7 +89,7 @@
                                 <ComboBox Foreground="{DynamicResource PrimaryHueMidBrush}" Padding="10,5,10,5" Name="visitLocDestinationComboBox" Width="250" Margin="0,0,0,20" FontSize="16" materialDesign:HintAssist.Hint="Địa điểm" IsEditable="True">
                                     <ComboBox.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding Trip_Destination}"/>
+                                            <TextBlock Text="{Binding Destination}"/>
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
@@ -107,10 +107,24 @@
                                     </Canvas>
                                 </Border>
                                 <TextBlock Text="Danh sách địa điểm" Margin="10,20,0,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
-                                <ListBox Foreground="{DynamicResource PrimaryHueMidBrush}" x:Name="vitsitLocList" Margin="20,5,20,0" FontSize="14" MaxHeight="100" Width="220">
+                                <ListBox Foreground="{DynamicResource PrimaryHueMidBrush}" x:Name="vitsitLocList" Margin="20,5,20,0" FontSize="16" MaxHeight="100" Width="220">
+                                    <ListBox.ItemContainerStyle>
+                                        <Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
+                                            <Style.Triggers>
+                                                <Trigger Property="IsSelected" Value="True" >
+                                                    <Setter Property="FontWeight" Value="Bold" />
+                                                    <Setter Property="Background" Value="LightGray" />
+                                                    <Setter Property="Foreground" Value="{DynamicResource PrimaryHueDarkBrush}" />
+                                                </Trigger>
+                                            </Style.Triggers>
+                                            <Style.Resources>
+                                                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                                            </Style.Resources>
+                                        </Style>
+                                    </ListBox.ItemContainerStyle>
                                     <ListBox.ItemTemplate>
                                         <DataTemplate>
-                                            <TextBlock Text="{Binding typeName}"/>
+                                            <TextBlock Text="{Binding VISIT_LOC_DESTINATION}"/>
                                         </DataTemplate>
                                     </ListBox.ItemTemplate>
                                 </ListBox>
