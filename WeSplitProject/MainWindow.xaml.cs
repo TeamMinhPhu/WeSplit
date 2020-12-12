@@ -43,6 +43,9 @@ namespace WeSplitProject
 		{
 			BindingList<ViewModel> result = new BindingList<ViewModel>();
 			_itemPerPage = Paging.GetItemsPerPage(itemsView.ActualWidth, itemsView.ActualHeight);
+
+			////////
+			///Access Data base
 			var query = TripDAO.GetAll().Skip((_current_page - 1) * _itemPerPage).Take(_itemPerPage).Select(c => new { c.ID, c.Name, c.StartedDate, c.EndedDate, c.CoverImage }).ToList();
 			foreach (var viewData in query)
 			{
@@ -160,7 +163,7 @@ namespace WeSplitProject
 			UpdatePage();
 		}
 
-		private void trip_MouseUp(object sender, MouseButtonEventArgs e)
+		private void trip_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
 			MessageBox.Show("Detail trip: " + viewModels[_selected_index].ID.ToString());
 		}
@@ -179,12 +182,19 @@ namespace WeSplitProject
 			}
 		}
 
+		#region "filter"
 		private void sort_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			_current_page = 1;
 			UpdateView();
 		}
+		#endregion
 
+		//Edit
+		private void editButton_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+		{
+			MessageBox.Show("Chỉnh sửa");
+		}
 
 		#region "Paging"
 
@@ -214,6 +224,7 @@ namespace WeSplitProject
 		private void UpdatePage()
 		{
 			_total_page = Paging.GetTotalPages(_total_items, _itemPerPage);
+			viewTotalPages.Text = "/ "+ _total_page.ToString();
 			paging.ItemsSource = PagingViewModel.UpdatePage(_total_page);
 			paging.SelectedIndex = _current_page - 1;
 		}
@@ -243,7 +254,6 @@ namespace WeSplitProject
 				_current_page = 1;
 			}
 			paging.SelectedIndex = _current_page - 1;
-	
 		}
 
 		private void paging_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -254,5 +264,7 @@ namespace WeSplitProject
 		}
 
 		#endregion
+
+
 	}
 }

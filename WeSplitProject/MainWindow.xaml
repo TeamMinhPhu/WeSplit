@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 
-        Height="500" Width="900"
+        Height="600" Width="1100"
         WindowStartupLocation="CenterScreen" 
         Loaded="Window_Loaded" WindowStyle="None"
         AllowsTransparency="True"
@@ -181,13 +181,8 @@
                     <ComboBox.ItemsSource>
                         <Binding Path="ListString" BindsDirectlyToSource="True" Mode="TwoWay" UpdateSourceTrigger="PropertyChanged"></Binding>
                     </ComboBox.ItemsSource>
-                    <!--<ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <TextBlock FontSize="20" Text="{Binding PageSelection}"></TextBlock>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>-->
                 </ComboBox>
-                <TextBlock Height="30" FontSize="20" Name="viewTotalPages" Margin="0 0 10 0" Foreground="{DynamicResource PrimaryHueMidBrush}"></TextBlock>
+                <TextBlock Height="40" FontSize="20" Name="viewTotalPages" Margin="0 12 10 0" Foreground="{DynamicResource PrimaryHueDarkBrush}"></TextBlock>
 
                 <Button  Width="40" Height="40" Click="nextButton_Click" Padding="0" Style="{StaticResource arrowButton}">
                     <Grid  RenderTransformOrigin="0.5,0.5" Width="30" Height="30" HorizontalAlignment="Center" Background="Transparent">
@@ -230,7 +225,7 @@
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
                                     <Border Width="300" Height="200">
-                                        <Grid Name="trip" MouseUp="trip_MouseUp">
+                                        <Grid Name="trip" MouseLeftButtonUp="trip_MouseLeftButtonUp">
                                             <Border Width="290" Height="190" CornerRadius="5">
                                                 <Border.Effect>
                                                     <DropShadowEffect ShadowDepth="1"/>
@@ -248,11 +243,14 @@
                                                         <TextBlock Margin="5 0 0 0" Text="{Binding StartedDate}" FontSize="14" Foreground="White"/>
                                                         <TextBlock Margin="5 0 0 5" Text="{Binding Name}" FontSize="18" Foreground="White"/>
                                                     </StackPanel>
-                                                    <Grid VerticalAlignment="Stretch" HorizontalAlignment="Right">
-                                                        <materialDesign:PackIcon Margin="0 0 5 0" Foreground="White" Kind="Pencil" Width="20" Height="20" HorizontalContentAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Center"></materialDesign:PackIcon>
+                                                    <Grid  VerticalAlignment="Stretch" HorizontalAlignment="Right">
+                                                        <StackPanel Margin="5" Background="Transparent" x:Name="editButton" VerticalAlignment="Top" PreviewMouseLeftButtonUp="editButton_PreviewMouseLeftButtonUp" Cursor="Hand">
+                                                            <materialDesign:PackIcon Foreground="White" Kind="Pencil" Width="24" Height="24" HorizontalContentAlignment="Right" HorizontalAlignment="Right" VerticalAlignment="Center"></materialDesign:PackIcon>
+                                                        </StackPanel>
                                                     </Grid>
                                                 </Grid>
                                             </Border>
+
                                         </Grid>
                                     </Border>
                                 </DataTemplate>
@@ -262,6 +260,19 @@
                                     <WrapPanel/>
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
+                            <ListView.Resources>
+                                <ContextMenu x:Key="ItemContextMenu">
+                                    <MenuItem Header="Chỉnh sửa" PreviewMouseLeftButtonUp="editButton_PreviewMouseLeftButtonUp" Command="{Binding Path=DataContext.Edit, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"/>
+                                    <MenuItem Header="Xóa" Command="{Binding Path=DataContext.Delete, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"/>
+                                    <MenuItem Header="Chi tiết" PreviewMouseLeftButtonUp="trip_MouseLeftButtonUp" Command="{Binding Path=DataContext.Detail, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"/>
+                                </ContextMenu>
+                            </ListView.Resources>
+
+                            <ListView.ItemContainerStyle>
+                                <Style TargetType="{x:Type ListViewItem}" BasedOn="{StaticResource MaterialDesignListBoxItem}">
+                                    <Setter Property="ContextMenu" Value="{StaticResource ItemContextMenu}"/>
+                                </Style>
+                            </ListView.ItemContainerStyle>
                         </ListView>
                     </Grid>
                 </StackPanel>
