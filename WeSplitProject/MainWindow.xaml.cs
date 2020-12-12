@@ -220,7 +220,15 @@ namespace WeSplitProject
 
 		private void previousButton_Click(object sender, RoutedEventArgs e)
 		{
-			
+			if (_current_page > 1)
+			{
+				_current_page--;
+			}
+			else
+			{
+				_current_page = _total_page;
+			}
+			paging.SelectedIndex = _current_page - 1;
 		}
 
 
@@ -240,7 +248,7 @@ namespace WeSplitProject
 
 		private void paging_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
-			//_current_page = paging.SelectedIndex + 1;
+			_current_page = paging.SelectedIndex + 1;
 			UpdatePage();
 			UpdateView();
 		}
