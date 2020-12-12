@@ -80,6 +80,8 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Classes\MyFileManager.cs" />
+    <Compile Include="Classes\Paging.cs" />
+    <Compile Include="Classes\ViewModel.cs" />
     <Compile Include="TripEditWindow.xaml.cs">
       <DependentUpon>TripEditWindow.xaml</DependentUpon>
     </Compile>
