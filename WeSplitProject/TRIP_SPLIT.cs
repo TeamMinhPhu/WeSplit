@@ -18,9 +18,8 @@ namespace WeSplitProject
         public string MEMBER_ID { get; set; }
         public string PAYMENT_ID { get; set; }
         public string PAYMENT_DESCRIPTION { get; set; }
-        public string PAID_COST { get; set; }
+        public Nullable<decimal> PAID_COST { get; set; }
     
         public virtual MEMBER MEMBER { get; set; }
-        public virtual TRIP TRIP { get; set; }
     }
 }

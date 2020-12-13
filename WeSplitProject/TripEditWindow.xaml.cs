@@ -38,27 +38,43 @@ namespace WeSplitProject
             public TextBox CostTB { get; set; }
             public bool ExpenseTBCheck { get; set; }
             public bool CostTBCheck { get; set; }
-            public int Cost { get; set; }
+            public long Cost { get; set; }
+        }
+
+        class MemberView
+        {
+            public MEMBER member { get; set; }
+            public int totalExpense { get; set; }
+        }
+
+        class MemberExpense
+        {
+            public string expense { get; set; }
+            public long cost { get; set; }
         }
 
         string _tripImageLink;
         string _visitLocImageLink;
         string _avatarImageLink;
+        int memberCode;
+        int visitLocCode;
 
         TRIP myTrip;
         BindingList<EXPENSE> myExpense;
         BindingList<VISIT_LOCATION> myVisitLoc;
-        BindingList<TRIP_SPLIT> myTripSplit;
+        List<TRIP_SPLIT> myTripSplit;
         BindingList<MEMBER> myMember;
         BindingList<TripDestination> myTripDes;
         BindingList<TripDestination> myVisitDes;
+        BindingList<MemberView> myMemberView;
+        List<MemberExpense> memberExpenseList;
         List<ExpenseInput> myExpenseInput;
 
         long expenseTotalCost;
 
         WeSplitDBEntities db = new WeSplitDBEntities();
-        
-        
+
+
 
         public CreateNewTrip()
         {
@@ -67,16 +83,27 @@ namespace WeSplitProject
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            _tripImageLink = "";
+            _visitLocImageLink = "";
+            _avatarImageLink = "";
             expenseTotalCost = 0;
+            visitLocCode = 0;
+            memberCode = 0;
+
             myExpenseInput = new List<ExpenseInput>();
 
             myVisitLoc = new BindingList<VISIT_LOCATION>();
             vitsitLocList.ItemsSource = myVisitLoc;
 
+            myTripSplit = new List<TRIP_SPLIT>();
+            memberExpenseList = new List<MemberExpense>();
+
+
+
             //Add recommend destination
             var query_TripDes = db.TRIPs.OrderBy(c => c.TRIP_DESTINATION).Select(c => c.TRIP_DESTINATION).Distinct().ToList();
             myTripDes = new BindingList<TripDestination>();
-            foreach(var item in query_TripDes)
+            foreach (var item in query_TripDes)
             {
                 myTripDes.Add(new TripDestination { Destination = item });
             }
@@ -84,9 +111,9 @@ namespace WeSplitProject
             tripDestinationComboBox.ItemsSource = myTripDes;
 
             //Add recommend visit location
-            var query_visitLocDes = db.VISIT_LOCATION.OrderBy(c=>c.VISIT_LOC_DESTINATION).Select(c => c.VISIT_LOC_DESTINATION).Distinct().ToList();
+            var query_visitLocDes = db.VISIT_LOCATION.OrderBy(c => c.VISIT_LOC_DESTINATION).Select(c => c.VISIT_LOC_DESTINATION).Distinct().ToList();
             myVisitDes = new BindingList<TripDestination>();
-            foreach(var item in query_visitLocDes)
+            foreach (var item in query_visitLocDes)
             {
                 myVisitDes.Add(new TripDestination { Destination = item });
             }
@@ -94,6 +121,9 @@ namespace WeSplitProject
             //Add to combobox
             visitLocDestinationComboBox.ItemsSource = myVisitDes;
 
+            //Create member listbox source
+            myMember = new BindingList<MEMBER>();
+            memberListBox.ItemsSource = myMember;
         }
 
         public static bool IsImageFile(string fileName)
@@ -173,9 +203,9 @@ namespace WeSplitProject
             if (dlg.ShowDialog() == true)
             {
                 _visitLocImageLink = dlg.FileName;
-                if (IsImageFile(_tripImageLink))
+                if (IsImageFile(_visitLocImageLink))
                 {
-                    var Bitmap = new BitmapImage(new Uri(_tripImageLink, UriKind.Absolute));
+                    var Bitmap = new BitmapImage(new Uri(_visitLocImageLink, UriKind.Absolute));
                     visitLocImage.Source = Bitmap;
                     visitLocImageHint.Visibility = Visibility.Hidden;
                 }
@@ -198,9 +228,9 @@ namespace WeSplitProject
                 if (ImageFiles[0].Length > 0)
                 {
                     _visitLocImageLink = ImageFiles[0];
-                    if (IsImageFile(_tripImageLink))
+                    if (IsImageFile(_visitLocImageLink))
                     {
-                        var Bitmap = new BitmapImage(new Uri(_tripImageLink, UriKind.Absolute));
+                        var Bitmap = new BitmapImage(new Uri(_visitLocImageLink, UriKind.Absolute));
                         visitLocImage.Source = Bitmap;
                         visitLocImageHint.Visibility = Visibility.Hidden;
                     }
@@ -224,11 +254,12 @@ namespace WeSplitProject
             if (dlg.ShowDialog() == true)
             {
                 _avatarImageLink = dlg.FileName;
-                if (IsImageFile(_tripImageLink))
+                if (IsImageFile(_avatarImageLink))
                 {
-                    var Bitmap = new BitmapImage(new Uri(_tripImageLink, UriKind.Absolute));
+                    var Bitmap = new BitmapImage(new Uri(_avatarImageLink, UriKind.Absolute));
                     avatarImage.Source = Bitmap;
                     avatarImageHint.Visibility = Visibility.Hidden;
+
                 }
                 else
                 {
@@ -249,9 +280,9 @@ namespace WeSplitProject
                 if (ImageFiles[0].Length > 0)
                 {
                     _avatarImageLink = ImageFiles[0];
-                    if (IsImageFile(_tripImageLink))
+                    if (IsImageFile(_avatarImageLink))
                     {
-                        var Bitmap = new BitmapImage(new Uri(_tripImageLink, UriKind.Absolute));
+                        var Bitmap = new BitmapImage(new Uri(_avatarImageLink, UriKind.Absolute));
                         avatarImage.Source = Bitmap;
                         avatarImageHint.Visibility = Visibility.Hidden;
                     }
@@ -298,7 +329,7 @@ namespace WeSplitProject
             subExpenseSP.Children.Add(expenseDesTextBox);
             subExpenseSP.Children.Add(CostTextBox);
 
-            myExpenseInput.Add(new ExpenseInput { ExpenseTB = expenseDesTextBox, CostTB = CostTextBox, CostTBCheck = false, ExpenseTBCheck = false, Cost = 0});
+            myExpenseInput.Add(new ExpenseInput { ExpenseTB = expenseDesTextBox, CostTB = CostTextBox, CostTBCheck = false, ExpenseTBCheck = false, Cost = 0 });
 
             SPExpense.Children.Add(subExpenseSP);
         }
@@ -335,11 +366,27 @@ namespace WeSplitProject
                     }
                 }
 
-                myVisitLoc.Add(new VISIT_LOCATION { VISIT_LOC_DESTINATION = _selectedItem, DATE_BEGIN = visitLocDateBeginDatePicker.SelectedDate, DATE_FINISH = visitLocDateFinishDatePicker.SelectedDate, VISIT_LOC_DESCRIPTION = visitLocDescriptionTextBox.Text });
+                if (_visitLocImageLink.Length <= 0)
+                {
+                    if (MessageBox.Show("Chưa chọn hình điểm tham quan, Bạn có muốn tiếp tục không?", "Cảnh báo", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                    {
+                        return;
+                    }
+                }
+
+                myVisitLoc.Add(new VISIT_LOCATION { VISIT_LOC_ID = $"VL{visitLocCode}", VISIT_LOC_DESTINATION = _selectedItem, DATE_BEGIN = visitLocDateBeginDatePicker.SelectedDate, DATE_FINISH = visitLocDateFinishDatePicker.SelectedDate, VISIT_LOC_DESCRIPTION = visitLocDescriptionTextBox.Text, IMAGE_LINK = _visitLocImageLink });
                 visitLocDestinationComboBox.Text = "";
                 visitLocDescriptionTextBox.Text = "";
                 visitLocDateBeginDatePicker.SelectedDate = null;
                 visitLocDateFinishDatePicker.SelectedDate = null;
+                visitLocCode++;
+                for (int i = myVisitDes.Count - 1; i >= 0; i--)
+                {
+                    if (myVisitDes[i].Destination == _selectedItem)
+                    {
+                        return;
+                    }
+                }
                 myVisitDes.Add(new TripDestination { Destination = _selectedItem });
             }
             else
@@ -353,7 +400,7 @@ namespace WeSplitProject
         private void deleteVisitLocBtn_Click(object sender, RoutedEventArgs e)
         {
             int index = vitsitLocList.SelectedIndex;
-            if (index >= 0) 
+            if (index >= 0)
             {
                 myVisitLoc.RemoveAt(index);
             }
@@ -361,17 +408,56 @@ namespace WeSplitProject
 
         private void addMemberBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (memberNameTextBox.Text.Length <= 0)
+            {
+                MessageBox.Show("Chưa nhập tên thành viên", "Lỗi");
+            }
+            else
+            {
+                if (memberPhoneTextBox.Text.Length <= 0)
+                {
+                    if (MessageBox.Show("Chưa nhập số điện thoại, Bạn có muốn tiếp tục không?", "Cảnh báo", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                    {
+                        return;
+                    }
+                }
+
+                if (memberEmailTextBox.Text.Length <= 0)
+                {
+                    if (MessageBox.Show("Chưa nhập email, Bạn có muốn tiếp tục không?", "Cảnh báo", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                    {
+                        return;
+                    }
+                }
+
+                if (_avatarImageLink.Length <= 0)
+                {
+                    if (MessageBox.Show("Chưa chọn ảnh đại diện, Bạn có muốn tiếp tục không?", "Cảnh báo", MessageBoxButton.YesNo) == MessageBoxResult.No)
+                    {
+                        return;
+                    }
+                }
+
+                myMember.Add(new MEMBER { MEMBER_ID = $"M{memberCode}", MEMBER_NAME = memberNameTextBox.Text, PHONE = memberPhoneTextBox.Text, EMAIL = memberEmailTextBox.Text, AVATAR = _avatarImageLink });
+                memberNameTextBox.Text = "";
+                memberPhoneTextBox.Text = "";
+                memberEmailTextBox.Text = "";
+                var Bitmap = new BitmapImage(new Uri("Resources/Icons/picture.png", UriKind.Relative));
+                avatarImage.Source = Bitmap;
+                avatarImageHint.Visibility = Visibility.Visible;
+                _avatarImageLink = "";
+                memberCode++;
+            }
 
         }
 
         private void deleteMemberBtn_Click(object sender, RoutedEventArgs e)
         {
-
-        }
-
-        private void addPaymentLocBtn_Click(object sender, RoutedEventArgs e)
-        {
-
+            int index = memberListBox.SelectedIndex;
+            if (index >= 0)
+            {
+                myMember.RemoveAt(index);
+            }
         }
 
         private void ExpenseDesTextBox_LostFocus(object sender, RoutedEventArgs e)
@@ -390,7 +476,7 @@ namespace WeSplitProject
 
             if (myExpenseInput[flag].ExpenseTBCheck)
             {
-                if(textbox.Text.Length <= 0)
+                if (textbox.Text.Length <= 0)
                 {
                     if (myExpenseInput[flag].CostTBCheck)
                     {
@@ -405,7 +491,16 @@ namespace WeSplitProject
                 {
                     if (myExpenseInput[flag].CostTBCheck)
                     {
-                        expenseTotalCost += myExpenseInput[flag].Cost;
+                        try
+                        {
+                            expenseTotalCost += myExpenseInput[flag].Cost;
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Số tiền vượt quá giới hạn", "Lỗi");
+                            myExpenseInput[flag].ExpenseTBCheck = false;
+                            return;
+                        }
                     }
                     myExpenseInput[flag].ExpenseTBCheck = true;
                 }
@@ -428,22 +523,22 @@ namespace WeSplitProject
                 }
             }
 
-            bool checkInt = false;
-            int result = 0;
+            bool checkLong = false;
+            long result = 0;
 
             if (textbox.Text.Length > 0)
             {
-                checkInt = Int32.TryParse(textbox.Text, out result);
-                if (!checkInt)
+                checkLong = long.TryParse(textbox.Text, out result);
+                if (!checkLong)
                 {
                     MessageBox.Show("Lỗi: Số tiền nhập không phải là số hoặc vượt quá giới hạn");
                 }
             }
-            
 
-            if (myExpenseInput[flag].CostTBCheck) 
+
+            if (myExpenseInput[flag].CostTBCheck)
             {
-                if(!checkInt)
+                if (!checkLong)
                 {
                     if (myExpenseInput[flag].ExpenseTBCheck)
                     {
@@ -456,7 +551,16 @@ namespace WeSplitProject
                 {
                     if (myExpenseInput[flag].ExpenseTBCheck)
                     {
-                        expenseTotalCost = expenseTotalCost - myExpenseInput[flag].Cost + result;
+                        try
+                        {
+                            expenseTotalCost = expenseTotalCost - myExpenseInput[flag].Cost + result;
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Số tiền vượt quá giới hạn", "Lỗi");
+                            myExpenseInput[flag].CostTBCheck = false;
+                            return;
+                        }
                     }
                     myExpenseInput[flag].CostTBCheck = true;
                     myExpenseInput[flag].Cost = result;
@@ -464,11 +568,20 @@ namespace WeSplitProject
             }
             else
             {
-                if(checkInt)
+                if (checkLong)
                 {
                     if (myExpenseInput[flag].ExpenseTBCheck)
                     {
-                        expenseTotalCost = expenseTotalCost - myExpenseInput[flag].Cost + result;                        
+                        try
+                        {
+                            expenseTotalCost = expenseTotalCost - myExpenseInput[flag].Cost + result;
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Số tiền vượt quá giới hạn", "Lỗi");
+                            myExpenseInput[flag].CostTBCheck = false;
+                            return;
+                        }
                     }
                     myExpenseInput[flag].CostTBCheck = true;
                     myExpenseInput[flag].Cost = result;
@@ -477,9 +590,42 @@ namespace WeSplitProject
 
             totalExpenseTextBlock.Text = $"Tổng chi phí: {expenseTotalCost.ToString()}";
         }
+
+        private void memberListBox_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var index = (sender as ListBox).SelectedIndex;
+            var memberEditScreen = new MemberModifyWindow(myMember[index], myTripSplit);
+            if (memberEditScreen.ShowDialog() == true)
+            {
+                var tempTripSplit = memberEditScreen.newTripSplit;
+                myTripSplit.RemoveAll(c => c.MEMBER_ID == myMember[index].MEMBER_ID);
+
+                for (int i = 0; i < tempTripSplit.Count; i++)
+                {
+                    myTripSplit.Add(tempTripSplit[i]);
+                }
+
+                var tempMember = memberEditScreen.newMember;
+                myMember.RemoveAt(index);
+                myMember.Add(tempMember);
+            }
+        }
+
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void vitsitLocList_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var index = (sender as ListBox).SelectedIndex;
+            var visitLocEditScreen = new LocationModifyWindow(myVisitLoc[index]);
+            if (visitLocEditScreen.ShowDialog() == true)
+            {
+                var tempVisitLoc = visitLocEditScreen.newVisitLoc;
+                myVisitLoc.RemoveAt(index);
+                myVisitLoc.Add(tempVisitLoc);
+            }
+        }
     }
-
-
-
-
 }

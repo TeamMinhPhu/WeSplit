@@ -17,7 +17,7 @@ namespace WeSplitProject
         public string TRIP_ID { get; set; }
         public string EXPENSE_ID { get; set; }
         public string EXPENSE_DESCRIPTION { get; set; }
-        public string COST { get; set; }
+        public Nullable<decimal> COST { get; set; }
     
         public virtual TRIP TRIP { get; set; }
     }

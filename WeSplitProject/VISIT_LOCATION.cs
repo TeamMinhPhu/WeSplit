@@ -20,6 +20,7 @@ namespace WeSplitProject
         public string VISIT_LOC_DESCRIPTION { get; set; }
         public Nullable<System.DateTime> DATE_BEGIN { get; set; }
         public Nullable<System.DateTime> DATE_FINISH { get; set; }
+        public string IMAGE_LINK { get; set; }
     
         public virtual TRIP TRIP { get; set; }
     }

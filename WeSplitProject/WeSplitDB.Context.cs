@@ -27,7 +27,6 @@ namespace WeSplitProject
     
         public virtual DbSet<EXPENSE> EXPENSEs { get; set; }
         public virtual DbSet<MEMBER> MEMBERs { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<TRIP> TRIPs { get; set; }
         public virtual DbSet<TRIP_SPLIT> TRIP_SPLIT { get; set; }
         public virtual DbSet<VISIT_LOCATION> VISIT_LOCATION { get; set; }

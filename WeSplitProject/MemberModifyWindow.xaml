@@ -14,7 +14,7 @@
         <Grid>
             <StackPanel>
                 <Grid Name ="TitleBar"  Height="40" VerticalAlignment="Top" Background="{DynamicResource PrimaryHueDarkBrush}">
-                    <Button Name="Back" HorizontalAlignment="Left" Foreground="White" BorderBrush="Transparent" Width="70" Height="30">
+                    <Button Name="Back" HorizontalAlignment="Left" Foreground="White" BorderBrush="Transparent" Width="70" Height="30" Click="Back_Click">
                         <Button.Background>
                             <ImageBrush ImageSource="Resources/Icons/leftarrowscreen.png" RenderOptions.BitmapScalingMode="HighQuality"
                                 Stretch="Uniform"/>
@@ -22,49 +22,74 @@
                     </Button>
                     <Label Content="Thành viên" Foreground="White" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalContentAlignment="Center"></Label>
                 </Grid>
-                <StackPanel Orientation="Horizontal">
-                    <StackPanel Width="200">
-                        <TextBlock Text="Tên thành viên" Margin="20,20,10,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
-                        <TextBox Foreground="{DynamicResource PrimaryHueMidBrush}" Name="memberNameTextBox" Margin="20,0,0,0" Padding="5,0,5,0" Height="30" Width="200" FontSize="16" Background="Transparent" BorderThickness="0" Panel.ZIndex="2" materialDesign:HintAssist.Hint="Tên thành viên"></TextBox>
-                        <TextBlock Text="Số điện thoại" Margin="20,20,10,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
-                        <TextBox Foreground="{DynamicResource PrimaryHueMidBrush}" Name="memberPhoneTextBox" Margin="20,0,0,0" Padding="5,0,5,0" Height="30" Width="200" FontSize="16" Background="Transparent" BorderThickness="0" Panel.ZIndex="2" materialDesign:HintAssist.Hint="Số điện thoại"></TextBox>
-                        <TextBlock Text="Email" Margin="20,20,10,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
-                        <TextBox Foreground="{DynamicResource PrimaryHueMidBrush}" Name="memberEmailTextBox" Margin="20,0,0,0" Padding="5,0,5,0" Height="30" Width="200" FontSize="16" Background="Transparent" BorderThickness="0" Panel.ZIndex="2" materialDesign:HintAssist.Hint="Email"></TextBox>
+                <Canvas Height="390" Width="500">
+                    <StackPanel Orientation="Horizontal">
+                        <StackPanel Width="200">
+                            <TextBlock Text="Tên thành viên" Margin="20,20,10,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                            <TextBox Foreground="{DynamicResource PrimaryHueMidBrush}" Name="memberNameTextBox" Margin="20,0,10,0" Padding="5,0,5,0" Height="30" Width="170" FontSize="16" Background="Transparent" BorderThickness="0" Panel.ZIndex="2" materialDesign:HintAssist.Hint="Tên thành viên"></TextBox>
+                            <TextBlock Text="Số điện thoại" Margin="20,20,10,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                            <TextBox Foreground="{DynamicResource PrimaryHueMidBrush}" Name="memberPhoneTextBox" Margin="20,0,10,0" Padding="5,0,5,0" Height="30" Width="170" FontSize="16" Background="Transparent" BorderThickness="0" Panel.ZIndex="2" materialDesign:HintAssist.Hint="Số điện thoại"></TextBox>
+                            <TextBlock Text="Email" Margin="20,20,10,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                            <TextBox Foreground="{DynamicResource PrimaryHueMidBrush}" Name="memberEmailTextBox" Margin="20,0,10,0" Padding="5,0,5,0" Height="30" Width="170" FontSize="16" Background="Transparent" BorderThickness="0" Panel.ZIndex="2" materialDesign:HintAssist.Hint="Email"></TextBox>
 
-                        <Border BorderThickness="1" BorderBrush="Black" Height="120" Width="120" Margin="0,20,10,0">
-                            <Canvas Background="Transparent">
-                                <Image Height="118" x:Name="avatarImage" Source="Resources/Icons/picture.png" Stretch="Fill" Width="118" PreviewMouseLeftButtonDown="avatarImage_PreviewMouseLeftButtonDown" AllowDrop="True" Drop="avatarImage_Drop"/>
-                                <TextBlock Foreground="{DynamicResource PrimaryHueMidBrush}" x:Name="ImageHint" Text="Chọn Avatar" FontSize="18"  Canvas.Bottom="10" Canvas.Left="10"/>
-                            </Canvas>
-                        </Border>
-                    </StackPanel>
-                    <StackPanel Width="300">
-                        <StackPanel Orientation="Horizontal">
-                            <StackPanel Width="160">
-                                <TextBlock Text="Khoản chi" Margin="0,20,0,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
-                                <TextBox Foreground="{DynamicResource PrimaryHueMidBrush}" Name="paymentTextBox" Padding="5,0,5,0" Height="30" Width="160" FontSize="16" Background="Transparent" BorderThickness="0" Panel.ZIndex="2" materialDesign:HintAssist.Hint="Khoản chi"></TextBox>
-                            </StackPanel>
-                            <StackPanel Width="140">
-                                <TextBlock Text="Tiền thu" Margin="10,20,10,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
-                                <TextBox Foreground="{DynamicResource PrimaryHueMidBrush}" Name="CostTextBox" Margin="10,0,0,0" Padding="5,0,5,0" Height="30" Width="200" FontSize="16" Background="Transparent" BorderThickness="0" Panel.ZIndex="2" materialDesign:HintAssist.Hint="Tiền thu"></TextBox>
-                            </StackPanel>
-                            
-                            
+                            <Border BorderThickness="1" BorderBrush="Black" Height="120" Width="120" Margin="0,20,10,0">
+                                <Canvas Background="Transparent">
+                                    <Image Height="118" x:Name="avatarImage" Source="Resources/Icons/picture.png" Stretch="Fill" Width="118" PreviewMouseLeftButtonDown="avatarImage_PreviewMouseLeftButtonDown" AllowDrop="True" Drop="avatarImage_Drop"/>
+                                    <TextBlock Foreground="{DynamicResource PrimaryHueMidBrush}" x:Name="avatarImageHint" Text="Chọn Avatar" FontSize="18"  Canvas.Bottom="10" Canvas.Left="10"/>
+                                </Canvas>
+                            </Border>
                         </StackPanel>
-                        <TextBlock Text="Danh sách khoản chi" Margin="0,20,0,10" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
-                        <ListBox Foreground="{DynamicResource PrimaryHueMidBrush}" x:Name="memberListBox" Margin="20,5,20,0" FontSize="14" MaxHeight="200" Width="250">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <TextBlock Text="{Binding typeName}"/>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <Button x:Name="deleteExpenseBtn" Margin="0,10,5,0" Content="Xóa" Width="75" Height="25" Foreground="White" Click="deleteExpenseBtn_Click"/>
-                            <Button x:Name="addExpenseBtn" Margin="5,10,20,0" Content="Thêm" Width="75" Height="25" Foreground="White" Click="addExpenseBtn_Click"/>
+                        <StackPanel Width="300">
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel Width="160">
+                                    <TextBlock Text="Khoản chi" Margin="0,20,0,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                    <TextBox Foreground="{DynamicResource PrimaryHueMidBrush}" Name="paymentTextBox" Padding="5,0,5,0" Height="30" Width="160" FontSize="16" Background="Transparent" BorderThickness="0" Panel.ZIndex="2" materialDesign:HintAssist.Hint="Khoản chi"></TextBox>
+                                </StackPanel>
+                                <StackPanel Width="140" HorizontalAlignment="Left">
+                                    <TextBlock Text="Tiền thu" Margin="10,20,10,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                    <TextBox Foreground="{DynamicResource PrimaryHueMidBrush}" Name="CostTextBox" Margin="0,0,0,0" Padding="5,0,5,0" Height="30" Width="120" FontSize="16" Background="Transparent" BorderThickness="0" Panel.ZIndex="2" materialDesign:HintAssist.Hint="Tiền thu"></TextBox>
+                                </StackPanel>
+
+
+                            </StackPanel>
+                            <TextBlock Text="Danh sách khoản chi" Margin="0,20,0,8" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                            <StackPanel Orientation="Horizontal" Name="expenseSPHint" Visibility="Collapsed">
+                                <TextBlock Text="Khoản chi" Margin="0,0,0,10" Padding="10,0,10,0" Width="180" FontSize="17" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                <TextBlock Text="Tiền thu" Margin="0,0,0,10" Padding="10,0,10,0" Width="70" FontSize="17" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                            </StackPanel>
+                            <ListBox Foreground="{DynamicResource PrimaryHueMidBrush}" x:Name="expenseListBox" Margin="-5,-5,20,0" FontSize="14" MaxHeight="130" Width="270">
+                                <ListBox.ItemContainerStyle>
+                                    <Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">
+                                        <Style.Triggers>
+                                            <Trigger Property="IsSelected" Value="True" >
+                                                <Setter Property="FontWeight" Value="Bold" />
+                                                <Setter Property="Background" Value="LightGray" />
+                                                <Setter Property="Foreground" Value="{DynamicResource PrimaryHueDarkBrush}" />
+                                            </Trigger>
+                                        </Style.Triggers>
+                                        <Style.Resources>
+                                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
+                                        </Style.Resources>
+                                    </Style>
+                                </ListBox.ItemContainerStyle>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Width="270" Height="20" Margin="0,-5,0,-5">
+                                            <TextBlock Text="{Binding PAYMENT_DESCRIPTION}" FontSize="16" Foreground="{DynamicResource PrimaryHueMidBrush}" Width="180"/>
+                                            <TextBlock Text="{Binding PAID_COST}" FontSize="16" Foreground="{DynamicResource PrimaryHueMidBrush}" Width="70"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button x:Name="deleteExpenseBtn" Margin="0,10,5,0" Content="Xóa" Width="75" Height="25" Foreground="White" Click="deleteExpenseBtn_Click" materialDesign:ButtonAssist.CornerRadius="10"/>
+                                <Button x:Name="addExpenseBtn" Margin="5,10,40,0" Content="Thêm" Width="75" Height="25" Foreground="White" Click="addExpenseBtn_Click" materialDesign:ButtonAssist.CornerRadius="10"/>
+                            </StackPanel>
+                            <TextBlock Name="totalExpenseTextBlock" Text="Tổng: 0" Margin="100,10,0,0" Width="200" Padding="10,0,10,0" Visibility="Collapsed" FontSize="16" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
                         </StackPanel>
                     </StackPanel>
-                </StackPanel>
+                    <Button x:Name="doneBtn" Canvas.Left="190" Canvas.Bottom="10" FontSize="16" Content="Hoàn thành" Width="110" Padding="0,5,0,5" Height="35" Foreground="White" Click="doneBtn_Click" materialDesign:ButtonAssist.CornerRadius="10"/>
+                </Canvas>
 
             </StackPanel>
         </Grid>

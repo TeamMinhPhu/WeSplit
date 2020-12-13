@@ -18,7 +18,7 @@ namespace WeSplitProject
         public TRIP()
         {
             this.EXPENSEs = new HashSet<EXPENSE>();
-            this.TRIP_SPLIT = new HashSet<TRIP_SPLIT>();
+            this.MEMBERs = new HashSet<MEMBER>();
             this.VISIT_LOCATION = new HashSet<VISIT_LOCATION>();
         }
     
@@ -29,11 +29,12 @@ namespace WeSplitProject
         public Nullable<System.DateTime> DATE_BEGIN { get; set; }
         public Nullable<System.DateTime> DATE_FINISH { get; set; }
         public Nullable<int> TRIP_STATUS { get; set; }
+        public string IMAGE_LINK { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EXPENSE> EXPENSEs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TRIP_SPLIT> TRIP_SPLIT { get; set; }
+        public virtual ICollection<MEMBER> MEMBERs { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VISIT_LOCATION> VISIT_LOCATION { get; set; }
     }
