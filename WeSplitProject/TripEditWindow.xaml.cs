@@ -24,6 +24,25 @@ using WeSplitProject.Classes;
 
 namespace WeSplitProject
 {
+    public class MyObject : INotifyPropertyChanged
+    {
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private string _MyProperty;
+        public string MyProperty
+        {
+            get { return _MyProperty; }
+            set
+            {
+                _MyProperty = value;
+                if (PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("MyProperty"));
+                }
+            }
+        }
+    }
+
     /// <summary>
     /// Interaction logic for CreateNewTrip.xaml
     /// </summary>
@@ -101,29 +120,6 @@ namespace WeSplitProject
 
             myTripSplit = new List<TRIP_SPLIT>();
             memberExpenseList = new List<MemberExpense>();
-
-
-
-            //Add recommend destination
-            var query_TripDes = db.TRIPs.OrderBy(c => c.TRIP_DESTINATION).Select(c => c.TRIP_DESTINATION).Distinct().ToList();
-            myTripDes = new BindingList<TripDestination>();
-            foreach (var item in query_TripDes)
-            {
-                myTripDes.Add(new TripDestination { Destination = item });
-            }
-            // add to combobox
-            tripDestinationComboBox.ItemsSource = myTripDes;
-
-            //Add recommend visit location
-            var query_visitLocDes = db.VISIT_LOCATION.OrderBy(c => c.VISIT_LOC_DESTINATION).Select(c => c.VISIT_LOC_DESTINATION).Distinct().ToList();
-            myVisitDes = new BindingList<TripDestination>();
-            foreach (var item in query_visitLocDes)
-            {
-                myVisitDes.Add(new TripDestination { Destination = item });
-            }
-
-            //Add to combobox
-            visitLocDestinationComboBox.ItemsSource = myVisitDes;
 
             //Create member listbox source
             myMember = new BindingList<MEMBER>();
@@ -342,12 +338,12 @@ namespace WeSplitProject
         {
             string _selectedItem = "";
 
-            _selectedItem = visitLocDestinationComboBox.Text;
+            _selectedItem = visitLocDestinationTextBox.Text;
 
             if (_selectedItem.Length > 0)
             {
                 myVisitLoc.Add(new VISIT_LOCATION { VISIT_LOC_ID = $"VL{visitLocCode}", VISIT_LOC_DESTINATION = _selectedItem, DATE_BEGIN = visitLocDateBeginDatePicker.SelectedDate, DATE_FINISH = visitLocDateFinishDatePicker.SelectedDate, VISIT_LOC_DESCRIPTION = visitLocDescriptionTextBox.Text, IMAGE_LINK = _visitLocImageLink });
-                visitLocDestinationComboBox.Text = "";
+                visitLocDestinationTextBox.Text = "";
                 visitLocDescriptionTextBox.Text = "";
                 visitLocDateBeginDatePicker.SelectedDate = null;
                 visitLocDateFinishDatePicker.SelectedDate = null;
@@ -589,7 +585,7 @@ namespace WeSplitProject
             }
             else
             {
-                if (tripDestinationComboBox.Text.Length <= 0)
+                if (tripDestinationTextBox.Text.Length <= 0)
                 {
                     MessageBox.Show("Chưa nhập địa điểm tham quan", "Cảnh báo");
                 }
@@ -658,7 +654,7 @@ namespace WeSplitProject
             {
                 TRIP_ID = myTripId,
                 TRIP_NAME = tripNameTextBox.Text,
-                TRIP_DESTINATION = tripDestinationComboBox.Text,
+                TRIP_DESTINATION = tripDestinationTextBox.Text,
                 TRIP_DESCRIPTION = tripDescriptionTextBox.Text,
                 TRIP_STATUS = statusIndex,
                 DATE_BEGIN = tripDateBeginDatePicker.SelectedDate,
@@ -813,5 +809,6 @@ namespace WeSplitProject
                 }
             }
         }
+
     }
 }
