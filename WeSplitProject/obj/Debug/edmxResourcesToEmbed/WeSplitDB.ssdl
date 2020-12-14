@@ -34,6 +34,7 @@
     <Property Name="DATE_FINISH" Type="datetime" />
     <Property Name="TRIP_STATUS" Type="int" />
     <Property Name="IMAGE_LINK" Type="varchar" MaxLength="100" />
+    <Property Name="EXIST_STATUS" Type="bit" />
   </EntityType>
   <EntityType Name="TRIP_SPLIT">
     <Key>

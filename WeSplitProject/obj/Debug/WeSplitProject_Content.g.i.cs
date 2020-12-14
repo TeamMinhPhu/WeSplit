@@ -10,5 +10,6 @@
 
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("wesplitdb.context.tt")]
 [assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("wesplitdb.tt")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("wesplitdb_log.ldf")]
 
 

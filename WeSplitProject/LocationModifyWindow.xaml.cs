@@ -42,17 +42,7 @@ namespace WeSplitProject
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var query_visitLocDes = db.VISIT_LOCATION.OrderBy(c => c.VISIT_LOC_DESTINATION).Select(c => c.VISIT_LOC_DESTINATION).Distinct().ToList();
-            myVisitDes = new BindingList<TripDestination>();
-            foreach (var item in query_visitLocDes)
-            {
-                myVisitDes.Add(new TripDestination { Destination = item });
-            }
-
-            visitLocDestinationComboBox.ItemsSource = myVisitDes;
-
-
-            visitLocDestinationComboBox.Text = myVisitLoc.VISIT_LOC_DESTINATION;
+            visitLocDestinationTextBox.Text = myVisitLoc.VISIT_LOC_DESTINATION;
             visitLocDateBeginDatePicker.SelectedDate = myVisitLoc.DATE_BEGIN;
             visitLocDateFinishDatePicker.SelectedDate = myVisitLoc.DATE_FINISH;
             visitLocDescriptionTextBox.Text = myVisitLoc.VISIT_LOC_DESCRIPTION;
@@ -148,9 +138,9 @@ namespace WeSplitProject
 
         private void doneBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (visitLocDestinationComboBox.Text.Length > 0)
+            if (visitLocDestinationTextBox.Text.Length > 0)
             {
-                myVisitLoc.VISIT_LOC_DESTINATION = visitLocDestinationComboBox.Text;
+                myVisitLoc.VISIT_LOC_DESTINATION = visitLocDestinationTextBox.Text;
                 myVisitLoc.VISIT_LOC_DESCRIPTION = visitLocDescriptionTextBox.Text;
                 myVisitLoc.DATE_BEGIN = visitLocDateBeginDatePicker.SelectedDate;
                 myVisitLoc.DATE_FINISH = visitLocDateFinishDatePicker.SelectedDate;

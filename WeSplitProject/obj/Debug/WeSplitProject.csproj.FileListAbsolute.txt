@@ -244,3 +244,5 @@ C:\Users\vuanh\Documents\WeSplit\WeSplitProject\obj\Debug\LocationModifyWindow.g
 C:\Users\vuanh\Documents\WeSplit\WeSplitProject\obj\Debug\LocationModifyWindow.baml
 C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\LocationModifyWindow.g.cs
 C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\LocationModifyWindow.baml
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\bin\Debug\WeSplitDB.mdf
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\bin\Debug\WeSplitDB_log.ldf
