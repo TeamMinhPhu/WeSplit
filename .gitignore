@@ -384,3 +384,6 @@ Version.cs
 Version.h
 Version.cpp
 *.pdb
+*.cache
+*.lref
+*.lref

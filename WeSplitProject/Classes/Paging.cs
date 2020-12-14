@@ -33,7 +33,7 @@ namespace WeSplitProject.Classes
 		public static int GetItemsPerPage(double width, double height)
 		{
 			int result, row, column;
-			row = (int)height / 220;
+			row = (int)height / 200;
 			column = (int)width / 330;
 			result = row * column;
 			if (result == 0)
