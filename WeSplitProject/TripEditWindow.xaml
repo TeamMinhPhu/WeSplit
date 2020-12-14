@@ -38,14 +38,14 @@
                                         </DataTemplate>
                                     </ComboBox.ItemTemplate>
                                 </ComboBox>
-                                <ComboBox Foreground="{DynamicResource PrimaryHueMidBrush}" Name="tripStatusTextBox" Width="250"  Margin="0,0,0,20" FontSize="16" Padding="10,5,10,5" materialDesign:HintAssist.Hint="Giai đoạn">
+                                <ComboBox Foreground="{DynamicResource PrimaryHueMidBrush}" Name="tripStatusComboBox" Width="250"  Margin="0,0,0,20" FontSize="16" Padding="10,5,10,5" materialDesign:HintAssist.Hint="Giai đoạn">
                                     <ComboBoxItem>Lên kế hoạch</ComboBoxItem>
                                     <ComboBoxItem>Bắt đầu</ComboBoxItem>
                                     <ComboBoxItem>Đang đi</ComboBoxItem>
                                     <ComboBoxItem>Kết thúc</ComboBoxItem>
                                 </ComboBox>
-                                <DatePicker Name="dateBeginDatePicker" Padding="10,5,10,5" Width="250" Margin="0,0,0,20" materialDesign:HintAssist.Hint="Chọn ngày bắt đầu" FontSize="16" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
-                                <DatePicker Name="dateFinishDatePicker" Padding="10,5,10,5" Width="250" Margin="0,0,0,20" materialDesign:HintAssist.Hint="Chọn ngày kết thúc" FontSize="16" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                <DatePicker Name="tripDateBeginDatePicker" Padding="10,5,10,5" Width="250" Margin="0,0,0,20" materialDesign:HintAssist.Hint="Chọn ngày bắt đầu" FontSize="16" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                <DatePicker Name="tripDateFinishDatePicker" Padding="10,5,10,5" Width="250" Margin="0,0,0,20" materialDesign:HintAssist.Hint="Chọn ngày kết thúc" FontSize="16" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
 
                             </StackPanel>
 
@@ -68,7 +68,7 @@
                                 </Border>
                                 <TextBlock x:Name="totalExpenseTextBlock" Text="Tổng chi phí: 0" Margin="0,30,0,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
 
-                                <Button x:Name="doneBtn" Margin="190,30,10,0" FontSize="18" Content="Hoàn thành" Width="110" Padding="0,5,0,5" Height="110" Foreground="White" Click="deleteMemberBtn_Click" materialDesign:ButtonAssist.CornerRadius="60"/>
+                                <Button x:Name="doneBtn" Margin="190,30,10,0" FontSize="18" Content="Hoàn thành" Width="110" Padding="0,5,0,5" Height="110" Foreground="White" Click="doneBtn_Click" materialDesign:ButtonAssist.CornerRadius="60"/>
                             </StackPanel>
                             <StackPanel HorizontalAlignment="Center" Margin="10,0,0,0" Grid.Column="0" Width="350">
                                 <TextBlock Text="Chi phí dự kiến" Margin="10,30,0,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
@@ -106,7 +106,7 @@
                                         <TextBlock Foreground="{DynamicResource PrimaryHueMidBrush}" x:Name="visitLocImageHint" Text="Chọn hình địa điểm" FontSize="18"  Canvas.Bottom="20" Canvas.Left="30" Canvas.Right="100"/>
                                     </Canvas>
                                 </Border>
-                                <TextBlock Text="Danh sách địa điểm" Margin="10,20,0,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                <TextBlock Text="Danh sách địa điểm" Margin="20,20,0,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
                                 <ListBox Foreground="{DynamicResource PrimaryHueMidBrush}" x:Name="vitsitLocList" Margin="20,5,20,0" FontSize="16" MaxHeight="100" Width="220" PreviewMouseDoubleClick="vitsitLocList_PreviewMouseDoubleClick">
                                     <ListBox.ItemContainerStyle>
                                         <Style TargetType="ListBoxItem" BasedOn="{StaticResource MaterialDesignListBoxItem}">

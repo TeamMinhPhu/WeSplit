@@ -242,3 +242,5 @@ C:\Users\vuanh\Documents\WeSplit\WeSplitProject\obj\Debug\TripEditWindow.baml
 C:\Users\vuanh\Documents\WeSplit\WeSplitProject\obj\Debug\MemberModifyWindow.baml
 C:\Users\vuanh\Documents\WeSplit\WeSplitProject\obj\Debug\LocationModifyWindow.g.cs
 C:\Users\vuanh\Documents\WeSplit\WeSplitProject\obj\Debug\LocationModifyWindow.baml
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\bin\Debug\WeSplitDB.mdf
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\bin\Debug\WeSplitDB_log.ldf

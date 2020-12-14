@@ -39,6 +39,7 @@
           <Property Name="DATE_FINISH" Type="datetime" />
           <Property Name="TRIP_STATUS" Type="int" />
           <Property Name="IMAGE_LINK" Type="varchar" MaxLength="100" />
+          <Property Name="EXIST_STATUS" Type="bit" />
         </EntityType>
         <EntityType Name="TRIP_SPLIT">
           <Key>
@@ -180,6 +181,7 @@
           <Property Name="DATE_FINISH" Type="DateTime" Precision="3" />
           <Property Name="TRIP_STATUS" Type="Int32" />
           <Property Name="IMAGE_LINK" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="EXIST_STATUS" Type="Boolean" />
           <NavigationProperty Name="EXPENSEs" Relationship="Self.FK_E_T" FromRole="TRIP" ToRole="EXPENSE" />
           <NavigationProperty Name="MEMBERs" Relationship="Self.FK_M_T" FromRole="TRIP" ToRole="MEMBER" />
           <NavigationProperty Name="VISIT_LOCATION" Relationship="Self.FK_VL_T" FromRole="TRIP" ToRole="VISIT_LOCATION" />
@@ -323,6 +325,7 @@
                 <ScalarProperty Name="DATE_FINISH" ColumnName="DATE_FINISH" />
                 <ScalarProperty Name="TRIP_STATUS" ColumnName="TRIP_STATUS" />
                 <ScalarProperty Name="IMAGE_LINK" ColumnName="IMAGE_LINK" />
+                <ScalarProperty Name="EXIST_STATUS" ColumnName="EXIST_STATUS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

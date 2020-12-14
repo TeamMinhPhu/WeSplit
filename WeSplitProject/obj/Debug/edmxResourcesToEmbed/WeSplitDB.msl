@@ -34,6 +34,7 @@
           <ScalarProperty Name="DATE_FINISH" ColumnName="DATE_FINISH" />
           <ScalarProperty Name="TRIP_STATUS" ColumnName="TRIP_STATUS" />
           <ScalarProperty Name="IMAGE_LINK" ColumnName="IMAGE_LINK" />
+          <ScalarProperty Name="EXIST_STATUS" ColumnName="EXIST_STATUS" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -30,6 +30,7 @@ namespace WeSplitProject
         public Nullable<System.DateTime> DATE_FINISH { get; set; }
         public Nullable<int> TRIP_STATUS { get; set; }
         public string IMAGE_LINK { get; set; }
+        public Nullable<bool> EXIST_STATUS { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<EXPENSE> EXPENSEs { get; set; }

@@ -20,6 +20,8 @@ using MaterialDesignThemes;
 using MaterialDesignColors;
 using Microsoft.Win32;
 
+using WeSplitProject.Classes;
+
 namespace WeSplitProject
 {
     /// <summary>
@@ -60,15 +62,17 @@ namespace WeSplitProject
         int visitLocCode;
 
         TRIP myTrip;
-        BindingList<EXPENSE> myExpense;
+
         BindingList<VISIT_LOCATION> myVisitLoc;
-        List<TRIP_SPLIT> myTripSplit;
         BindingList<MEMBER> myMember;
         BindingList<TripDestination> myTripDes;
         BindingList<TripDestination> myVisitDes;
         BindingList<MemberView> myMemberView;
+
         List<MemberExpense> memberExpenseList;
         List<ExpenseInput> myExpenseInput;
+        List<EXPENSE> myExpense;
+        List<TRIP_SPLIT> myTripSplit;
 
         long expenseTotalCost;
 
@@ -342,44 +346,17 @@ namespace WeSplitProject
 
             if (_selectedItem.Length > 0)
             {
-                if (visitLocDateBeginDatePicker.SelectedDate == null)
-                {
-                    if (MessageBox.Show("Chưa chọn ngày bắt đầu, Bạn có muốn tiếp tục không?", "Cảnh báo", MessageBoxButton.YesNo) == MessageBoxResult.No)
-                    {
-                        return;
-                    }
-                }
-
-                if (visitLocDateFinishDatePicker.SelectedDate == null)
-                {
-                    if (MessageBox.Show("Chưa chọn ngày kết thúc, Bạn có muốn tiếp tục không?", "Cảnh báo", MessageBoxButton.YesNo) == MessageBoxResult.No)
-                    {
-                        return;
-                    }
-                }
-
-                if (visitLocDescriptionTextBox.Text.Length <= 0)
-                {
-                    if (MessageBox.Show("Chưa nhập mô tả điểm tham quan, Bạn có muốn tiếp tục không?", "Cảnh báo", MessageBoxButton.YesNo) == MessageBoxResult.No)
-                    {
-                        return;
-                    }
-                }
-
-                if (_visitLocImageLink.Length <= 0)
-                {
-                    if (MessageBox.Show("Chưa chọn hình điểm tham quan, Bạn có muốn tiếp tục không?", "Cảnh báo", MessageBoxButton.YesNo) == MessageBoxResult.No)
-                    {
-                        return;
-                    }
-                }
-
                 myVisitLoc.Add(new VISIT_LOCATION { VISIT_LOC_ID = $"VL{visitLocCode}", VISIT_LOC_DESTINATION = _selectedItem, DATE_BEGIN = visitLocDateBeginDatePicker.SelectedDate, DATE_FINISH = visitLocDateFinishDatePicker.SelectedDate, VISIT_LOC_DESCRIPTION = visitLocDescriptionTextBox.Text, IMAGE_LINK = _visitLocImageLink });
                 visitLocDestinationComboBox.Text = "";
                 visitLocDescriptionTextBox.Text = "";
                 visitLocDateBeginDatePicker.SelectedDate = null;
                 visitLocDateFinishDatePicker.SelectedDate = null;
                 visitLocCode++;
+                var Bitmap = new BitmapImage(new Uri("Resources/Icons/picture.png", UriKind.Relative));
+                visitLocImage.Source = Bitmap;
+                _visitLocImageLink = "";
+                visitLocImageHint.Visibility = Visibility.Visible;
+
                 for (int i = myVisitDes.Count - 1; i >= 0; i--)
                 {
                     if (myVisitDes[i].Destination == _selectedItem)
@@ -414,30 +391,6 @@ namespace WeSplitProject
             }
             else
             {
-                if (memberPhoneTextBox.Text.Length <= 0)
-                {
-                    if (MessageBox.Show("Chưa nhập số điện thoại, Bạn có muốn tiếp tục không?", "Cảnh báo", MessageBoxButton.YesNo) == MessageBoxResult.No)
-                    {
-                        return;
-                    }
-                }
-
-                if (memberEmailTextBox.Text.Length <= 0)
-                {
-                    if (MessageBox.Show("Chưa nhập email, Bạn có muốn tiếp tục không?", "Cảnh báo", MessageBoxButton.YesNo) == MessageBoxResult.No)
-                    {
-                        return;
-                    }
-                }
-
-                if (_avatarImageLink.Length <= 0)
-                {
-                    if (MessageBox.Show("Chưa chọn ảnh đại diện, Bạn có muốn tiếp tục không?", "Cảnh báo", MessageBoxButton.YesNo) == MessageBoxResult.No)
-                    {
-                        return;
-                    }
-                }
-
                 myMember.Add(new MEMBER { MEMBER_ID = $"M{memberCode}", MEMBER_NAME = memberNameTextBox.Text, PHONE = memberPhoneTextBox.Text, EMAIL = memberEmailTextBox.Text, AVATAR = _avatarImageLink });
                 memberNameTextBox.Text = "";
                 memberPhoneTextBox.Text = "";
@@ -625,6 +578,239 @@ namespace WeSplitProject
                 var tempVisitLoc = visitLocEditScreen.newVisitLoc;
                 myVisitLoc.RemoveAt(index);
                 myVisitLoc.Add(tempVisitLoc);
+            }
+        }
+
+        private void doneBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (tripNameTextBox.Text.Length <= 0)
+            {
+                MessageBox.Show("Chưa nhập tên chuyến đi", "Cảnh báo");
+            }
+            else
+            {
+                if (tripDestinationComboBox.Text.Length <= 0)
+                {
+                    MessageBox.Show("Chưa nhập địa điểm tham quan", "Cảnh báo");
+                }
+                else
+                {
+                    var statusIndex = tripStatusComboBox.SelectedIndex;
+                    if (statusIndex < 0)
+                    {
+                        MessageBox.Show("Chưa chọn trạng thái chuyến đi", "Cảnh báo");
+                    }
+                    else
+                    {
+                        var tempTripIds = db.TRIPs.Select(c => c.TRIP_ID).ToList();
+                        string myTripId = $"TRIP{tempTripIds.Count}";
+
+                        //Create folder to save image
+                        var Folder = AppDomain.CurrentDomain.BaseDirectory;
+                        var savedFolderLink = $"Resources\\Images\\{myTripId}";
+                        MyFileManager.CheckDictionary($"{Folder}{savedFolderLink}");
+
+                        //Save trip
+                        SaveNewTrip(myTripId, savedFolderLink);
+
+                        //Save expense
+                        SaveExpense(myTripId);
+
+                        //Save Visit Location
+                        SaveVisitLocation(myTripId, savedFolderLink);
+
+                        //Save Member
+                        SaveMember(myTripId, savedFolderLink);
+
+                        this.Close();
+
+                    }
+                }
+            }
+        }
+
+        private void SaveNewTrip(string myTripId, string savedFolderLink)
+        {
+            var Folder = AppDomain.CurrentDomain.BaseDirectory;
+
+            //Main trip image link: Resources\\Images\\TRIP{}\\TRIP{}.jpg
+            var tripImgLink = $"{savedFolderLink}\\{myTripId}.jpg";
+
+            //Save trip Image
+            if (_tripImageLink.Length > 0)
+            {
+                //Save Image
+                var myFilePath = $"{Folder}{tripImgLink}";
+
+                //Check if existed image having same name then replace
+                MyFileManager.CheckExistedFile(myFilePath);
+                //Copy image to new folder
+                System.IO.File.Copy(_tripImageLink, myFilePath);
+            }
+            else
+            {
+                tripImgLink = "Resources\\Icons\\picture.png";
+            }
+
+            //Create Trip
+            var statusIndex = tripStatusComboBox.SelectedIndex;
+            var newTrip = new TRIP
+            {
+                TRIP_ID = myTripId,
+                TRIP_NAME = tripNameTextBox.Text,
+                TRIP_DESTINATION = tripDestinationComboBox.Text,
+                TRIP_DESCRIPTION = tripDescriptionTextBox.Text,
+                TRIP_STATUS = statusIndex,
+                DATE_BEGIN = tripDateBeginDatePicker.SelectedDate,
+                DATE_FINISH = tripDateFinishDatePicker.SelectedDate,
+                IMAGE_LINK = tripImgLink,
+                EXIST_STATUS = true
+            };
+            //Save New Trip
+            db.TRIPs.Add(newTrip);
+            db.SaveChanges();
+        }
+
+        private void SaveExpense(string myTripId)
+        {
+            myExpense = new List<EXPENSE>();
+            int myExpenseCode = 0;
+
+            for (int i = 0; i < myExpenseInput.Count; i++)
+            {
+                if (myExpenseInput[i].CostTBCheck == true && myExpenseInput[i].ExpenseTBCheck == true)
+                {
+                    myExpense.Add(new EXPENSE
+                    {
+                        TRIP_ID = myTripId,
+                        EXPENSE_ID = $"E{myExpenseCode}",
+                        EXPENSE_DESCRIPTION = myExpenseInput[i].ExpenseTB.Text,
+                        COST = myExpenseInput[i].Cost
+                    });
+                    myExpenseCode++;
+                }
+            }
+
+            //Save expense
+            for (int i = 0; i < myExpense.Count; i++)
+            {
+                db.EXPENSEs.Add(myExpense[i]);
+                db.SaveChanges();
+            }
+        }
+
+        private void SaveVisitLocation(string myTripId, string savedFolderLink)
+        {
+            var Folder = AppDomain.CurrentDomain.BaseDirectory;
+            var tempVisitLocs = myVisitLoc.OrderBy(c => c.VISIT_LOC_ID).ToList();
+            myVisitLoc = new BindingList<VISIT_LOCATION>();
+            for (int i = 0; i < tempVisitLocs.Count; i++)
+            {
+                //create ID
+                var visitLocId = $"VL{i}";
+                //Visit Location image link: Resources\\Images\\TRIP{}\\TRIP{}_VL{}.jpg
+                var visitLocImgLink = $"{savedFolderLink}\\{myTripId}_{visitLocId}.jpg";
+
+                //Save visit location Image
+                if (tempVisitLocs[i].IMAGE_LINK.Length > 0)
+                {
+                    //Save Image
+                    var myFilePath = $"{Folder}{visitLocImgLink}";
+
+                    //Check if existed image having same name then replace
+                    MyFileManager.CheckExistedFile(myFilePath);
+                    //Copy image to new folder
+                    System.IO.File.Copy(tempVisitLocs[i].IMAGE_LINK, myFilePath);
+                }
+                else
+                {
+                    visitLocImgLink = "Resources\\Icons\\picture.png";
+                }
+
+
+                myVisitLoc.Add(new VISIT_LOCATION
+                {
+                    TRIP_ID = myTripId,
+                    VISIT_LOC_ID = visitLocId,
+                    DATE_BEGIN = tempVisitLocs[i].DATE_BEGIN,
+                    DATE_FINISH = tempVisitLocs[i].DATE_FINISH,
+                    VISIT_LOC_DESTINATION = tempVisitLocs[i].VISIT_LOC_DESTINATION,
+                    VISIT_LOC_DESCRIPTION = tempVisitLocs[i].VISIT_LOC_DESCRIPTION,
+                    IMAGE_LINK = visitLocImgLink
+                });
+            }
+
+            //Save Visit Location
+            for (int i = 0; i < myVisitLoc.Count; i++)
+            {
+                db.VISIT_LOCATION.Add(myVisitLoc[i]);
+                db.SaveChanges();
+            }
+        }
+
+        private void SaveMember(string myTripId, string savedFolderLink)
+        {
+            var Folder = AppDomain.CurrentDomain.BaseDirectory;
+            var tempMember = myMember.OrderBy(c => c.MEMBER_ID).ToList();
+            myMember = new BindingList<MEMBER>();
+
+            for (int i = 0; i < tempMember.Count; i++)
+            {
+                //create ID
+                var memberId = $"M{i}";
+                //Visit Location image link: Resources\\Images\\TRIP{}\\TRIP{}_M{}.jpg
+                var avatarLink = $"{savedFolderLink}\\{myTripId}_{memberId}.jpg";
+
+                //Save avatar
+                if (tempMember[i].AVATAR.Length > 0)
+                {
+                    //Save Image
+                    var myFilePath = $"{Folder}{avatarLink}";
+
+                    //Check if existed image having same name then replace
+                    MyFileManager.CheckExistedFile(myFilePath);
+                    //Copy image to new folder
+                    System.IO.File.Copy(tempMember[i].AVATAR, myFilePath);
+                }
+                else
+                {
+                    avatarLink = "Resources\\Icons\\picture.png";
+                }
+
+
+                myMember.Add(new MEMBER
+                {
+                    TRIP_ID = myTripId,
+                    MEMBER_ID = memberId,
+                    MEMBER_NAME = tempMember[i].MEMBER_NAME,
+                    EMAIL = tempMember[i].EMAIL,
+                    PHONE = tempMember[i].PHONE,
+                    AVATAR = avatarLink
+                });
+
+                //save member
+                db.MEMBERs.Add(myMember[i]);
+                db.SaveChanges();
+
+                var newTripSplit = new List<TRIP_SPLIT>();
+                var tempTripSplit = myTripSplit.Where(c => c.MEMBER_ID == tempMember[i].MEMBER_ID).ToList();
+                //Save Member Trip Split
+                for (int j = 0; j < tempTripSplit.Count; j++)
+                {
+                    newTripSplit.Add(new TRIP_SPLIT
+                    {
+                        TRIP_ID = myTripId,
+                        MEMBER_ID = memberId,
+                        PAYMENT_ID = $"TS{j}",
+                        PAYMENT_DESCRIPTION = tempTripSplit[j].PAYMENT_DESCRIPTION,
+                        PAID_COST = tempTripSplit[j].PAID_COST
+                    });
+                }
+                for (int j = 0; j < newTripSplit.Count; j++)
+                {
+                    db.TRIP_SPLIT.Add(newTripSplit[j]);
+                    db.SaveChanges();
+                }
             }
         }
     }
