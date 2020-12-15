@@ -81,6 +81,14 @@ namespace WeSplitProject
                 }
                 totalExpenseTextBlock.Text = $"Tổng: {totalCost}";
             }
+            MouseDown += Window_MouseDown;
+        }
+
+        //drag window
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                DragMove();
         }
 
         public static bool IsImageFile(string fileName)

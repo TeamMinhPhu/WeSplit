@@ -21,23 +21,22 @@ namespace WeSplitProject
     /// </summary>
     public partial class LocationModifyWindow : Window
     {
-        class TripDestination
-        {
-            public string Destination { get; set; }
-        }
+        DateTime? beginDate;
+        DateTime? finishDate;
 
         VISIT_LOCATION myVisitLoc;
         public VISIT_LOCATION newVisitLoc { get; set; }
 
         string _visitLocImageLink;
-        BindingList<TripDestination> myVisitDes;
 
         WeSplitDBEntities db = new WeSplitDBEntities();
 
-        public LocationModifyWindow(VISIT_LOCATION tempVisitLoc)
+        public LocationModifyWindow(VISIT_LOCATION tempVisitLoc, DateTime? tempBeginDate, DateTime? tempFinishDate)
         {
             InitializeComponent();
             myVisitLoc = tempVisitLoc;
+            beginDate = tempBeginDate;
+            finishDate = tempFinishDate;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -46,6 +45,11 @@ namespace WeSplitProject
             visitLocDateBeginDatePicker.SelectedDate = myVisitLoc.DATE_BEGIN;
             visitLocDateFinishDatePicker.SelectedDate = myVisitLoc.DATE_FINISH;
             visitLocDescriptionTextBox.Text = myVisitLoc.VISIT_LOC_DESCRIPTION;
+
+            visitLocDateBeginDatePicker.DisplayDateStart = beginDate;
+            visitLocDateBeginDatePicker.DisplayDateEnd = finishDate;
+            visitLocDateFinishDatePicker.DisplayDateStart = beginDate;
+            visitLocDateFinishDatePicker.DisplayDateEnd = finishDate;
 
             if (myVisitLoc.IMAGE_LINK.Length > 0)
             {
@@ -58,6 +62,14 @@ namespace WeSplitProject
             {
                 _visitLocImageLink = "";
             }
+            MouseDown += Window_MouseDown;
+        }
+
+        //drag window
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                DragMove();
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -152,6 +164,78 @@ namespace WeSplitProject
             else
             {
                 MessageBox.Show("Chưa chọn địa điểm tham quan", "Lỗi");
+            }
+
+        }
+
+        private void visitLocDateBeginDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var visitLocBeginDate = visitLocDateBeginDatePicker.SelectedDate;
+            var visitLocFinishDate = visitLocDateFinishDatePicker.SelectedDate;
+
+            if (visitLocBeginDate != null)
+            {
+                if (beginDate == null)
+                {
+                    MessageBox.Show("Chưa chọn ngày bắt đầu chuyến đi", "Cảnh báo");
+                    visitLocDateBeginDatePicker.SelectedDate = null;
+                }
+                else if (finishDate == null)
+                {
+                    MessageBox.Show("Chưa chọn ngày kết thúc chuyến đi", "Cảnh báo");
+                    visitLocDateBeginDatePicker.SelectedDate = null;
+                }
+                else
+                {
+                    if (visitLocFinishDate != null)
+                    {
+                        if (visitLocBeginDate != null)
+                        {
+                            if (visitLocBeginDate > visitLocFinishDate)
+                            {
+                                MessageBox.Show("Ngày bắt đầu sau ngày kết thúc", "Lỗi");
+                                visitLocDateBeginDatePicker.SelectedDate = null;
+                            }
+                        }
+                    }
+                }
+            }
+
+        }
+
+        private void visitLocDateFinishDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var visitLocBeginDate = visitLocDateBeginDatePicker.SelectedDate;
+            var visitLocFinishDate = visitLocDateFinishDatePicker.SelectedDate;
+
+            if (visitLocFinishDate != null)
+            {
+                if (finishDate == null)
+                {
+                    MessageBox.Show("Chưa chọn ngày kết thúc chuyến đi", "Cảnh báo");
+                    visitLocDateFinishDatePicker.SelectedDate = null;
+                }
+                else if (beginDate == null)
+                {
+                    MessageBox.Show("Chưa chọn ngày bắt đầu chuyến đi", "Cảnh báo");
+                    visitLocDateFinishDatePicker.SelectedDate = null;
+                }
+                else
+                {
+
+
+                    if (visitLocBeginDate != null)
+                    {
+                        if (visitLocFinishDate != null)
+                        {
+                            if (visitLocBeginDate > visitLocFinishDate)
+                            {
+                                MessageBox.Show("Ngày bắt đầu sau ngày kết thúc", "Lỗi");
+                                visitLocDateBeginDatePicker.SelectedDate = null;
+                            }
+                        }
+                    }
+                }
             }
 
         }
