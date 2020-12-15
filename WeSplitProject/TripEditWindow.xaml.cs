@@ -350,14 +350,14 @@ namespace WeSplitProject
                 _visitLocImageLink = "";
                 visitLocImageHint.Visibility = Visibility.Visible;
 
-                for (int i = myVisitDes.Count - 1; i >= 0; i--)
-                {
-                    if (myVisitDes[i].Destination == _selectedItem)
-                    {
-                        return;
-                    }
-                }
-                myVisitDes.Add(new TripDestination { Destination = _selectedItem });
+                //for (int i = myVisitDes.Count - 1; i >= 0; i--)
+                //{
+                //    if (myVisitDes[i].Destination == _selectedItem)
+                //    {
+                //        return;
+                //    }
+                //}
+                //myVisitDes.Add(new TripDestination { Destination = _selectedItem });
             }
             else
             {

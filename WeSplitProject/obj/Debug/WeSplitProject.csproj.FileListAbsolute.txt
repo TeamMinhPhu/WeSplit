@@ -190,7 +190,6 @@ D:\Minh\This Week\Window\Project2\version1.3\WeSplitProject\obj\Debug\WeSplitPro
 D:\Minh\This Week\Window\Project2\version1.3\WeSplitProject\obj\Debug\WeSplitProject.csproj.CopyComplete
 D:\Minh\This Week\Window\Project2\version1.3\WeSplitProject\obj\Debug\WeSplitProject.exe
 D:\Minh\This Week\Window\Project2\version1.3\WeSplitProject\obj\Debug\WeSplitProject.pdb
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.csprojAssemblyReference.cache
 C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\TripEditWindow.g.cs
 C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\MainWindow.g.cs
 C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\MemberModifyWindow.g.cs
@@ -252,3 +251,9 @@ C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\HomePage.g.cs
 C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\HomePage.baml
 C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\AboutUsPage.g.cs
 C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\AboutUsPage.baml
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\LiveCharts.dll
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\LiveCharts.pdb
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\LiveCharts.xml
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.csprojAssemblyReference.cache
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\DetailPage.g.cs
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\DetailPage.baml

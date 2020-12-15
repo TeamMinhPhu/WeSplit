@@ -30,7 +30,7 @@ namespace WeSplitProject
 		string _search;
 		int _selected_index;
 		WeSplitDBEntities db = new WeSplitDBEntities();
-		bool selectionMode = true;
+		bool selectionMode = false;
 
 		private System.Timers.Timer _timer = new System.Timers.Timer(300); //time delayed to UpdatePage after resizing window
 
@@ -56,7 +56,7 @@ namespace WeSplitProject
 				viewModel.ID = viewData.TRIP_ID;
 
 				viewModel.Name = viewData.TRIP_NAME;
-				viewModel.CoverImage = "Resources/Images/sora.jpg";//viewData.CoverImage;
+				viewModel.CoverImage = viewData.IMAGE_LINK;
 				viewModel.StartedDate = viewData.DATE_BEGIN?.ToString("dd/MM/yyyy");
 				if (viewData.DATE_FINISH != null)
 				{
@@ -130,12 +130,17 @@ namespace WeSplitProject
 		//Detail
 		private void trip_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
-			if (selectionMode == true) return;
-			MessageBox.Show("Detail trip: " + viewModels[_selected_index].ID.ToString());
-			foreach (var trip in db.TRIPs)
+			if (selectionMode == true)
 			{
-				MessageBox.Show(trip.TRIP_ID + "\n" + trip.TRIP_NAME + "\n" + trip.TRIP_STATUS);
+				//do nothing
 			}
+			else
+			{
+				string ID = viewModels[_selected_index].ID;
+				TRIP tripDetail = db.TRIPs.First(c => c.TRIP_ID == ID);
+				this.NavigationService.Navigate(new DetailPage(tripDetail));
+			}
+
 		}
 
 

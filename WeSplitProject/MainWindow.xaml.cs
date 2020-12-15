@@ -42,8 +42,15 @@ namespace WeSplitProject
 		//drag window
 		private void Window_MouseDown(object sender, MouseButtonEventArgs e)
 		{
-			if (e.ChangedButton == MouseButton.Left)
-				DragMove();
+			try
+			{
+				if (e.ChangedButton == MouseButton.Left)
+					DragMove();
+			}
+			catch 
+			{
+				// do nothing
+			}
 		}
 		#region "Title Bar Buttons"
 		//close
