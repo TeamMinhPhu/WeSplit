@@ -246,3 +246,9 @@ C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\LocationModifyW
 C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\LocationModifyWindow.baml
 C:\Users\vuanh\Documents\WeSplit\WeSplitProject\bin\Debug\WeSplitDB.mdf
 C:\Users\vuanh\Documents\WeSplit\WeSplitProject\bin\Debug\WeSplitDB_log.ldf
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\WeSplitDB_log.ldf
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\WeSplitDB.mdf
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\HomePage.g.cs
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\HomePage.baml
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\AboutUsPage.g.cs
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\AboutUsPage.baml

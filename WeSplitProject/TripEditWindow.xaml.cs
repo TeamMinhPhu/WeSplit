@@ -35,11 +35,8 @@ namespace WeSplitProject
             set
             {
                 _MyProperty = value;
-                if (PropertyChanged != null)
-                {
-                    PropertyChanged(this, new PropertyChangedEventArgs("MyProperty"));
-                }
-            }
+				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("MyProperty"));
+			}
         }
     }
 
@@ -618,6 +615,7 @@ namespace WeSplitProject
                         //Save Member
                         SaveMember(myTripId, savedFolderLink);
 
+                        DialogResult = true;
                         this.Close();
 
                     }

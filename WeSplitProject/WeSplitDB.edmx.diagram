@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="3d03150a904643d892fdc9876d335719" Name="Diagram1">
-        <EntityTypeShape EntityType="WeSplitDBModel.EXPENSE" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="WeSplitDBModel.EXPENSE" Width="1.5" PointX="4.875" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="WeSplitDBModel.MEMBER" Width="1.5" PointX="3" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="WeSplitDBModel.TRIP" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
         <EntityTypeShape EntityType="WeSplitDBModel.TRIP_SPLIT" Width="1.5" PointX="5.25" PointY="4.125" IsExpanded="true" />

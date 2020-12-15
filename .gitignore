@@ -383,3 +383,5 @@ Version.cpp
 *.cache
 *.lref
 *.lref
+*.dll
+*.cache
