@@ -96,6 +96,8 @@ namespace WeSplitProject
                         visitLocCode = 0;
                         memberCode = 0;
 
+                        var Folder = AppDomain.CurrentDomain.BaseDirectory;
+
                         //load trip
                         myTrip = db.TRIPs.Where(c => c.TRIP_ID == _TripID).FirstOrDefault();
 
@@ -108,9 +110,8 @@ namespace WeSplitProject
                         tripDateFinishDatePicker.SelectedDate = myTrip.DATE_FINISH;
 
                         if (myTrip.IMAGE_LINK.Length > 0)
-                        {
-                            var Folder = AppDomain.CurrentDomain.BaseDirectory;
-                            _tripImageLink = $"{Folder}{myTrip.IMAGE_LINK}";
+                        {                            
+                            _tripImageLink = $"{Folder}{myTrip.IMAGE_LINK}";                            
                             var Bitmap = new BitmapImage(new Uri(_tripImageLink, UriKind.Absolute));
                             tripImage.Source = Bitmap;
                             tripImageHint.Visibility = Visibility.Hidden;
@@ -129,27 +130,49 @@ namespace WeSplitProject
                             if (myExpenseInput.Count == i + 1)
                             {
                                 myExpenseInput[i].ExpenseTB.Text = myExpense[i].EXPENSE_DESCRIPTION;
-                                myExpenseInput[i].ExpenseTBCheck = true;
-                                myExpenseInput[i].CostTB.Text = $"{myExpense[i].COST}";
+                                myExpenseInput[i].ExpenseTBCheck = true;                                
                                 myExpenseInput[i].CostTBCheck = true;
                                 myExpenseInput[i].Cost = Convert.ToInt64(myExpense[i].COST);
+                                myExpenseInput[i].CostTB.Text = $"{myExpenseInput[i].Cost}";
 
-                                ExpenseDesTextBoxHandler(myExpenseInput[i].ExpenseTB);
+                                expenseTotalCost += myExpenseInput[i].Cost;
                             }
                         }
+                        totalExpenseTextBlock.Text = $"Tổng chi phí: {expenseTotalCost.ToString()}";
 
                         //Load visit Location data
                         myVisitLoc = new BindingList<VISIT_LOCATION>(db.VISIT_LOCATION.Where(c => c.TRIP_ID == _TripID).ToList());
+                        for (int i = 0; i < myVisitLoc.Count; i++)
+                        {
+                            if (myVisitLoc[i].IMAGE_LINK.Length > 0)
+                            {
+                                myVisitLoc[i].IMAGE_LINK = Folder + myVisitLoc[i].IMAGE_LINK;
+                            }
+                        }
                         vitsitLocList.ItemsSource = myVisitLoc;
                         visitLocCode = myVisitLoc.Count;
 
                         //Load member data
                         myMember = new BindingList<MEMBER>(db.MEMBERs.Where(c => c.TRIP_ID == _TripID).ToList());
+                        for (int i = 0; i < myMember.Count; i++)
+                        {
+                            if (myMember[i].AVATAR.Length > 0)
+                            {
+                                myMember[i].AVATAR = Folder + myMember[i].AVATAR;
+                            }
+                        }
                         memberListBox.ItemsSource = myMember;
                         memberCode = myMember.Count;
 
                         //Load Trip Split
                         myTripSplit = db.TRIP_SPLIT.Where(c => c.TRIP_ID == _TripID).ToList();
+                        for (int i = 0; i < myTripSplit.Count; i++)
+                        {
+                            if(myTripSplit[i].PAID_COST != null)
+                            {
+                                myTripSplit[i].PAID_COST = Convert.ToInt64(myTripSplit[i].PAID_COST);
+                            }
+                        }
                     }
                     catch
                     {
@@ -683,24 +706,22 @@ namespace WeSplitProject
                         if (mode == 1)
                         {
                             //Delete old data
+                            //Detele on VISIT_LOCATION
+                            db.VISIT_LOCATION.RemoveRange(db.VISIT_LOCATION.Where(c => c.TRIP_ID == _TripID).ToList());
+
                             //Detele on TRIP_SPLIT
-                            db.TRIP_SPLIT.RemoveRange(db.TRIP_SPLIT.Where(c => c.TRIP_ID == _TripID));
-                            db.SaveChanges();
+                            db.TRIP_SPLIT.RemoveRange(db.TRIP_SPLIT.Where(c => c.TRIP_ID == _TripID).ToList());
 
                             //Detele on MEMBER
-                            db.MEMBERs.RemoveRange(db.MEMBERs.Where(c => c.TRIP_ID == _TripID));
-                            db.SaveChanges();
-
-                            //Detele on VISIT_LOCATION
-                            db.VISIT_LOCATION.RemoveRange(db.VISIT_LOCATION.Where(c => c.TRIP_ID == _TripID));
-                            db.SaveChanges();
+                            db.MEMBERs.RemoveRange(db.MEMBERs.Where(c => c.TRIP_ID == _TripID).ToList());
 
                             //Detele on EXPENSE
-                            db.EXPENSEs.RemoveRange(db.EXPENSEs.Where(c => c.TRIP_ID == _TripID));
-                            db.SaveChanges();
+                            db.EXPENSEs.RemoveRange(db.EXPENSEs.Where(c => c.TRIP_ID == _TripID).ToList());
 
                             //Delete on TRIP
                             db.TRIPs.Remove(myTrip);
+
+                            db.SaveChanges();
 
                             //Create folder to save image
                             var Folder = AppDomain.CurrentDomain.BaseDirectory;
@@ -742,7 +763,7 @@ namespace WeSplitProject
                             SaveMember(myTripId, savedFolderLink);
                         }
 
-                        this.Close();
+                        DialogResult = true;
                     }
                 }
             }
@@ -751,24 +772,32 @@ namespace WeSplitProject
         private void SaveNewTrip(string myTripId, string savedFolderLink)
         {
             var Folder = AppDomain.CurrentDomain.BaseDirectory;
+            myTripId = myTripId.Replace(" ", "");
 
             //Main trip image link: Resources\\Images\\TRIP{}\\TRIP{}.jpg
             var tripImgLink = $"{savedFolderLink}\\{myTripId}.jpg";
-
+            
             //Save trip Image
             if (_tripImageLink.Length > 0)
             {
                 //Save Image
                 var myFilePath = $"{Folder}{tripImgLink}";
 
-                //Check if existed image having same name then replace
-                MyFileManager.CheckExistedFile(myFilePath);
-                //Copy image to new folder
-                System.IO.File.Copy(_tripImageLink, myFilePath);
+                if (_tripImageLink != myFilePath)
+                {
+                    try
+                    {
+                        //Check if existed image having same name then replace
+                        MyFileManager.CheckExistedFile(myFilePath);
+                        //Copy image to new folder
+                        System.IO.File.Copy(_tripImageLink, myFilePath);
+                    }
+                    catch { /*do nothing*/ }
+                }
             }
             else
             {
-                tripImgLink = "Resources\\Icons\\picture.png";
+                tripImgLink = "";
             }
 
             //Create Trip
@@ -821,6 +850,8 @@ namespace WeSplitProject
         private void SaveVisitLocation(string myTripId, string savedFolderLink)
         {
             var Folder = AppDomain.CurrentDomain.BaseDirectory;
+            myTripId = myTripId.Replace(" ", "");
+
             var tempVisitLocs = myVisitLoc.OrderBy(c => c.VISIT_LOC_ID).ToList();
 
             for (int i = 0; i < tempVisitLocs.Count; i++)
@@ -836,14 +867,21 @@ namespace WeSplitProject
                     //Save Image
                     var myFilePath = $"{Folder}{visitLocImgLink}";
 
-                    //Check if existed image having same name then replace
-                    MyFileManager.CheckExistedFile(myFilePath);
-                    //Copy image to new folder
-                    System.IO.File.Copy(tempVisitLocs[i].IMAGE_LINK, myFilePath);
+                    if (tempVisitLocs[i].IMAGE_LINK != myFilePath)
+                    {
+                        try
+                        {
+                            //Check if existed image having same name then replace
+                            MyFileManager.CheckExistedFile(myFilePath);
+                            //Copy image to new folder
+                            System.IO.File.Copy(tempVisitLocs[i].IMAGE_LINK, myFilePath);
+                        }
+                        catch { /*do nothing*/}
+                    }
                 }
                 else
                 {
-                    visitLocImgLink = "Resources\\Icons\\picture.png";
+                    visitLocImgLink = "";
                 }
 
                 var newVisitLoc = new VISIT_LOCATION
@@ -865,7 +903,8 @@ namespace WeSplitProject
 
         private void SaveMember(string myTripId, string savedFolderLink)
         {
-            var Folder = AppDomain.CurrentDomain.BaseDirectory;
+            var Folder = AppDomain.CurrentDomain.BaseDirectory; 
+            myTripId = myTripId.Replace(" ", "");
             var tempMember = myMember.OrderBy(c => c.MEMBER_ID).ToList();
 
             for (int i = 0; i < tempMember.Count; i++)
@@ -881,14 +920,21 @@ namespace WeSplitProject
                     //Save Image
                     var myFilePath = $"{Folder}{avatarLink}";
 
-                    //Check if existed image having same name then replace
-                    MyFileManager.CheckExistedFile(myFilePath);
-                    //Copy image to new folder
-                    System.IO.File.Copy(tempMember[i].AVATAR, myFilePath);
+                    if (tempMember[i].AVATAR != myFilePath)
+                    {
+                        try
+                        {
+                            //Check if existed image having same name then replace
+                            MyFileManager.CheckExistedFile(myFilePath);
+                            //Copy image to new folder
+                            System.IO.File.Copy(tempMember[i].AVATAR, myFilePath);
+                        }
+                        catch { /*do nothing*/ }
+                    }
                 }
                 else
                 {
-                    avatarLink = "Resources\\Icons\\picture.png";
+                    avatarLink = "";
                 }
 
                 var newMember = new MEMBER

@@ -163,7 +163,20 @@ namespace WeSplitProject
 		//Edit
 		private void editButton_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
-			MessageBox.Show("Chỉnh sửa");
+			var index = ListViewTrips.SelectedIndex;
+			if (index >= 0) 
+            {
+				var addScreen = new CreateNewTrip(viewModels[index].ID);
+
+				if (addScreen.ShowDialog() == true)
+				{
+					_current_page = 1;
+					paging.SelectedIndex = 0;
+					UpdatePage();
+					UpdateView();
+				}
+			}
+			
 		}
 
 		#region "Paging"

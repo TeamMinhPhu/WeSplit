@@ -51,17 +51,26 @@ namespace WeSplitProject
             visitLocDateFinishDatePicker.DisplayDateStart = beginDate;
             visitLocDateFinishDatePicker.DisplayDateEnd = finishDate;
 
-            if (myVisitLoc.IMAGE_LINK.Length > 0)
+            try
             {
-                _visitLocImageLink = myVisitLoc.IMAGE_LINK;
-                var Bitmap = new BitmapImage(new Uri(_visitLocImageLink, UriKind.Absolute));
-                visitLocImage.Source = Bitmap;
-                visitLocImageHint.Visibility = Visibility.Hidden;
+                if (myVisitLoc.IMAGE_LINK.Length > 0)
+                {
+                    _visitLocImageLink = myVisitLoc.IMAGE_LINK;
+                    var Bitmap = new BitmapImage(new Uri(_visitLocImageLink, UriKind.Absolute));
+                    visitLocImage.Source = Bitmap;
+                    visitLocImageHint.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    _visitLocImageLink = "";
+                }
             }
-            else
+            catch
             {
-                _visitLocImageLink = "";
+                MessageBox.Show("Không mở được thông tin địa điểm", "Lỗi");
+                this.Close();
             }
+
             MouseDown += Window_MouseDown;
         }
 
