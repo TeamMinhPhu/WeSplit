@@ -22,7 +22,7 @@
           </Key>
           <Property Name="TRIP_ID" Type="char" MaxLength="10" Nullable="false" />
           <Property Name="MEMBER_ID" Type="char" MaxLength="10" Nullable="false" />
-          <Property Name="MEMBER_NAME" Type="char" MaxLength="10" />
+          <Property Name="MEMBER_NAME" Type="nvarchar" MaxLength="100" />
           <Property Name="PHONE" Type="varchar" MaxLength="10" />
           <Property Name="EMAIL" Type="varchar" MaxLength="50" />
           <Property Name="AVATAR" Type="varchar" MaxLength="100" />
@@ -162,7 +162,7 @@
           </Key>
           <Property Name="TRIP_ID" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="MEMBER_ID" Type="String" MaxLength="10" FixedLength="true" Unicode="false" Nullable="false" />
-          <Property Name="MEMBER_NAME" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="MEMBER_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="PHONE" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="EMAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="AVATAR" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />

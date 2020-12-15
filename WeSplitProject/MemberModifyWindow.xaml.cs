@@ -51,16 +51,24 @@ namespace WeSplitProject
 
             totalCost = 0;
 
-            if (myMember.AVATAR.Length > 0)
+            try
             {
-                _avatarImageLink = myMember.AVATAR;
-                var Bitmap = new BitmapImage(new Uri(_avatarImageLink, UriKind.Absolute));
-                avatarImage.Source = Bitmap;
-                avatarImageHint.Visibility = Visibility.Hidden;
+                if (myMember.AVATAR.Length > 0)
+                {
+                    _avatarImageLink = myMember.AVATAR;
+                    var Bitmap = new BitmapImage(new Uri(_avatarImageLink, UriKind.Absolute));
+                    avatarImage.Source = Bitmap;
+                    avatarImageHint.Visibility = Visibility.Hidden;
+                }
+                else
+                {
+                    _avatarImageLink = "";
+                }
             }
-            else
+            catch
             {
-                _avatarImageLink = "";
+                MessageBox.Show("Không mở được thông tin thành viên", "Lỗi");
+                this.Close();
             }
 
             expenseListBox.ItemsSource = myTripSplit;

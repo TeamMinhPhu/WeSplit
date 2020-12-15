@@ -214,13 +214,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <EntityDeploy Include="WeSplitDB.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>WeSplitDB.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="WeSplitDB.edmx.diagram">
-      <DependentUpon>WeSplitDB.edmx</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -247,14 +240,21 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <EntityDeploy Include="WeSplitDB.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>WeSplitDB.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="WeSplitDB.edmx.diagram">
+      <DependentUpon>WeSplitDB.edmx</DependentUpon>
+    </None>
+    <None Include="WeSplitDB.mdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="WeSplitDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>WeSplitDB.edmx</DependentUpon>
       <LastGenOutput>WeSplitDB.Context.cs</LastGenOutput>
     </Content>
-    <None Include="WeSplitDB.mdf">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <Content Include="WeSplitDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>WeSplitDB.edmx</DependentUpon>
