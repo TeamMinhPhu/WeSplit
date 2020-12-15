@@ -24,32 +24,11 @@ using WeSplitProject.Classes;
 
 namespace WeSplitProject
 {
-    public class MyObject : INotifyPropertyChanged
-    {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private string _MyProperty;
-        public string MyProperty
-        {
-            get { return _MyProperty; }
-            set
-            {
-                _MyProperty = value;
-				PropertyChanged?.Invoke(this, new PropertyChangedEventArgs("MyProperty"));
-			}
-        }
-    }
-
     /// <summary>
     /// Interaction logic for CreateNewTrip.xaml
     /// </summary>
     public partial class CreateNewTrip : Window
     {
-        class TripDestination
-        {
-            public string Destination { get; set; }
-        }
-
         class ExpenseInput
         {
             public TextBox ExpenseTB { get; set; }
@@ -57,12 +36,6 @@ namespace WeSplitProject
             public bool ExpenseTBCheck { get; set; }
             public bool CostTBCheck { get; set; }
             public long Cost { get; set; }
-        }
-
-        class MemberView
-        {
-            public MEMBER member { get; set; }
-            public int totalExpense { get; set; }
         }
 
         class MemberExpense
@@ -77,13 +50,11 @@ namespace WeSplitProject
         int memberCode;
         int visitLocCode;
 
+        string _TripID;
         TRIP myTrip;
 
         BindingList<VISIT_LOCATION> myVisitLoc;
         BindingList<MEMBER> myMember;
-        BindingList<TripDestination> myTripDes;
-        BindingList<TripDestination> myVisitDes;
-        BindingList<MemberView> myMemberView;
 
         List<MemberExpense> memberExpenseList;
         List<ExpenseInput> myExpenseInput;
@@ -94,33 +65,133 @@ namespace WeSplitProject
 
         WeSplitDBEntities db = new WeSplitDBEntities();
 
-
+        int mode; //mode 0: create new trip; mode 1: update trip
 
         public CreateNewTrip()
         {
             InitializeComponent();
+            mode = 0;
+        }
+
+        public CreateNewTrip(string tempTripId)
+        {
+            InitializeComponent();
+            _TripID = tempTripId;
+            mode = 1;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            _tripImageLink = "";
-            _visitLocImageLink = "";
-            _avatarImageLink = "";
-            expenseTotalCost = 0;
-            visitLocCode = 0;
-            memberCode = 0;
+            if (mode == 1)
+            {
+                if (_TripID.Length > 0)
+                {
+                    //Load trip from database
+                    try
+                    {
+                        _tripImageLink = "";
+                        _visitLocImageLink = "";
+                        _avatarImageLink = "";
+                        expenseTotalCost = 0;
+                        visitLocCode = 0;
+                        memberCode = 0;
 
-            myExpenseInput = new List<ExpenseInput>();
+                        //load trip
+                        myTrip = db.TRIPs.Where(c => c.TRIP_ID == _TripID).FirstOrDefault();
 
-            myVisitLoc = new BindingList<VISIT_LOCATION>();
-            vitsitLocList.ItemsSource = myVisitLoc;
+                        //show trip
+                        tripNameTextBox.Text = myTrip.TRIP_NAME;
+                        tripDestinationTextBox.Text = myTrip.TRIP_DESTINATION;
+                        tripDescriptionTextBox.Text = myTrip.TRIP_DESCRIPTION;
+                        tripStatusComboBox.SelectedIndex = myTrip.TRIP_STATUS.Value;
+                        tripDateBeginDatePicker.SelectedDate = myTrip.DATE_BEGIN;
+                        tripDateFinishDatePicker.SelectedDate = myTrip.DATE_FINISH;
 
-            myTripSplit = new List<TRIP_SPLIT>();
-            memberExpenseList = new List<MemberExpense>();
+                        if (myTrip.IMAGE_LINK.Length > 0)
+                        {
+                            var Folder = AppDomain.CurrentDomain.BaseDirectory;
+                            _tripImageLink = $"{Folder}{myTrip.IMAGE_LINK}";
+                            var Bitmap = new BitmapImage(new Uri(_tripImageLink, UriKind.Absolute));
+                            tripImage.Source = Bitmap;
+                            tripImageHint.Visibility = Visibility.Hidden;
+                        }
+                        else
+                        {/*do nothing*/}
 
-            //Create member listbox source
-            myMember = new BindingList<MEMBER>();
-            memberListBox.ItemsSource = myMember;
+                        //Load Main Expense
+                        myExpense = db.EXPENSEs.Where(c => c.TRIP_ID == _TripID).ToList();
+
+                        //Create Input from and present data
+                        myExpenseInput = new List<ExpenseInput>();
+                        for (int i = 0; i < myExpense.Count; i++)
+                        {
+                            AddExpenseInputSpace();
+                            if (myExpenseInput.Count == i + 1)
+                            {
+                                myExpenseInput[i].ExpenseTB.Text = myExpense[i].EXPENSE_DESCRIPTION;
+                                myExpenseInput[i].ExpenseTBCheck = true;
+                                myExpenseInput[i].CostTB.Text = $"{myExpense[i].COST}";
+                                myExpenseInput[i].CostTBCheck = true;
+                                myExpenseInput[i].Cost = Convert.ToInt64(myExpense[i].COST);
+
+                                ExpenseDesTextBoxHandler(myExpenseInput[i].ExpenseTB);
+                            }
+                        }
+
+                        //Load visit Location data
+                        myVisitLoc = new BindingList<VISIT_LOCATION>(db.VISIT_LOCATION.Where(c => c.TRIP_ID == _TripID).ToList());
+                        vitsitLocList.ItemsSource = myVisitLoc;
+                        visitLocCode = myVisitLoc.Count;
+
+                        //Load member data
+                        myMember = new BindingList<MEMBER>(db.MEMBERs.Where(c => c.TRIP_ID == _TripID).ToList());
+                        memberListBox.ItemsSource = myMember;
+                        memberCode = myMember.Count;
+
+                        //Load Trip Split
+                        myTripSplit = db.TRIP_SPLIT.Where(c => c.TRIP_ID == _TripID).ToList();
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Không tìm thấy thông tin chuyến đi", "Lỗi");
+                        this.Close();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Không tìm thấy thông tin chuyến đi", "Lỗi");
+                    this.Close();
+                }
+            }
+            else if (mode == 0)
+            {
+                _tripImageLink = "";
+                _visitLocImageLink = "";
+                _avatarImageLink = "";
+                expenseTotalCost = 0;
+                visitLocCode = 0;
+                memberCode = 0;
+
+                myExpenseInput = new List<ExpenseInput>();
+
+                myVisitLoc = new BindingList<VISIT_LOCATION>();
+                vitsitLocList.ItemsSource = myVisitLoc;
+
+                myTripSplit = new List<TRIP_SPLIT>();
+                memberExpenseList = new List<MemberExpense>();
+
+                //Create member listbox source
+                myMember = new BindingList<MEMBER>();
+                memberListBox.ItemsSource = myMember;
+            }
+            MouseDown += Window_MouseDown;
+        }
+
+        //drag window
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                DragMove();
         }
 
         public static bool IsImageFile(string fileName)
@@ -299,6 +370,11 @@ namespace WeSplitProject
 
         private void addExpenseBtn_Click(object sender, RoutedEventArgs e)
         {
+            AddExpenseInputSpace();
+        }
+
+        private void AddExpenseInputSpace()
+        {
             int code = myExpenseInput.Count;
 
             //Horizontal Stack panel
@@ -350,14 +426,14 @@ namespace WeSplitProject
                 _visitLocImageLink = "";
                 visitLocImageHint.Visibility = Visibility.Visible;
 
-                //for (int i = myVisitDes.Count - 1; i >= 0; i--)
-                //{
-                //    if (myVisitDes[i].Destination == _selectedItem)
-                //    {
-                //        return;
-                //    }
-                //}
-                //myVisitDes.Add(new TripDestination { Destination = _selectedItem });
+                /*for (int i = myVisitDes.Count - 1; i >= 0; i--) 
+                {
+                    if(myVisitDes[i].Destination == _selectedItem)
+                    {
+                        return;
+                    }
+                }
+                myVisitDes.Add(new TripDestination { Destination = _selectedItem });*/
             }
             else
             {
@@ -409,6 +485,11 @@ namespace WeSplitProject
         private void ExpenseDesTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             var textbox = sender as TextBox;
+            ExpenseDesTextBoxHandler(textbox);
+        }
+
+        private void ExpenseDesTextBoxHandler(TextBox textbox)
+        {
             int flag = 0;
             //find expense id
             for (int i = 0; i < myExpenseInput.Count; i++)
@@ -457,7 +538,11 @@ namespace WeSplitProject
         private void CostTextBox_LostFocus(object sender, RoutedEventArgs e)
         {
             var textbox = sender as TextBox;
+            CostTextBoxHandler(textbox);
+        }
 
+        private void CostTextBoxHandler(TextBox textbox)
+        {
             int flag = 0;
             //find expense id
             for (int i = 0; i < myExpenseInput.Count; i++)
@@ -565,7 +650,7 @@ namespace WeSplitProject
         private void vitsitLocList_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var index = (sender as ListBox).SelectedIndex;
-            var visitLocEditScreen = new LocationModifyWindow(myVisitLoc[index]);
+            var visitLocEditScreen = new LocationModifyWindow(myVisitLoc[index], tripDateBeginDatePicker.SelectedDate, tripDateFinishDatePicker.SelectedDate);
             if (visitLocEditScreen.ShowDialog() == true)
             {
                 var tempVisitLoc = visitLocEditScreen.newVisitLoc;
@@ -595,29 +680,69 @@ namespace WeSplitProject
                     }
                     else
                     {
-                        var tempTripIds = db.TRIPs.Select(c => c.TRIP_ID).ToList();
-                        string myTripId = $"TRIP{tempTripIds.Count}";
+                        if (mode == 1)
+                        {
+                            //Delete old data
+                            //Detele on TRIP_SPLIT
+                            db.TRIP_SPLIT.RemoveRange(db.TRIP_SPLIT.Where(c => c.TRIP_ID == _TripID));
+                            db.SaveChanges();
 
-                        //Create folder to save image
-                        var Folder = AppDomain.CurrentDomain.BaseDirectory;
-                        var savedFolderLink = $"Resources\\Images\\{myTripId}";
-                        MyFileManager.CheckDictionary($"{Folder}{savedFolderLink}");
+                            //Detele on MEMBER
+                            db.MEMBERs.RemoveRange(db.MEMBERs.Where(c => c.TRIP_ID == _TripID));
+                            db.SaveChanges();
 
-                        //Save trip
-                        SaveNewTrip(myTripId, savedFolderLink);
+                            //Detele on VISIT_LOCATION
+                            db.VISIT_LOCATION.RemoveRange(db.VISIT_LOCATION.Where(c => c.TRIP_ID == _TripID));
+                            db.SaveChanges();
 
-                        //Save expense
-                        SaveExpense(myTripId);
+                            //Detele on EXPENSE
+                            db.EXPENSEs.RemoveRange(db.EXPENSEs.Where(c => c.TRIP_ID == _TripID));
+                            db.SaveChanges();
 
-                        //Save Visit Location
-                        SaveVisitLocation(myTripId, savedFolderLink);
+                            //Delete on TRIP
+                            db.TRIPs.Remove(myTrip);
 
-                        //Save Member
-                        SaveMember(myTripId, savedFolderLink);
+                            //Create folder to save image
+                            var Folder = AppDomain.CurrentDomain.BaseDirectory;
+                            var savedFolderLink = $"Resources\\Images\\{_TripID}";
+                            MyFileManager.CheckDictionary($"{Folder}{savedFolderLink}");
 
-                        DialogResult = true;
+                            //Save trip
+                            SaveNewTrip(_TripID, savedFolderLink);
+
+                            //Save expense
+                            SaveExpense(_TripID);
+
+                            //Save Visit Location
+                            SaveVisitLocation(_TripID, savedFolderLink);
+
+                            //Save Member and tripsplit
+                            SaveMember(_TripID, savedFolderLink);
+                        }
+                        else if (mode == 0)
+                        {
+                            var tempTripIds = db.TRIPs.Select(c => c.TRIP_ID).ToList();
+                            string myTripId = $"TRIP{tempTripIds.Count}";
+
+                            //Create folder to save image
+                            var Folder = AppDomain.CurrentDomain.BaseDirectory;
+                            var savedFolderLink = $"Resources\\Images\\{myTripId}";
+                            MyFileManager.CheckDictionary($"{Folder}{savedFolderLink}");
+
+                            //Save trip
+                            SaveNewTrip(myTripId, savedFolderLink);
+
+                            //Save expense
+                            SaveExpense(myTripId);
+
+                            //Save Visit Location
+                            SaveVisitLocation(myTripId, savedFolderLink);
+
+                            //Save Member and tripsplit
+                            SaveMember(myTripId, savedFolderLink);
+                        }
+
                         this.Close();
-
                     }
                 }
             }
@@ -697,7 +822,7 @@ namespace WeSplitProject
         {
             var Folder = AppDomain.CurrentDomain.BaseDirectory;
             var tempVisitLocs = myVisitLoc.OrderBy(c => c.VISIT_LOC_ID).ToList();
-            myVisitLoc = new BindingList<VISIT_LOCATION>();
+
             for (int i = 0; i < tempVisitLocs.Count; i++)
             {
                 //create ID
@@ -721,8 +846,7 @@ namespace WeSplitProject
                     visitLocImgLink = "Resources\\Icons\\picture.png";
                 }
 
-
-                myVisitLoc.Add(new VISIT_LOCATION
+                var newVisitLoc = new VISIT_LOCATION
                 {
                     TRIP_ID = myTripId,
                     VISIT_LOC_ID = visitLocId,
@@ -731,22 +855,18 @@ namespace WeSplitProject
                     VISIT_LOC_DESTINATION = tempVisitLocs[i].VISIT_LOC_DESTINATION,
                     VISIT_LOC_DESCRIPTION = tempVisitLocs[i].VISIT_LOC_DESCRIPTION,
                     IMAGE_LINK = visitLocImgLink
-                });
-            }
+                };
 
-            //Save Visit Location
-            for (int i = 0; i < myVisitLoc.Count; i++)
-            {
-                db.VISIT_LOCATION.Add(myVisitLoc[i]);
+                db.VISIT_LOCATION.Add(newVisitLoc);
                 db.SaveChanges();
             }
+
         }
 
         private void SaveMember(string myTripId, string savedFolderLink)
         {
             var Folder = AppDomain.CurrentDomain.BaseDirectory;
             var tempMember = myMember.OrderBy(c => c.MEMBER_ID).ToList();
-            myMember = new BindingList<MEMBER>();
 
             for (int i = 0; i < tempMember.Count; i++)
             {
@@ -771,8 +891,7 @@ namespace WeSplitProject
                     avatarLink = "Resources\\Icons\\picture.png";
                 }
 
-
-                myMember.Add(new MEMBER
+                var newMember = new MEMBER
                 {
                     TRIP_ID = myTripId,
                     MEMBER_ID = memberId,
@@ -780,10 +899,11 @@ namespace WeSplitProject
                     EMAIL = tempMember[i].EMAIL,
                     PHONE = tempMember[i].PHONE,
                     AVATAR = avatarLink
-                });
+                };
+
 
                 //save member
-                db.MEMBERs.Add(myMember[i]);
+                db.MEMBERs.Add(newMember);
                 db.SaveChanges();
 
                 var newTripSplit = new List<TRIP_SPLIT>();
@@ -808,5 +928,138 @@ namespace WeSplitProject
             }
         }
 
+        private void tripDateBeginDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var finishDate = tripDateFinishDatePicker.SelectedDate;
+            var beginDate = tripDateBeginDatePicker.SelectedDate;
+            if (finishDate != null)
+            {
+                if (beginDate != null)
+                {
+                    if (beginDate > finishDate)
+                    {
+                        MessageBox.Show("Ngày bắt đầu sau ngày kết thúc", "Lỗi");
+                        tripDateBeginDatePicker.SelectedDate = null;
+                    }
+                    else
+                    {
+                        visitLocDateBeginDatePicker.DisplayDateStart = beginDate;
+                        visitLocDateFinishDatePicker.DisplayDateStart = beginDate;
+                    }
+                }
+            }
+            else
+            {
+                if (beginDate != null)
+                {
+                    visitLocDateBeginDatePicker.DisplayDateStart = beginDate;
+                    visitLocDateFinishDatePicker.DisplayDateStart = beginDate;
+                }
+            }
+        }
+
+        private void tripDateFinishDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var finishDate = tripDateFinishDatePicker.SelectedDate;
+            var beginDate = tripDateBeginDatePicker.SelectedDate;
+            if (beginDate != null)
+            {
+                if (finishDate != null)
+                {
+                    if (beginDate > finishDate)
+                    {
+                        MessageBox.Show("Ngày kết thúc trước ngày bắt đầu", "Lỗi");
+                        tripDateFinishDatePicker.SelectedDate = null;
+                    }
+                    else
+                    {
+                        visitLocDateBeginDatePicker.DisplayDateEnd = finishDate;
+                        visitLocDateFinishDatePicker.DisplayDateEnd = finishDate;
+                    }
+                }
+            }
+            else
+            {
+                if (finishDate != null)
+                {
+                    visitLocDateBeginDatePicker.DisplayDateEnd = finishDate;
+                    visitLocDateFinishDatePicker.DisplayDateEnd = finishDate;
+                }
+            }
+        }
+
+        private void visitLocDateBeginDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var beginDate = tripDateBeginDatePicker.SelectedDate;
+            var finishDate = tripDateFinishDatePicker.SelectedDate;
+            var visitLocBeginDate = visitLocDateBeginDatePicker.SelectedDate;
+            var visitLocFinishDate = visitLocDateFinishDatePicker.SelectedDate;
+
+            if (visitLocBeginDate != null)
+            {
+                if (beginDate == null)
+                {
+                    MessageBox.Show("Chưa chọn ngày bắt đầu chuyến đi", "Cảnh báo");
+                    visitLocDateBeginDatePicker.SelectedDate = null;
+                }
+                else if (finishDate == null)
+                {
+                    MessageBox.Show("Chưa chọn ngày kết thúc chuyến đi", "Cảnh báo");
+                    visitLocDateBeginDatePicker.SelectedDate = null;
+                }
+                else
+                {
+                    if (visitLocFinishDate != null)
+                    {
+                        if (visitLocBeginDate != null)
+                        {
+                            if (visitLocBeginDate > visitLocFinishDate)
+                            {
+                                MessageBox.Show("Ngày bắt đầu sau ngày kết thúc", "Lỗi");
+                                visitLocDateBeginDatePicker.SelectedDate = null;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void visitLocDateFinishDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var beginDate = tripDateBeginDatePicker.SelectedDate;
+            var finishDate = tripDateFinishDatePicker.SelectedDate;
+            var visitLocBeginDate = visitLocDateBeginDatePicker.SelectedDate;
+            var visitLocFinishDate = visitLocDateFinishDatePicker.SelectedDate;
+
+            if (visitLocFinishDate != null)
+            {
+                if (finishDate == null)
+                {
+                    MessageBox.Show("Chưa chọn ngày kết thúc chuyến đi", "Cảnh báo");
+                    visitLocDateFinishDatePicker.SelectedDate = null;
+                }
+                else if (beginDate == null)
+                {
+                    MessageBox.Show("Chưa chọn ngày bắt đầu chuyến đi", "Cảnh báo");
+                    visitLocDateFinishDatePicker.SelectedDate = null;
+                }
+                else
+                {
+
+
+                    if (visitLocBeginDate != null)
+                    {
+                        if (visitLocFinishDate != null)
+                        {
+                            if (visitLocBeginDate > visitLocFinishDate)
+                            {
+                                MessageBox.Show("Ngày bắt đầu sau ngày kết thúc", "Lỗi");
+                                visitLocDateBeginDatePicker.SelectedDate = null;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }
