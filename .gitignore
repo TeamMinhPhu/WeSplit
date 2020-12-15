@@ -368,7 +368,6 @@ WeSplitProject/obj/Debug/GeneratedInternalTypeHelper.g.cs
 _ReSharper.*/
 *.sdf
 bin/
-obj/
 Debug/
 Release/
 *.opensdf

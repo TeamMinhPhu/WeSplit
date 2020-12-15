@@ -8,25 +8,37 @@
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="1100"
       Title="DetailPage"
-      Loaded="Page_Loaded">
+      Loaded="Page_Loaded"
+      Background="White">
     <StackPanel>
         <Button Width="100" HorizontalAlignment="Left">
             <materialDesign:PackIcon Kind="KeyboardReturn"></materialDesign:PackIcon>
         </Button>
-        <DataGrid x:Name="members" IsReadOnly="True" AutoGenerateColumns="False" Padding="0" Margin="0">
-            <DataGrid.RowStyle>
-                <Style TargetType="DataGridRow">
-                    <EventSetter Event="MouseUp" Handler="Row_DoubleClick"/>
-                </Style>
-            </DataGrid.RowStyle>
-            <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding MEMBER_NAME}" Header="Tên"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding MEMBER_ID}" MaxWidth="0" Header="ID"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding PHONE}" Header="Điện thoại"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding EMAIL}" Header="Email"></DataGridTextColumn>
-                <DataGridTextColumn Binding="{Binding EXPEND}" Header="Chi tiêu"></DataGridTextColumn>
+        <StackPanel Name="infoContainer">
+            <TextBlock FontSize="20" Text="{Binding TripName}"></TextBlock>
+            <TextBlock FontSize="12" Text="{Binding Destination}"></TextBlock>
+            <TextBlock FontSize="12" Text="{Binding Description}"></TextBlock>
+            <TextBlock FontSize="12" Text="{Binding Status}"></TextBlock>
+            <TextBlock FontSize="12" Text="{Binding DateBegin}"></TextBlock>
+            <TextBlock FontSize="12" Text="{Binding DateFinish}"></TextBlock>
+            
+        </StackPanel>
+        <Border BorderThickness="2" BorderBrush="Black" HorizontalAlignment="Left" Margin="50 20">
+            <DataGrid x:Name="members" IsReadOnly="True" AutoGenerateColumns="False" Padding="0" Margin="0" MaxHeight="200" Width="500">
+                <DataGrid.RowStyle>
+                    <Style TargetType="DataGridRow">
+                        <EventSetter Event="MouseUp" Handler="Row_DoubleClick"/>
+                    </Style>
+                </DataGrid.RowStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding MEMBER_NAME}" Header="Tên"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding MEMBER_ID}" MaxWidth="0" Header="ID"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding PHONE}" Header="Điện thoại"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding EMAIL}" Header="Email"></DataGridTextColumn>
+                    <DataGridTextColumn Binding="{Binding EXPEND}" Header="Chi tiêu"></DataGridTextColumn>
 
-            </DataGrid.Columns>
-        </DataGrid>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
     </StackPanel>
 </Page>

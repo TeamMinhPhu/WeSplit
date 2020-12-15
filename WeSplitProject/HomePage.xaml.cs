@@ -136,9 +136,16 @@ namespace WeSplitProject
 			}
 			else
 			{
-				string ID = viewModels[_selected_index].ID;
-				TRIP tripDetail = db.TRIPs.First(c => c.TRIP_ID == ID);
-				this.NavigationService.Navigate(new DetailPage(tripDetail));
+				try
+				{
+					string ID = viewModels[_selected_index].ID;
+					TRIP tripDetail = db.TRIPs.First(c => c.TRIP_ID == ID);
+					this.NavigationService.Navigate(new DetailPage(tripDetail));
+				}
+				catch
+				{
+					//do nothing
+				}
 			}
 
 		}
