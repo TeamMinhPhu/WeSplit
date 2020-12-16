@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using LiveCharts;
 using LiveCharts.Wpf;
+using WeSplitProject.Classes;
 
 namespace WeSplitProject
 {
@@ -34,16 +35,18 @@ namespace WeSplitProject
 		public string DateBegin { get; set; } = "Khởi hành: ";
 		public string DateFinish { get; set; } = "Ngày về: ";
 		public string ImageLink { get; set; }
-
+		public int MemberCount { get; set; }
 
 		class MEMVER_VIEW
 		{
-			public string MEMBER_NAME { get; set; }
-			public string MEMBER_ID { get; set; }
-			public string PHONE { get; set; }
-			public string EMAIL { get; set; }
-			public double EXPEND { get; set; }
-			public double EXPEND_TOTAL { get; set; }
+			public string MemberName { get; set; }
+			public string MemberId { get; set; }
+			public string Phone { get; set; }
+			public string Email { get; set; }
+			public int Expend { get; set; }
+			public int ExpendTotal { get; set; }
+			public int Paid { get; set; }
+			public string Charge { get; set; }
 			public ICollection<TRIP_SPLIT> expends { get; set; }
 			public void setExpend()
 			{
@@ -52,7 +55,7 @@ namespace WeSplitProject
 				{
 					result = result + (double)cost.PAID_COST;
 				}
-				EXPEND = result;
+				Expend = (int)result;
 			}
 		}
 
@@ -67,30 +70,46 @@ namespace WeSplitProject
 
 		private void Page_Loaded(object sender, RoutedEventArgs e)
 		{
-			var query = _trip.MEMBERs.Select(c => new MEMVER_VIEW { EMAIL = c.EMAIL, MEMBER_NAME = c.MEMBER_NAME, MEMBER_ID = c.MEMBER_ID, PHONE = c.PHONE, expends = c.TRIP_SPLIT}).ToList();
-
+			MemberCount = _trip.MEMBERs.Count();
 			double totalIndividualCost = 0;
-			foreach (var item in query)
+
+			////////////
+			/// Member view
+			var query = _trip.MEMBERs.Select(c => new MEMVER_VIEW { Email = c.EMAIL, MemberName = c.MEMBER_NAME, MemberId = c.MEMBER_ID, Phone = c.PHONE, expends = c.TRIP_SPLIT, Paid = (int)c.PAID_MONEY }).ToList();
+			foreach (var member in query)
 			{
-				item.setExpend();
-				item.EXPEND_TOTAL = item.EXPEND;
+				member.setExpend();
+				member.ExpendTotal = member.Expend;
 				foreach (var cost in _trip.EXPENSEs)
 				{
-					item.EXPEND_TOTAL += (double)cost.COST;
+					member.ExpendTotal += ((int)cost.COST / 3);
 				}
-				
+				int charge = (int)(member.ExpendTotal - member.Paid);
+				if (charge > 0)
+				{
+					member.Charge = "Nợ " + charge.ToString();
+				}
+				else
+				{
+					member.Charge = "Dư " + (-charge).ToString();
+				}
+
 				var newPie = new PieSeries
 				{
-					Title = item.MEMBER_NAME,
-					Values = new ChartValues<double> { item.EXPEND_TOTAL }, //pie chart (individual cost)
+					Title = member.MemberName,
+					Values = new ChartValues<double> { member.ExpendTotal }, //pie chart (individual cost)
 					DataLabels = true,
 				};
-				totalIndividualCost += item.EXPEND_TOTAL;
+
+
+				totalIndividualCost += member.ExpendTotal;
 				IndividualCostCollection.Add(newPie);
 			}
+			/// End member view
+			///////////
 
 			///////////
-			//Total cost pie chart
+			/// Total cost pie chart
 			foreach (var item in _trip.EXPENSEs)
 			{
 				var newPie = new PieSeries
@@ -110,9 +129,10 @@ namespace WeSplitProject
 					}
 				);
 
-			//End total pie chart
+			/// End total pie chart
 			////////
 
+			////////
 			/// member table
 			members.ItemsSource = query;
 
@@ -160,9 +180,11 @@ namespace WeSplitProject
 					break;
 
 			}
-			///End basic info
+			/// End basic info
 			//////////
 
+			// Binding list destination
+			listDestination.ItemsSource = _trip.VISIT_LOCATION;
 			DataContext = this;
 		}
 
@@ -184,6 +206,7 @@ namespace WeSplitProject
 		{
 			//unload image
 			coverImage.Source = null;
+			listDestination.ItemsSource = null;
 			UpdateLayout();
 			this.NavigationService.GoBack();
 		}

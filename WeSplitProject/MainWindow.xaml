@@ -94,7 +94,7 @@
                     </Button>
                 </StackPanel>
             </Grid>
-            <Frame Name="content"></Frame>
+            <Frame NavigationUIVisibility="Hidden" Name="content"></Frame>
         </DockPanel>
     </Border>
 </Window>

@@ -14,35 +14,37 @@
       >
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="7*"></ColumnDefinition>
-            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="350"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Button Width="40" Height="40" Padding="0"  HorizontalAlignment="Left" VerticalAlignment="Top" Panel.ZIndex="10" Click="backButton_click">
             <materialDesign:PackIcon Kind="ArrowBackCircle" Width="30" Height="30"></materialDesign:PackIcon>
         </Button>
         <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
             <StackPanel>
-                <Border BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2" Margin="50 30 50 5" Background="AliceBlue" CornerRadius="5">
+                <Label  FontSize="24" FontWeight="Bold" Margin="50 0 50 5">Thông tin chi tiết</Label>
+                <Border BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2" Margin="50 0 50 5" Background="AliceBlue" CornerRadius="5">
                     <Border.Effect>
                         <DropShadowEffect BlurRadius="5" ShadowDepth="2" />
                     </Border.Effect>
-                <Grid Name="infoContainer" >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                        <ColumnDefinition Width="*"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="1" MaxWidth="300" HorizontalAlignment="Left">
-                        <TextBlock Margin="2" FontSize="24" TextWrapping="Wrap"  Text="{Binding TripName}"></TextBlock>
-                        <TextBlock Margin="2" FontSize="18" TextWrapping="Wrap"  Text="{Binding Destination}"></TextBlock>
-                        <TextBlock Margin="2" FontSize="18" TextWrapping="Wrap"  Text="{Binding Description}"></TextBlock>
-                        <TextBlock Margin="2" FontSize="18" TextWrapping="Wrap"  Text="{Binding Status}"></TextBlock>
-                        <TextBlock Margin="2" FontSize="18" TextWrapping="Wrap"  Text="{Binding DateBegin}"></TextBlock>
-                        <TextBlock Margin="2" FontSize="18" TextWrapping="Wrap"  Text="{Binding DateFinish}"></TextBlock>
-                    </StackPanel>
-                    <Grid Grid.Column="0" MaxHeight="250">
-                        <Image Name="coverImage" Stretch="Uniform" Source="{Binding ImageLink, Converter={StaticResource converter}}"></Image>
+                    <Grid Name="infoContainer" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="300"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="1" MaxWidth="300" HorizontalAlignment="Left" Margin="20 0">
+                            <TextBlock Margin="2 6" FontSize="24" TextWrapping="Wrap"  Text="{Binding TripName}"></TextBlock>
+                            <TextBlock Margin="2" FontSize="18" TextWrapping="Wrap"  Text="{Binding Destination}"></TextBlock>
+                            <TextBlock Margin="2" FontSize="18" TextWrapping="Wrap"  Text="{Binding Description}"></TextBlock>
+                            <TextBlock Margin="2" FontSize="18" TextWrapping="Wrap"  Text="{Binding Status}"></TextBlock>
+                            <TextBlock Margin="2" FontSize="18" TextWrapping="Wrap"  Text="{Binding DateBegin}"></TextBlock>
+                            <TextBlock Margin="2" FontSize="18" TextWrapping="Wrap"  Text="{Binding DateFinish}"></TextBlock>
+                        </StackPanel>
+                        <Grid Grid.Column="0" MaxHeight="250" HorizontalAlignment="Left">
+                            <Image Name="fakeCover" Opacity="0.5" Stretch="UniformToFill" Source="{Binding ImageLink, Converter={StaticResource converter}}"></Image>
+                            <Image Name="coverImage" Stretch="Uniform" Source="{Binding ImageLink, Converter={StaticResource converter}}"></Image>
+                        </Grid>
                     </Grid>
-                </Grid>
                 </Border>
 
                 <Label Margin="50 0 50 0" FontSize="24" FontWeight="Light">Báo cáo chuyến đi</Label>
@@ -73,7 +75,7 @@
                     </Border>
                 </Grid>
                 <Label Margin="50 5 50 0" FontSize="24" FontWeight="Light">Danh sách thành viên</Label>
-                <Border BorderThickness="2" CornerRadius="5" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" HorizontalAlignment="Stretch" Margin="50 0" Background="AliceBlue">
+                <Border BorderThickness="2" CornerRadius="5" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" HorizontalAlignment="Stretch" Margin="50 0 50 20" Background="AliceBlue">
                     <Border.Effect>
                         <DropShadowEffect BlurRadius="5" ShadowDepth="2" />
                     </Border.Effect>
@@ -84,18 +86,37 @@
                             </Style>
                         </DataGrid.RowStyle>
                         <DataGrid.Columns>
-                            <DataGridTextColumn Binding="{Binding MEMBER_NAME}" Header="Họ và tên"></DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding MEMBER_ID}" MaxWidth="0" Header="ID"></DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding PHONE}" Header="Số điện thoại"></DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding EMAIL}" Header="Email"></DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding EXPEND}" Header="Chi tiêu cá nhân"></DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding EXPEND_TOTAL}" Header="Tổng chi"></DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding PAID}" Header="Đã trả"></DataGridTextColumn>
-                            <DataGridTextColumn Binding="{Binding OWNED}" Header="Tiền thừa (thiếu)"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding MemberName}" Header="Họ và tên"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding MemberId}" MaxWidth="0" Header="ID"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Phone}" Header="Số điện thoại"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Email}" Header="Email"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Expend}" Header="Chi tiêu cá nhân"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding ExpendTotal}" Header="Tổng chi"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Paid}" Header="Đã trả"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding Charge}" Header="Tiền thừa (thiếu)"></DataGridTextColumn>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Border>
         </StackPanel>
         </ScrollViewer>
+        <Grid Margin="0 30 30 20" Grid.Column="1" Background="AliceBlue">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" FontSize="24" FontWeight="Light" Background="White">Các điểm tham quan</Label>
+            <ListView Grid.Row="1" VerticalAlignment="Center" VerticalContentAlignment="Top" ScrollViewer.CanContentScroll="False" HorizontalContentAlignment="Stretch" HorizontalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  ScrollViewer.VerticalScrollBarVisibility="Visible" x:Name="listDestination" Grid.Column="1">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid MaxWidth="300">
+                            <TextBlock Panel.ZIndex="10" TextAlignment="Center" TextTrimming="WordEllipsis" Background="#AAffffff" Padding="5" FontSize="14" HorizontalAlignment="Stretch" VerticalAlignment="Top" Text="{Binding VISIT_LOC_DESTINATION}"></TextBlock>
+                            <Image Stretch="Uniform" Source="{Binding IMAGE_LINK, Converter={StaticResource converter}}"></Image>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+        </Grid>
     </Grid>
 </Page>
