@@ -359,3 +359,6 @@ C:\Users\vuanh\Documents\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.csproj.
 C:\Users\vuanh\Documents\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.csproj.CopyComplete
 C:\Users\vuanh\Documents\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.exe
 C:\Users\vuanh\Documents\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.pdb
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\bin\Debug\LiveCharts.Wpf.dll
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\bin\Debug\LiveCharts.Wpf.pdb
+C:\Users\vuanh\Documents\WeSplit\WeSplitProject\bin\Debug\LiveCharts.Wpf.xml

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="WeSplitDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="WeSplitDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="EXPENSE">
           <Key>
             <PropertyRef Name="TRIP_ID" />
@@ -25,6 +25,7 @@
           <Property Name="MEMBER_NAME" Type="nvarchar" MaxLength="100" />
           <Property Name="PHONE" Type="varchar" MaxLength="10" />
           <Property Name="EMAIL" Type="varchar" MaxLength="50" />
+          <Property Name="PAID_MONEY" Type="money" />
           <Property Name="AVATAR" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="TRIP">
@@ -139,8 +140,7 @@
             <End Role="VISIT_LOCATION" EntitySet="VISIT_LOCATION" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="WeSplitDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -168,6 +168,7 @@
           <Property Name="AVATAR" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="TRIP" Relationship="Self.FK_M_T" FromRole="MEMBER" ToRole="TRIP" />
           <NavigationProperty Name="TRIP_SPLIT" Relationship="Self.FK_TS_M" FromRole="MEMBER" ToRole="TRIP_SPLIT" />
+          <Property Name="PAID_MONEY" Type="Decimal" Precision="19" Scale="4" />
         </EntityType>
         <EntityType Name="TRIP">
           <Key>
@@ -305,6 +306,7 @@
           <EntitySetMapping Name="MEMBERs">
             <EntityTypeMapping TypeName="WeSplitDBModel.MEMBER">
               <MappingFragment StoreEntitySet="MEMBER">
+                <ScalarProperty Name="PAID_MONEY" ColumnName="PAID_MONEY" />
                 <ScalarProperty Name="TRIP_ID" ColumnName="TRIP_ID" />
                 <ScalarProperty Name="MEMBER_ID" ColumnName="MEMBER_ID" />
                 <ScalarProperty Name="MEMBER_NAME" ColumnName="MEMBER_NAME" />

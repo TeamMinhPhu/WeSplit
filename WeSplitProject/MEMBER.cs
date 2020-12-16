@@ -26,6 +26,7 @@ namespace WeSplitProject
         public string PHONE { get; set; }
         public string EMAIL { get; set; }
         public string AVATAR { get; set; }
+        public Nullable<decimal> PAID_MONEY { get; set; }
     
         public virtual TRIP TRIP { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
