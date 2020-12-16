@@ -69,10 +69,11 @@ namespace WeSplitProject
 		public string DateBegin { get; set; } = "Khởi hành: ";
 
 		public string DateFinish { get; set; } = "Ngày về: ";
-		public DetailPage(TRIP tripDetail)
+		public DetailPage(string ID)
 		{
 			InitializeComponent();
-			_trip = tripDetail;
+			WeSplitDBEntities db = new WeSplitDBEntities();
+			_trip = db.TRIPs.First(c=>c.TRIP_ID == ID);
 		}
 
 		private void Page_Loaded(object sender, RoutedEventArgs e)
