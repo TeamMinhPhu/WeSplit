@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Minh\This Week\Window\Project2\version2.1\WeSplitProject\obj\Debug\
+D:\Minh\This Week\Window\Project2\version2.2\WeSplitProject\obj\Debug\
 WeSplitProject
 none
 false
 DEBUG;TRACE
-D:\Minh\This Week\Window\Project2\version2.1\WeSplitProject\App.xaml
+D:\Minh\This Week\Window\Project2\version2.2\WeSplitProject\App.xaml
 7-1342974237
 3-874366971
 27390024439
-242010339203
+24-595008519
 AboutUsPage.xaml;DetailPage.xaml;HomePage.xaml;LocationModifyWindow.xaml;TripEditWindow.xaml;MainWindow.xaml;MemberModifyWindow.xaml;
 
-True
+False
 
