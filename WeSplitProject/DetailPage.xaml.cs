@@ -22,25 +22,17 @@ namespace WeSplitProject
 	/// </summary>
 	public partial class DetailPage : Page
 	{
-		public class MySeries { 
-			public string Title { get; set; }
-			public double Values { get; set; }
-		
-		}
+		public SeriesCollection IndividualCostCollection { get; set; } = new SeriesCollection();
+		public SeriesCollection TotalCostCollection { get; set; } = new SeriesCollection();
+		TRIP _trip;
+		public string TripName { get; set; }
+		public string Description { get; set; } = "Mô tả: ";
+		public string Destination { get; set; } = "Địa điểm: ";
+		public string Status { get; set; } = "Trạng thái: ";
+		public string DateBegin { get; set; } = "Khởi hành: ";
+		public string DateFinish { get; set; } = "Ngày về: ";
+		public string ImageLink { get; set; }
 
-		public SeriesCollection Series1 { get; set; } = new SeriesCollection();
-		//{
-		//		new PieSeries
-		//		{
-		//			Title = "asd",
-		//			Values = new ChartValues<double> { 15}
-		//		},
-		//				new PieSeries
-		//		{
-		//			Title = "sd",
-		//			Values = new ChartValues<double> { 15}
-		//		}
-		//};
 
 		class MEMVER_VIEW
 		{
@@ -61,14 +53,7 @@ namespace WeSplitProject
 				EXPEND = result;
 			}
 		}
-		TRIP _trip;
-		public string TripName { get; set; }
-		public string Description { get; set; } = "Mô tả: ";
-		public string Destination { get; set; } = "Địa điểm: ";
-		public string Status { get; set; } = "Trạng thái: ";
-		public string DateBegin { get; set; } = "Khởi hành: ";
 
-		public string DateFinish { get; set; } = "Ngày về: ";
 		public DetailPage(TRIP tripDetail)
 		{
 			InitializeComponent();
@@ -92,10 +77,14 @@ namespace WeSplitProject
 					Title = item.MEMBER_NAME,
 					Values = new ChartValues<double> { item.EXPEND_TOTAL }
 				};
-				Series1.Add(newPie);
+				IndividualCostCollection.Add(newPie);
 			}
-			
+
+			/// member table
 			members.ItemsSource = query;
+
+			////////
+			/// Basic info
 			if (_trip.DATE_BEGIN == null)
 			{
 				DateBegin += "Chưa cập nhật";
@@ -113,6 +102,8 @@ namespace WeSplitProject
 			{
 				DateFinish += _trip.DATE_FINISH?.ToString("dd/MM/yyyy");
 			}
+
+			ImageLink = _trip.IMAGE_LINK;
 			TripName = _trip.TRIP_NAME;
 			Description += _trip.TRIP_DESTINATION;
 			Destination += _trip.TRIP_DESTINATION;
@@ -135,6 +126,9 @@ namespace WeSplitProject
 					break;
 
 			}
+			///End basic info
+			//////////
+
 			DataContext = this;
 		}
 

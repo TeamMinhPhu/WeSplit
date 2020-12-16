@@ -21,21 +21,54 @@
             <materialDesign:PackIcon Kind="KeyboardReturn"></materialDesign:PackIcon>
         </Button>
         <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
-        <StackPanel>
-                <StackPanel Name="infoContainer" Margin="50 30 20 20">
-                    <TextBlock FontSize="24" TextWrapping="Wrap"  Text="{Binding TripName}"></TextBlock>
-                    <TextBlock FontSize="18" TextWrapping="Wrap"  Text="{Binding Destination}"></TextBlock>
-                    <TextBlock FontSize="18" TextWrapping="Wrap"  Text="{Binding Description}"></TextBlock>
-                    <TextBlock FontSize="18" TextWrapping="Wrap"  Text="{Binding Status}"></TextBlock>
-                    <TextBlock FontSize="18" TextWrapping="Wrap"  Text="{Binding DateBegin}"></TextBlock>
-                    <TextBlock FontSize="18" TextWrapping="Wrap"  Text="{Binding DateFinish}"></TextBlock>
+            <StackPanel>
+                <Border BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2" Margin="50 30 50 20" Background="AliceBlue" CornerRadius="5">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="10" ShadowDepth="5" />
+                    </Border.Effect>
+                <Grid Name="infoContainer" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="1" MaxWidth="300" HorizontalAlignment="Left">
+                        <TextBlock Margin="2" FontSize="24" TextWrapping="Wrap"  Text="{Binding TripName}"></TextBlock>
+                        <TextBlock Margin="2" FontSize="18" TextWrapping="Wrap"  Text="{Binding Destination}"></TextBlock>
+                        <TextBlock Margin="2" FontSize="18" TextWrapping="Wrap"  Text="{Binding Description}"></TextBlock>
+                        <TextBlock Margin="2" FontSize="18" TextWrapping="Wrap"  Text="{Binding Status}"></TextBlock>
+                        <TextBlock Margin="2" FontSize="18" TextWrapping="Wrap"  Text="{Binding DateBegin}"></TextBlock>
+                        <TextBlock Margin="2" FontSize="18" TextWrapping="Wrap"  Text="{Binding DateFinish}"></TextBlock>
+                    </StackPanel>
+                    <Grid Grid.Column="0" MaxHeight="250">
+                        <Image Stretch="Uniform" Source="{Binding ImageLink, Converter={StaticResource converter}}"></Image>
+                    </Grid>
+                </Grid>
+                </Border>
 
-                </StackPanel>
-                <lvc:PieChart LegendLocation="Bottom" Hoverable="False" Height="200" DataTooltip="{x:Null}" Series="{Binding Series1}">
-                </lvc:PieChart>
+                <Label Margin="50 0 50 0" FontSize="32">Biểu đồ</Label>
+                <Grid Margin="50 0 50 0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2" Background="AliceBlue" Margin="2" CornerRadius="5">
+                        <StackPanel Margin="2">
+                            <Label Content="Biểu đồ chi tiêu của từng thành viên" HorizontalAlignment="Center"></Label>
+                            <lvc:PieChart LegendLocation="Right" Hoverable="False" Height="200" DataTooltip="{x:Null}" Series="{Binding IndividualCostCollection}" Margin="30 0 50 0">
+                            </lvc:PieChart>
+                        </StackPanel>
+                    </Border>
+                    <Border Grid.Column="1" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2" Background="AliceBlue" Margin="2" CornerRadius="5">
+                        <StackPanel Margin="2">
+                            <Label Content="Biểu đồ tổng chi của chuyến đi" HorizontalAlignment="Center"></Label>
+                            <lvc:PieChart LegendLocation="Right" Hoverable="False" Height="200" DataTooltip="{x:Null}" Series="{Binding TotalCostCollection}" Margin="30 0 50 0">
+                            </lvc:PieChart>
+                        </StackPanel>
+                    </Border>
+                </Grid>
 
-                <Border BorderThickness="2" BorderBrush="Black" HorizontalAlignment="Stretch" Margin="50 20">
-                    <DataGrid x:Name="members" IsReadOnly="True" AutoGenerateColumns="False" Padding="0" Margin="0" MaxHeight="200" ColumnWidth="*">
+                <Border BorderThickness="2" CornerRadius="5" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" HorizontalAlignment="Stretch" Margin="50 20">
+                    <DataGrid x:Name="members" IsReadOnly="True" AutoGenerateColumns="False" Padding="0" Margin="0" MaxHeight="200" ColumnWidth="*" Background="AliceBlue">
                         <DataGrid.RowStyle>
                             <Style TargetType="DataGridRow">
                                 <EventSetter Event="MouseUp" Handler="Row_DoubleClick"/>
