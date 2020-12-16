@@ -69,11 +69,10 @@ namespace WeSplitProject
 		public string DateBegin { get; set; } = "Khởi hành: ";
 
 		public string DateFinish { get; set; } = "Ngày về: ";
-		public DetailPage(string ID)
+		public DetailPage(TRIP tripDetail)
 		{
 			InitializeComponent();
-			WeSplitDBEntities db = new WeSplitDBEntities();
-			_trip = db.TRIPs.First(c=>c.TRIP_ID == ID);
+			_trip = tripDetail;
 		}
 
 		private void Page_Loaded(object sender, RoutedEventArgs e)
@@ -146,7 +145,7 @@ namespace WeSplitProject
 
 			MEMBER myMember = _trip.MEMBERs.First(c => c.MEMBER_ID == content);
 			var x = myMember.TRIP_SPLIT;
-			foreach(var a in x)   
+			foreach(var a in x)
 			{
 				//MessageBox.Show(a.MEMBER.ToString() + ":" + a.PAID_COST.ToString());
 			}

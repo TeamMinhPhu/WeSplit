@@ -464,7 +464,7 @@ namespace WeSplitProject
             }
             else
             {
-                myMember.Add(new MEMBER { MEMBER_ID = $"M{memberCode}", MEMBER_NAME = memberNameTextBox.Text, PHONE = memberPhoneTextBox.Text, EMAIL = memberEmailTextBox.Text, AVATAR = _avatarImageLink });
+                myMember.Add(new MEMBER { MEMBER_ID = $"M{memberCode}", MEMBER_NAME = memberNameTextBox.Text, PHONE = memberPhoneTextBox.Text, EMAIL = memberEmailTextBox.Text, AVATAR = _avatarImageLink, PAID_MONEY = 0 });
                 memberNameTextBox.Text = "";
                 memberPhoneTextBox.Text = "";
                 memberEmailTextBox.Text = "";
@@ -648,12 +648,11 @@ namespace WeSplitProject
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            //if(mode == 1)
-            //{
-            //    var mainwindow = new MainWindow();
-            //    mainwindow.Show();
-            //}
-            DialogResult = false;
+            if(mode == 1)
+            {
+                var mainwindow = new MainWindow();
+                mainwindow.Show();
+            }
             this.Close();
         }
 
@@ -727,6 +726,10 @@ namespace WeSplitProject
 
                             //Save Member and tripsplit
                             SaveMember(_TripID, savedFolderLink);
+
+                            var defaultScreen = new MainWindow();
+                            defaultScreen.Show();
+                            this.Close();
                         }
                         else if (mode == 0)
                         {
@@ -749,12 +752,9 @@ namespace WeSplitProject
 
                             //Save Member and tripsplit
                             SaveMember(myTripId, savedFolderLink);
-                        }
-                        DialogResult = true;
-                        //var defaultScreen = new MainWindow();
-                        //defaultScreen.Show();
 
-                        this.Close();
+                            DialogResult = true;
+                        }
                     }
                 }
             }
@@ -932,7 +932,8 @@ namespace WeSplitProject
                     MEMBER_NAME = tempMember[i].MEMBER_NAME,
                     EMAIL = tempMember[i].EMAIL,
                     PHONE = tempMember[i].PHONE,
-                    AVATAR = avatarLink
+                    AVATAR = avatarLink,
+                    PAID_MONEY = tempMember[i].PAID_MONEY
                 };
 
 

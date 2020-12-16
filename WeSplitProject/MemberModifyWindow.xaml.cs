@@ -48,6 +48,7 @@ namespace WeSplitProject
             memberNameTextBox.Text = myMember.MEMBER_NAME;
             memberPhoneTextBox.Text = myMember.PHONE;
             memberEmailTextBox.Text = myMember.EMAIL;
+            paidMoneyTextBox.Text = $"{Convert.ToInt64(myMember.PAID_MONEY)}";
 
             totalCost = 0;
 
@@ -240,12 +241,27 @@ namespace WeSplitProject
             {
                 MessageBox.Show("Chưa nhập tên thành viên", "Lỗi");
             }
-            else
+            else 
             {
+                long myMoney = 0;
+                if (paidMoneyTextBox.Text.Length > 0)
+                {
+                    if (long.TryParse(paidMoneyTextBox.Text, out long result))
+                    {
+                        myMoney = result;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Số tiền trả trước không hợp lệ", "Lỗi");
+                        return;
+                    }
+                }
+
                 myMember.MEMBER_NAME = memberNameTextBox.Text;
                 myMember.PHONE = memberPhoneTextBox.Text;
                 myMember.EMAIL = memberEmailTextBox.Text;
                 myMember.AVATAR = _avatarImageLink;
+                myMember.PAID_MONEY = myMoney;
 
                 newMember = myMember;
 
