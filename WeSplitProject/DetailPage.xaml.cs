@@ -145,7 +145,7 @@ namespace WeSplitProject
 
 			MEMBER myMember = _trip.MEMBERs.First(c => c.MEMBER_ID == content);
 			var x = myMember.TRIP_SPLIT;
-			foreach(var a in x)
+			foreach(var a in x)   
 			{
 				//MessageBox.Show(a.MEMBER.ToString() + ":" + a.PAID_COST.ToString());
 			}

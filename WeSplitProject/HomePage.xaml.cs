@@ -180,14 +180,21 @@ namespace WeSplitProject
 		//Edit
 		private void editButton_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
 		{
-			var index = ListViewTrips.SelectedIndex;
-			if (index >= 0) 
-            {
-				var myID = viewModels[index].ID;
-
-				NewWindowOpen?.Invoke(myID);
+			var editScreen = new CreateNewTrip(viewModels[_selected_index].ID);
+			//addScreen.ShowDialog();
+			if (editScreen.ShowDialog() == true)
+			{
+				_current_page = 1;
+				paging.SelectedIndex = 0;
+				UpdatePage();
+				UpdateView();
 			}
-
+			//var index = ListViewTrips.SelectedIndex;
+			//if (index >= 0) 
+			//         {
+			//	var myID = viewModels[index].ID;
+			//	NewWindowOpen?.Invoke(myID);
+			//}
 		}
 
 		#region "Paging"
@@ -279,7 +286,6 @@ namespace WeSplitProject
 		private void infoButton_MouseUp(object sender, MouseButtonEventArgs e)
 		{
 			this.NavigationService.Navigate(new AboutUsPage());
-
 		}
 	}
 }

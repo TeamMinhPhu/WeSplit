@@ -648,11 +648,12 @@ namespace WeSplitProject
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            if(mode == 1)
-            {
-                var mainwindow = new MainWindow();
-                mainwindow.Show();
-            }
+            //if(mode == 1)
+            //{
+            //    var mainwindow = new MainWindow();
+            //    mainwindow.Show();
+            //}
+            DialogResult = false;
             this.Close();
         }
 
@@ -749,9 +750,9 @@ namespace WeSplitProject
                             //Save Member and tripsplit
                             SaveMember(myTripId, savedFolderLink);
                         }
-
-                        var defaultScreen = new MainWindow();
-                        defaultScreen.Show();
+                        DialogResult = true;
+                        //var defaultScreen = new MainWindow();
+                        //defaultScreen.Show();
 
                         this.Close();
                     }
