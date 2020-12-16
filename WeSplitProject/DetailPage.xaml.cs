@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LiveCharts;
+using LiveCharts.Wpf;
 
 namespace WeSplitProject
 {
@@ -20,13 +22,34 @@ namespace WeSplitProject
 	/// </summary>
 	public partial class DetailPage : Page
 	{
+		public class MySeries { 
+			public string Title { get; set; }
+			public double Values { get; set; }
+		
+		}
+
+		public SeriesCollection Series1 { get; set; } = new SeriesCollection();
+		//{
+		//		new PieSeries
+		//		{
+		//			Title = "asd",
+		//			Values = new ChartValues<double> { 15}
+		//		},
+		//				new PieSeries
+		//		{
+		//			Title = "sd",
+		//			Values = new ChartValues<double> { 15}
+		//		}
+		//};
+
 		class MEMVER_VIEW
 		{
 			public string MEMBER_NAME { get; set; }
 			public string MEMBER_ID { get; set; }
 			public string PHONE { get; set; }
 			public string EMAIL { get; set; }
-			public string EXPEND { get; set; }
+			public double EXPEND { get; set; }
+			public double EXPEND_TOTAL { get; set; }
 			public ICollection<TRIP_SPLIT> expends { get; set; }
 			public void setExpend()
 			{
@@ -35,7 +58,7 @@ namespace WeSplitProject
 				{
 					result = result + (double)cost.PAID_COST;
 				}
-				EXPEND = result.ToString();
+				EXPEND = result;
 			}
 		}
 		TRIP _trip;
@@ -58,6 +81,18 @@ namespace WeSplitProject
 			foreach (var item in query)
 			{
 				item.setExpend();
+				item.EXPEND_TOTAL = item.EXPEND;
+				foreach (var cost in _trip.EXPENSEs)
+				{
+					item.EXPEND_TOTAL += (double)cost.COST;
+				}
+				
+				var newPie = new PieSeries
+				{
+					Title = item.MEMBER_NAME,
+					Values = new ChartValues<double> { item.EXPEND_TOTAL }
+				};
+				Series1.Add(newPie);
 			}
 			
 			members.ItemsSource = query;

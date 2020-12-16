@@ -263,7 +263,7 @@ namespace WeSplitProject
 
 		#endregion
 
-		private async void addButton_MouseUp(object sender, MouseButtonEventArgs e)
+		private void addButton_MouseUp(object sender, MouseButtonEventArgs e)
 		{
 			var addScreen = new CreateNewTrip();
 			//addScreen.ShowDialog();

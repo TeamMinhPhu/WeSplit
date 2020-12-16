@@ -4,41 +4,56 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WeSplitProject"
+      xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="1100"
       Title="DetailPage"
       Loaded="Page_Loaded"
-      Background="White">
-    <StackPanel>
-        <Button Width="100" HorizontalAlignment="Left">
+      Background="White"
+      >
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="7*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Button Width="100" HorizontalAlignment="Left" VerticalAlignment="Top">
             <materialDesign:PackIcon Kind="KeyboardReturn"></materialDesign:PackIcon>
         </Button>
-        <StackPanel Name="infoContainer">
-            <TextBlock FontSize="20" Text="{Binding TripName}"></TextBlock>
-            <TextBlock FontSize="12" Text="{Binding Destination}"></TextBlock>
-            <TextBlock FontSize="12" Text="{Binding Description}"></TextBlock>
-            <TextBlock FontSize="12" Text="{Binding Status}"></TextBlock>
-            <TextBlock FontSize="12" Text="{Binding DateBegin}"></TextBlock>
-            <TextBlock FontSize="12" Text="{Binding DateFinish}"></TextBlock>
-            
-        </StackPanel>
-        <Border BorderThickness="2" BorderBrush="Black" HorizontalAlignment="Left" Margin="50 20">
-            <DataGrid x:Name="members" IsReadOnly="True" AutoGenerateColumns="False" Padding="0" Margin="0" MaxHeight="200" Width="500">
-                <DataGrid.RowStyle>
-                    <Style TargetType="DataGridRow">
-                        <EventSetter Event="MouseUp" Handler="Row_DoubleClick"/>
-                    </Style>
-                </DataGrid.RowStyle>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Binding="{Binding MEMBER_NAME}" Header="Tên"></DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding MEMBER_ID}" MaxWidth="0" Header="ID"></DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding PHONE}" Header="Điện thoại"></DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding EMAIL}" Header="Email"></DataGridTextColumn>
-                    <DataGridTextColumn Binding="{Binding EXPEND}" Header="Chi tiêu"></DataGridTextColumn>
+        <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+                <StackPanel Name="infoContainer" Margin="50 30 20 20">
+                    <TextBlock FontSize="24" TextWrapping="Wrap"  Text="{Binding TripName}"></TextBlock>
+                    <TextBlock FontSize="18" TextWrapping="Wrap"  Text="{Binding Destination}"></TextBlock>
+                    <TextBlock FontSize="18" TextWrapping="Wrap"  Text="{Binding Description}"></TextBlock>
+                    <TextBlock FontSize="18" TextWrapping="Wrap"  Text="{Binding Status}"></TextBlock>
+                    <TextBlock FontSize="18" TextWrapping="Wrap"  Text="{Binding DateBegin}"></TextBlock>
+                    <TextBlock FontSize="18" TextWrapping="Wrap"  Text="{Binding DateFinish}"></TextBlock>
 
-                </DataGrid.Columns>
-            </DataGrid>
-        </Border>
-    </StackPanel>
+                </StackPanel>
+                <lvc:PieChart LegendLocation="Bottom" Hoverable="False" Height="200" DataTooltip="{x:Null}" Series="{Binding Series1}">
+                </lvc:PieChart>
+
+                <Border BorderThickness="2" BorderBrush="Black" HorizontalAlignment="Stretch" Margin="50 20">
+                    <DataGrid x:Name="members" IsReadOnly="True" AutoGenerateColumns="False" Padding="0" Margin="0" MaxHeight="200" ColumnWidth="*">
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <EventSetter Event="MouseUp" Handler="Row_DoubleClick"/>
+                            </Style>
+                        </DataGrid.RowStyle>
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding MEMBER_NAME}" Header="Họ và tên"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding MEMBER_ID}" MaxWidth="0" Header="ID"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding PHONE}" Header="Số điện thoại"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding EMAIL}" Header="Email"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding EXPEND}" Header="Chi tiêu cá nhân"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding EXPEND_TOTAL}" Header="Tổng chi"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding PAID}" Header="Đã trả"></DataGridTextColumn>
+                            <DataGridTextColumn Binding="{Binding OWNED}" Header="Tiền thừa (thiếu)"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Border>
+        </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </Page>

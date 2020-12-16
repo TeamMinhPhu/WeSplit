@@ -306,3 +306,6 @@ D:\Minh\This Week\Window\Project2\version1.9\WeSplitProject\obj\Debug\WeSplitPro
 D:\Minh\This Week\Window\Project2\version1.9\WeSplitProject\obj\Debug\WeSplitProject.csproj.CopyComplete
 D:\Minh\This Week\Window\Project2\version1.9\WeSplitProject\obj\Debug\WeSplitProject.exe
 D:\Minh\This Week\Window\Project2\version1.9\WeSplitProject\obj\Debug\WeSplitProject.pdb
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\LiveCharts.Wpf.dll
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\LiveCharts.Wpf.pdb
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\LiveCharts.Wpf.xml
