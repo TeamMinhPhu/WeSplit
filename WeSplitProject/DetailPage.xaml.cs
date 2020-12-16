@@ -102,7 +102,7 @@ namespace WeSplitProject
 				};
 
 
-				totalIndividualCost += member.ExpendTotal;
+				totalIndividualCost += member.Expend;
 				IndividualCostCollection.Add(newPie);
 			}
 			/// End member view
