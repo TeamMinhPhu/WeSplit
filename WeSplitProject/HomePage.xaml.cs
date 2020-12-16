@@ -51,7 +51,7 @@ namespace WeSplitProject
 			////////
 			///Access Data base
 			//var query = TripDAO.GetAll().Skip((_current_page - 1) * _itemPerPage).Take(_itemPerPage).Select(c => new { c.ID, c.Name, c.StartedDate, c.EndedDate, c.CoverImage }).ToList();
-			var query = db.TRIPs.OrderBy(c => c.TRIP_ID).Skip((_current_page - 1) * _itemPerPage).Take(_itemPerPage).Select(c => new { c.TRIP_ID, c.TRIP_NAME, c.DATE_BEGIN, c.DATE_FINISH, c.IMAGE_LINK }).ToList();
+			var query = db.TRIPs.Where(c=>c.EXIST_STATUS == true).OrderBy(c => c.TRIP_ID).Skip((_current_page - 1) * _itemPerPage).Take(_itemPerPage).Select(c => new { c.TRIP_ID, c.TRIP_NAME, c.DATE_BEGIN, c.DATE_FINISH, c.IMAGE_LINK, c.TRIP_STATUS }).ToList();
 
 			foreach (var viewData in query)
 			{
@@ -61,15 +61,33 @@ namespace WeSplitProject
 
 				viewModel.Name = viewData.TRIP_NAME;
 				viewModel.CoverImage = viewData.IMAGE_LINK;
-				viewModel.StartedDate = viewData.DATE_BEGIN?.ToString("dd/MM/yyyy");
-				if (viewData.DATE_FINISH != null)
-				{
-					viewModel.StartedDate += " - " + viewData.DATE_FINISH?.ToString("yyyy/MM/dd");
+				
+				if(viewData.DATE_BEGIN != null)
+                {
+					viewModel.StartedDate = viewData.DATE_BEGIN?.ToString("dd/MM/yyyy");
+
+					if (viewData.DATE_FINISH != null)
+					{
+						viewModel.StartedDate += " - " + viewData.DATE_FINISH?.ToString("dd/MM/yyyy");
+					}
 				}
-				else
+
+				switch (viewData.TRIP_STATUS)
 				{
-					viewModel.StartedDate += " (Đang đi)";
+					case 0:
+						viewModel.StartedDate += " - Lên kế hoạch";
+						break;
+					case 1:
+						viewModel.StartedDate += " - Bắt đầu";
+						break;
+					case 2:
+						viewModel.StartedDate += " - Đang đi";
+						break;
+					case 3:
+						viewModel.StartedDate += " - Kết thúc";
+						break;
 				}
+
 				result.Add(viewModel);
 			}
 
@@ -89,7 +107,7 @@ namespace WeSplitProject
 			_timer.Elapsed += _timer_Elapsed;
 
 			_itemPerPage = Paging.GetItemsPerPage(itemsView.ActualWidth, itemsView.ActualHeight);
-			_total_items = db.TRIPs.Count();
+			_total_items = db.TRIPs.Where(c => c.EXIST_STATUS == true).Count();
 			_total_page = Paging.GetTotalPages(_total_items, _itemPerPage);
 			UpdatePage();
 
@@ -218,7 +236,7 @@ namespace WeSplitProject
 
 		private void UpdatePage()
 		{
-			_total_items = db.TRIPs.Count();
+			_total_items = db.TRIPs.Where(c => c.EXIST_STATUS == true).Count();
 			_total_page = Paging.GetTotalPages(_total_items, _itemPerPage);
 			viewTotalPages.Text = "/ " + _total_page.ToString();
 			paging.ItemsSource = PagingViewModel.UpdatePage(_total_page);
@@ -281,5 +299,38 @@ namespace WeSplitProject
 			this.NavigationService.Navigate(new AboutUsPage());
 
 		}
-	}
+
+        private void MenuItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+			var index = ListViewTrips.SelectedIndex;
+			if (index >= 0)
+			{
+                try
+                {
+					var myID = viewModels[index].ID;
+					var trip = db.TRIPs.Where(c => c.TRIP_ID == myID).FirstOrDefault();
+                    if (trip != null)
+                    {
+						trip.EXIST_STATUS = false;
+						db.SaveChanges();
+
+						_current_page = 1;
+						paging.SelectedIndex = 0;
+						UpdatePage();
+						UpdateView();
+
+						MessageBox.Show("Đã xóa chuyến đi");
+					}
+                    else
+                    {
+						MessageBox.Show("Không tìm thấy chuyến đi");
+					}
+				}
+                catch 
+				{ 
+					MessageBox.Show("Không thể xóa chuyến đi", "Lỗi"); 
+				}
+			}
+		}
+    }
 }
