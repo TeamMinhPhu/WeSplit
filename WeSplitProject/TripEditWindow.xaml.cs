@@ -833,8 +833,8 @@ namespace WeSplitProject
             for (int i = 0; i < myExpense.Count; i++)
             {
                 db.EXPENSEs.Add(myExpense[i]);
-                db.SaveChanges();
             }
+            db.SaveChanges();
         }
 
         private void SaveVisitLocation(string myTripId, string savedFolderLink)
@@ -884,9 +884,9 @@ namespace WeSplitProject
                 };
 
                 db.VISIT_LOCATION.Add(newVisitLoc);
-                db.SaveChanges();
             }
 
+            db.SaveChanges();
         }
 
         private void SaveMember(string myTripId, string savedFolderLink)
@@ -939,7 +939,6 @@ namespace WeSplitProject
 
                 //save member
                 db.MEMBERs.Add(newMember);
-                db.SaveChanges();
 
                 var newTripSplit = new List<TRIP_SPLIT>();
                 var tempTripSplit = myTripSplit.Where(c => c.MEMBER_ID == tempMember[i].MEMBER_ID).ToList();
@@ -958,9 +957,10 @@ namespace WeSplitProject
                 for (int j = 0; j < newTripSplit.Count; j++)
                 {
                     db.TRIP_SPLIT.Add(newTripSplit[j]);
-                    db.SaveChanges();
                 }
             }
+
+            db.SaveChanges();
         }
 
         private void tripDateBeginDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
