@@ -36,7 +36,11 @@ namespace WeSplitProject
 			MouseDown += Window_MouseDown;
 			MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
 			MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
-			content.Navigate(new HomePage());
+
+			var myHomePage = new HomePage();
+			myHomePage.NewWindowOpen += NewWinDowHandler;
+			content.Navigate(myHomePage);
+			
 		}
 
 		//drag window
@@ -82,6 +86,11 @@ namespace WeSplitProject
 		}
 		#endregion
 
-		
+		private void NewWinDowHandler(string Id)
+        {
+			var newTrip = new CreateNewTrip(Id);
+			newTrip.Show();
+			this.Close();
+        }
 	}
 }

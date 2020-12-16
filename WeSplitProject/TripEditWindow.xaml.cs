@@ -76,7 +76,7 @@ namespace WeSplitProject
         public CreateNewTrip(string tempTripId)
         {
             InitializeComponent();
-            _TripID = tempTripId;
+            _TripID = tempTripId.Replace(" ", "");
             mode = 1;
         }
 
@@ -217,25 +217,6 @@ namespace WeSplitProject
                 DragMove();
         }
 
-        public static bool IsImageFile(string fileName)
-        {
-            string targetExtension = System.IO.Path.GetExtension(fileName);
-            bool result = false;
-            if (!String.IsNullOrEmpty(targetExtension))
-            {
-                List<string> recognisedImageExtensions = new List<string>() { ".jpg", ".jpeg", ".gif", ".png", ".bmp", ".tiff", ".ico" };
-                foreach (string extension in recognisedImageExtensions)
-                {
-                    if (extension.Equals(targetExtension))
-                    {
-                        result = true;
-                        break;
-                    }
-                }
-            }
-            else { /*do nothing*/ }
-            return result;
-        }
 
         private void TripImage_Drop(object sender, DragEventArgs e)
         {
@@ -248,7 +229,7 @@ namespace WeSplitProject
                 if (ImageFiles[0].Length > 0)
                 {
                     _tripImageLink = ImageFiles[0];
-                    if (IsImageFile(_tripImageLink))
+                    if (MyFileManager.IsImageFile(_tripImageLink))
                     {
                         var Bitmap = new BitmapImage(new Uri(_tripImageLink, UriKind.Absolute));
                         tripImage.Source = Bitmap;
@@ -274,7 +255,7 @@ namespace WeSplitProject
             if (dlg.ShowDialog() == true)
             {
                 _tripImageLink = dlg.FileName;
-                if (IsImageFile(_tripImageLink))
+                if (MyFileManager.IsImageFile(_tripImageLink))
                 {
                     var Bitmap = new BitmapImage(new Uri(_tripImageLink, UriKind.Absolute));
                     tripImage.Source = Bitmap;
@@ -294,7 +275,7 @@ namespace WeSplitProject
             if (dlg.ShowDialog() == true)
             {
                 _visitLocImageLink = dlg.FileName;
-                if (IsImageFile(_visitLocImageLink))
+                if (MyFileManager.IsImageFile(_visitLocImageLink))
                 {
                     var Bitmap = new BitmapImage(new Uri(_visitLocImageLink, UriKind.Absolute));
                     visitLocImage.Source = Bitmap;
@@ -319,7 +300,7 @@ namespace WeSplitProject
                 if (ImageFiles[0].Length > 0)
                 {
                     _visitLocImageLink = ImageFiles[0];
-                    if (IsImageFile(_visitLocImageLink))
+                    if (MyFileManager.IsImageFile(_visitLocImageLink))
                     {
                         var Bitmap = new BitmapImage(new Uri(_visitLocImageLink, UriKind.Absolute));
                         visitLocImage.Source = Bitmap;
@@ -345,7 +326,7 @@ namespace WeSplitProject
             if (dlg.ShowDialog() == true)
             {
                 _avatarImageLink = dlg.FileName;
-                if (IsImageFile(_avatarImageLink))
+                if (MyFileManager.IsImageFile(_avatarImageLink))
                 {
                     var Bitmap = new BitmapImage(new Uri(_avatarImageLink, UriKind.Absolute));
                     avatarImage.Source = Bitmap;
@@ -371,7 +352,7 @@ namespace WeSplitProject
                 if (ImageFiles[0].Length > 0)
                 {
                     _avatarImageLink = ImageFiles[0];
-                    if (IsImageFile(_avatarImageLink))
+                    if (MyFileManager.IsImageFile(_avatarImageLink))
                     {
                         var Bitmap = new BitmapImage(new Uri(_avatarImageLink, UriKind.Absolute));
                         avatarImage.Source = Bitmap;
@@ -667,6 +648,11 @@ namespace WeSplitProject
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
+            if(mode == 1)
+            {
+                var mainwindow = new MainWindow();
+                mainwindow.Show();
+            }
             this.Close();
         }
 
@@ -727,6 +713,7 @@ namespace WeSplitProject
                             var Folder = AppDomain.CurrentDomain.BaseDirectory;
                             var savedFolderLink = $"Resources\\Images\\{_TripID}";
                             MyFileManager.CheckDictionary($"{Folder}{savedFolderLink}");
+                            
 
                             //Save trip
                             SaveNewTrip(_TripID, savedFolderLink);
@@ -744,7 +731,7 @@ namespace WeSplitProject
                         {
                             var tempTripIds = db.TRIPs.Select(c => c.TRIP_ID).ToList();
                             string myTripId = $"TRIP{tempTripIds.Count}";
-
+                            myTripId = myTripId.Replace(" ", "");
                             //Create folder to save image
                             var Folder = AppDomain.CurrentDomain.BaseDirectory;
                             var savedFolderLink = $"Resources\\Images\\{myTripId}";
@@ -763,7 +750,10 @@ namespace WeSplitProject
                             SaveMember(myTripId, savedFolderLink);
                         }
 
-                        DialogResult = true;
+                        var defaultScreen = new MainWindow();
+                        defaultScreen.Show();
+
+                        this.Close();
                     }
                 }
             }
@@ -772,7 +762,6 @@ namespace WeSplitProject
         private void SaveNewTrip(string myTripId, string savedFolderLink)
         {
             var Folder = AppDomain.CurrentDomain.BaseDirectory;
-            myTripId = myTripId.Replace(" ", "");
 
             //Main trip image link: Resources\\Images\\TRIP{}\\TRIP{}.jpg
             var tripImgLink = $"{savedFolderLink}\\{myTripId}.jpg";
@@ -849,9 +838,7 @@ namespace WeSplitProject
 
         private void SaveVisitLocation(string myTripId, string savedFolderLink)
         {
-            var Folder = AppDomain.CurrentDomain.BaseDirectory;
-            myTripId = myTripId.Replace(" ", "");
-
+            var Folder = AppDomain.CurrentDomain.BaseDirectory;    
             var tempVisitLocs = myVisitLoc.OrderBy(c => c.VISIT_LOC_ID).ToList();
 
             for (int i = 0; i < tempVisitLocs.Count; i++)
@@ -904,7 +891,6 @@ namespace WeSplitProject
         private void SaveMember(string myTripId, string savedFolderLink)
         {
             var Folder = AppDomain.CurrentDomain.BaseDirectory; 
-            myTripId = myTripId.Replace(" ", "");
             var tempMember = myMember.OrderBy(c => c.MEMBER_ID).ToList();
 
             for (int i = 0; i < tempMember.Count; i++)
@@ -929,7 +915,8 @@ namespace WeSplitProject
                             //Copy image to new folder
                             System.IO.File.Copy(tempMember[i].AVATAR, myFilePath);
                         }
-                        catch { /*do nothing*/ }
+                        catch 
+                        { /*do nothing*/ }
                     }
                 }
                 else

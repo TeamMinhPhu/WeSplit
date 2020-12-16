@@ -23,6 +23,9 @@ namespace WeSplitProject
 	/// </summary>
 	public partial class HomePage : Page
 	{
+		public delegate void NewWindowOpenHandler(string ID);
+		public event NewWindowOpenHandler NewWindowOpen;
+
 		int _total_items;
 		int _current_page = 1;
 		int _itemPerPage = 12;
@@ -31,6 +34,7 @@ namespace WeSplitProject
 		int _selected_index;
 		WeSplitDBEntities db = new WeSplitDBEntities();
 		bool selectionMode = false;
+		bool editMode = false;
 
 		private System.Timers.Timer _timer = new System.Timers.Timer(300); //time delayed to UpdatePage after resizing window
 
@@ -89,6 +93,7 @@ namespace WeSplitProject
 			_total_page = Paging.GetTotalPages(_total_items, _itemPerPage);
 			UpdatePage();
 
+			viewModels.Clear();
 			viewModels = GetViewModel();
 			ListViewTrips.ItemsSource = viewModels;
 			filter.SelectedIndex = 0;
@@ -178,17 +183,11 @@ namespace WeSplitProject
 			var index = ListViewTrips.SelectedIndex;
 			if (index >= 0) 
             {
-				var addScreen = new CreateNewTrip(viewModels[index].ID);
+				var myID = viewModels[index].ID;
 
-				if (addScreen.ShowDialog() == true)
-				{
-					_current_page = 1;
-					paging.SelectedIndex = 0;
-					UpdatePage();
-					UpdateView();
-				}
+				NewWindowOpen?.Invoke(myID);
 			}
-			
+
 		}
 
 		#region "Paging"
@@ -212,6 +211,7 @@ namespace WeSplitProject
 		}
 		private void UpdateView()
 		{
+			viewModels.Clear();
 			viewModels = GetViewModel();
 			ListViewTrips.ItemsSource = viewModels;
 		}
