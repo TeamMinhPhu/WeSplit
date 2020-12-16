@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -54,15 +56,20 @@ namespace WeSplitProject
 			}
 		}
 
-		public DetailPage(TRIP tripDetail)
+		public DetailPage(string ID)
 		{
 			InitializeComponent();
+
+			WeSplitDBEntities db = new WeSplitDBEntities();
+			TRIP tripDetail = db.TRIPs.First(c => c.TRIP_ID == ID);
 			_trip = tripDetail;
 		}
 
 		private void Page_Loaded(object sender, RoutedEventArgs e)
 		{
 			var query = _trip.MEMBERs.Select(c => new MEMVER_VIEW { EMAIL = c.EMAIL, MEMBER_NAME = c.MEMBER_NAME, MEMBER_ID = c.MEMBER_ID, PHONE = c.PHONE, expends = c.TRIP_SPLIT}).ToList();
+
+			double totalIndividualCost = 0;
 			foreach (var item in query)
 			{
 				item.setExpend();
@@ -75,10 +82,36 @@ namespace WeSplitProject
 				var newPie = new PieSeries
 				{
 					Title = item.MEMBER_NAME,
-					Values = new ChartValues<double> { item.EXPEND_TOTAL }
+					Values = new ChartValues<double> { item.EXPEND_TOTAL }, //pie chart (individual cost)
+					DataLabels = true,
 				};
+				totalIndividualCost += item.EXPEND_TOTAL;
 				IndividualCostCollection.Add(newPie);
 			}
+
+			///////////
+			//Total cost pie chart
+			foreach (var item in _trip.EXPENSEs)
+			{
+				var newPie = new PieSeries
+				{
+					Title = item.EXPENSE_DESCRIPTION,
+					Values = new ChartValues<double> { (double)item.COST },
+					DataLabels = true,
+				};
+				TotalCostCollection.Add(newPie);
+			}
+			TotalCostCollection.Add(
+					new PieSeries
+					{
+						Title = "Chi tiêu cá nhân",
+						Values = new ChartValues<double> { totalIndividualCost },
+						DataLabels = true,
+					}
+				);
+
+			//End total pie chart
+			////////
 
 			/// member table
 			members.ItemsSource = query;
@@ -104,6 +137,7 @@ namespace WeSplitProject
 			}
 
 			ImageLink = _trip.IMAGE_LINK;
+			//coverImage.Source = BitmapFromUri(_trip.IMAGE_LINK);
 			TripName = _trip.TRIP_NAME;
 			Description += _trip.TRIP_DESTINATION;
 			Destination += _trip.TRIP_DESTINATION;
@@ -145,5 +179,28 @@ namespace WeSplitProject
 			}
 
 		}
+
+		private void backButton_click(object sender, RoutedEventArgs e)
+		{
+			//unload image
+			coverImage.Source = null;
+			UpdateLayout();
+			this.NavigationService.GoBack();
+		}
+
+		//public ImageSource BitmapFromUri(string source)
+		//{
+		//	var myFolder = AppDomain.CurrentDomain.BaseDirectory;
+		//	var imageFolder = $"{myFolder}{source}";
+		//	MessageBox.Show(imageFolder);
+		//	Uri myUri = new Uri(imageFolder, UriKind.Absolute);
+		//	var bitmap = new BitmapImage();
+		//	bitmap.BeginInit();
+		//	bitmap.UriSource = myUri;
+		//	bitmap.CacheOption = BitmapCacheOption.OnLoad;
+		//	bitmap.EndInit();
+		//	bitmap.Freeze();
+		//	return bitmap;
+		//}
 	}
 }

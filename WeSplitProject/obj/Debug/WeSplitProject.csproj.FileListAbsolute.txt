@@ -470,3 +470,5 @@ D:\Minh\This Week\Window\Project2\version2.2\WeSplitProject\obj\Debug\WeSplitPro
 D:\Minh\This Week\Window\Project2\version2.2\WeSplitProject\obj\Debug\WeSplitProject.csproj.CopyComplete
 D:\Minh\This Week\Window\Project2\version2.2\WeSplitProject\obj\Debug\WeSplitProject.exe
 D:\Minh\This Week\Window\Project2\version2.2\WeSplitProject\obj\Debug\WeSplitProject.pdb
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\Resources\Data\AppInfo.txt
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\Resources\Data\Members.txt

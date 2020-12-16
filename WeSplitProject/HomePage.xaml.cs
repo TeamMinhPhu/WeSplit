@@ -162,8 +162,8 @@ namespace WeSplitProject
 				try
 				{
 					string ID = viewModels[_selected_index].ID;
-					TRIP tripDetail = db.TRIPs.First(c => c.TRIP_ID == ID);
-					this.NavigationService.Navigate(new DetailPage(tripDetail));
+					//TRIP tripDetail = db.TRIPs.First(c => c.TRIP_ID == ID);
+					this.NavigationService.Navigate(new DetailPage(ID));
 				}
 				catch
 				{
