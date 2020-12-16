@@ -1,0 +1,1 @@
+Phần mềm hỗ trợ người dùng (đặc biệt là trưởng nhóm) quản lý chuyến đi. Người dùng có thể theo dõi từng chuyến đi, lộ trình, thời gian, địa điểm tham quan và chi phí từng chuyến đi cũng như thành viên để dễ dàng chia tiền thừa hay thiếu cho các thành viên.

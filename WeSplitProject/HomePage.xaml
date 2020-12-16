@@ -206,9 +206,9 @@
                         </ItemsControl.ItemsPanel>
                         <ListView.Resources>
                             <ContextMenu x:Key="ItemContextMenu">
-                                <MenuItem Header="Chỉnh sửa" PreviewMouseLeftButtonUp="editButton_PreviewMouseLeftButtonUp" Command="{Binding Path=DataContext.Edit, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"/>
-                                <MenuItem Header="Xóa" Command="{Binding Path=DataContext.Delete, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"/>
                                 <MenuItem Header="Chi tiết" PreviewMouseLeftButtonUp="trip_MouseLeftButtonUp" Command="{Binding Path=DataContext.Detail, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"/>
+                                <MenuItem Header="Chỉnh sửa" PreviewMouseLeftButtonUp="editButton_PreviewMouseLeftButtonUp" Command="{Binding Path=DataContext.Edit, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"/>
+                                <MenuItem Header="Xóa" PreviewMouseLeftButtonDown="MenuItem_PreviewMouseLeftButtonDown" Command="{Binding Path=DataContext.Delete, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"/>
                             </ContextMenu>
                         </ListView.Resources>
 
