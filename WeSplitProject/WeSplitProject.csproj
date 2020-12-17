@@ -259,8 +259,12 @@
     <None Include="Resources\Data\Members.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Resource Include="Resources\Images\18120206.jpg" />
-    <Resource Include="Resources\Images\18120222.jpg" />
+    <None Include="Resources\Images\18120206.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Images\18120222.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="WeSplitDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>WeSplitDB.edmx</DependentUpon>

@@ -11,7 +11,7 @@ namespace WeSplitProject.Classes
 	{
 		public static BindingList<Trip> GetAll()
 		{
-			Member fakeMember = new Member() { Name = "Phu", Phone="123456789"};
+			Member fakeMember = new Member() { Name = "Phu"};
 			List<Member> fakeMemberList = new List<Member>()
 			{
 				fakeMember,

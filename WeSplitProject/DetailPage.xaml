@@ -17,7 +17,7 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="350"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Button Width="40" Height="40" Padding="0"  HorizontalAlignment="Left" VerticalAlignment="Top" Panel.ZIndex="10" Click="backButton_click">
+        <Button Width="35" Height="35" Padding="0" Margin="10,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Panel.ZIndex="10" Click="backButton_click" materialDesign:ButtonAssist.CornerRadius="50">
             <materialDesign:PackIcon Kind="ArrowBackCircle" Width="30" Height="30"></materialDesign:PackIcon>
         </Button>
         <ScrollViewer Grid.Column="0" VerticalScrollBarVisibility="Auto">
