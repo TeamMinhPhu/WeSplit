@@ -206,6 +206,7 @@ namespace WeSplitProject
 		{
 			//unload image
 			coverImage.Source = null;
+			fakeCover.Source = null;
 			listDestination.ItemsSource = null;
 			UpdateLayout();
 			this.NavigationService.GoBack();
