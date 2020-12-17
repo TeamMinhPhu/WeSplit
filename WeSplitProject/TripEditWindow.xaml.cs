@@ -458,23 +458,51 @@ namespace WeSplitProject
 
         private void addMemberBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (memberNameTextBox.Text.Length <= 0)
+            if (memberPhoneTextBox.Text.Length > 10)
             {
-                MessageBox.Show("Chưa nhập tên thành viên", "Lỗi");
+                MessageBox.Show("Số điện thoại vượt quá 10 số", "Lỗi");
             }
             else
             {
-                myMember.Add(new MEMBER { MEMBER_ID = $"M{memberCode}", MEMBER_NAME = memberNameTextBox.Text, PHONE = memberPhoneTextBox.Text, EMAIL = memberEmailTextBox.Text, AVATAR = _avatarImageLink, PAID_MONEY = 0 });
-                memberNameTextBox.Text = "";
-                memberPhoneTextBox.Text = "";
-                memberEmailTextBox.Text = "";
-                var Bitmap = new BitmapImage(new Uri("Resources/Icons/picture.png", UriKind.Relative));
-                avatarImage.Source = Bitmap;
-                avatarImageHint.Visibility = Visibility.Visible;
-                _avatarImageLink = "";
-                memberCode++;
-            }
+                long temp;
+                if (long.TryParse(memberPhoneTextBox.Text, out temp))
+                {
+                    if (temp < 0 || temp > 9999999999)
+                    {
+                        MessageBox.Show("Số điện thoại vượt quá 10 số hoặc chứa kí tự không hợp lệ", "Lỗi");
+                        return;
+                    }
+                    else
+                    {
+                        if (memberNameTextBox.Text.Length <= 0)
+                        {
+                            MessageBox.Show("Chưa nhập tên thành viên", "Lỗi");
+                        }
+                        else
+                        {
+                            if (temp == 0)
+                            {
+                                memberPhoneTextBox.Text = "";
+                            }
 
+                            myMember.Add(new MEMBER { MEMBER_ID = $"M{memberCode}", MEMBER_NAME = memberNameTextBox.Text, PHONE = memberPhoneTextBox.Text, EMAIL = memberEmailTextBox.Text, AVATAR = _avatarImageLink, PAID_MONEY = 0 });
+                            memberNameTextBox.Text = "";
+                            memberPhoneTextBox.Text = "";
+                            memberEmailTextBox.Text = "";
+                            var Bitmap = new BitmapImage(new Uri("Resources/Icons/picture.png", UriKind.Relative));
+                            avatarImage.Source = Bitmap;
+                            avatarImageHint.Visibility = Visibility.Visible;
+                            _avatarImageLink = "";
+                            memberCode++;
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Số điện thoại vượt quá 10 số hoặc chứa kí tự không hợp lệ", "Lỗi");
+                    return;
+                }
+            }
         }
 
         private void deleteMemberBtn_Click(object sender, RoutedEventArgs e)
@@ -806,7 +834,16 @@ namespace WeSplitProject
             };
             //Save New Trip
             db.TRIPs.Add(newTrip);
-            db.SaveChanges();
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch
+            {
+                MessageBox.Show("Lỗi thêm chuyến đi");
+            }
+            
         }
 
         private void SaveExpense(string myTripId)
@@ -834,7 +871,15 @@ namespace WeSplitProject
             {
                 db.EXPENSEs.Add(myExpense[i]);
             }
-            db.SaveChanges();
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch
+            {
+                MessageBox.Show("Lỗi thêm chi phí");
+            }
         }
 
         private void SaveVisitLocation(string myTripId, string savedFolderLink)
@@ -886,7 +931,14 @@ namespace WeSplitProject
                 db.VISIT_LOCATION.Add(newVisitLoc);
             }
 
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch
+            {
+                MessageBox.Show("Lỗi thêm điểm tham quan");
+            }
         }
 
         private void SaveMember(string myTripId, string savedFolderLink)
@@ -960,7 +1012,14 @@ namespace WeSplitProject
                 }
             }
 
-            db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
+            }
+            catch
+            {
+                MessageBox.Show("Lỗi thêm thành viên");
+            }
         }
 
         private void tripDateBeginDatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)

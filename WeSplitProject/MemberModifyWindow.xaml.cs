@@ -237,43 +237,76 @@ namespace WeSplitProject
 
         private void doneBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (memberNameTextBox.Text.Length <= 0)
+            long temp;
+            if (memberPhoneTextBox.Text.Length > 10)
             {
-                MessageBox.Show("Chưa nhập tên thành viên", "Lỗi");
+                MessageBox.Show("Số điện thoại vượt quá 10 số", "Lỗi");
             }
-            else 
+            else
             {
-                long myMoney = 0;
-                if (paidMoneyTextBox.Text.Length > 0)
+                if (long.TryParse(memberPhoneTextBox.Text, out temp))
                 {
-                    if (long.TryParse(paidMoneyTextBox.Text, out long result))
+                    if (temp < 0 || temp > 9999999999)
                     {
-                        myMoney = result;
+                        MessageBox.Show("Số điện thoại chứa kí tự không hợp lệ", "Lỗi");
+                        return;
                     }
                     else
                     {
-                        MessageBox.Show("Số tiền trả trước không hợp lệ", "Lỗi");
-                        return;
+                        if (memberNameTextBox.Text.Length <= 0)
+                        {
+                            MessageBox.Show("Chưa nhập tên thành viên", "Lỗi");
+                        }
+                        else
+                        {
+                            if (temp == 0)
+                            {
+                                memberPhoneTextBox.Text = "";
+                            }
+
+                            long myMoney = 0;
+                            if (paidMoneyTextBox.Text.Length > 0)
+                            {
+                                if (long.TryParse(paidMoneyTextBox.Text, out long result))
+                                {
+                                    myMoney = result;
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Số tiền trả trước không hợp lệ", "Lỗi");
+                                    return;
+                                }
+                            }
+
+                            myMember.MEMBER_NAME = memberNameTextBox.Text;
+                            myMember.PHONE = memberPhoneTextBox.Text;
+                            myMember.EMAIL = memberEmailTextBox.Text;
+                            myMember.AVATAR = _avatarImageLink;
+                            myMember.PAID_MONEY = myMoney;
+
+                            newMember = myMember;
+
+                            var tempTripSplit = new List<TRIP_SPLIT>();
+                            for (int i = 0; i < myTripSplit.Count; i++)
+                            {
+                                tempTripSplit.Add(new TRIP_SPLIT { MEMBER_ID = myMember.MEMBER_ID, PAYMENT_ID = $"TS{i}", PAYMENT_DESCRIPTION = myTripSplit[i].PAYMENT_DESCRIPTION, PAID_COST = myTripSplit[i].PAID_COST });
+                            }
+                            newTripSplit = tempTripSplit;
+
+                            DialogResult = true;
+
+                        }
                     }
                 }
-
-                myMember.MEMBER_NAME = memberNameTextBox.Text;
-                myMember.PHONE = memberPhoneTextBox.Text;
-                myMember.EMAIL = memberEmailTextBox.Text;
-                myMember.AVATAR = _avatarImageLink;
-                myMember.PAID_MONEY = myMoney;
-
-                newMember = myMember;
-
-                var temp = new List<TRIP_SPLIT>();
-                for (int i = 0; i < myTripSplit.Count; i++)
+                else
                 {
-                    temp.Add(new TRIP_SPLIT { MEMBER_ID = myMember.MEMBER_ID, PAYMENT_ID = $"TS{i}", PAYMENT_DESCRIPTION = myTripSplit[i].PAYMENT_DESCRIPTION, PAID_COST = myTripSplit[i].PAID_COST });
+                    MessageBox.Show("Số điện thoại chứa kí tự không hợp lệ", "Lỗi");
+                    return;
                 }
-                newTripSplit = temp;
-
-                DialogResult = true;
             }
+            
+
+
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
