@@ -144,6 +144,9 @@ namespace WeSplitProject
 			_total_page = Paging.GetTotalPages(_total_items, _itemPerPage);
 			UpdatePage();
 
+			AllStatus.IsChecked = true;
+			searchByTripName.IsChecked = true;
+
 			viewModels.Clear();
 			viewModels = GetViewModel();
 			ListViewTrips.ItemsSource = viewModels;

@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\vuanh\Documents\WeSplit\WeSplitProject\obj\Debug\
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\
 WeSplitProject
 none
 false
 DEBUG;TRACE
-C:\Users\vuanh\Documents\WeSplit\WeSplitProject\App.xaml
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\App.xaml
 111246825816
 3-874366971
 31186806087
-251277754195
+25-1588680216
 AboutUsPage.xaml;DetailPage.xaml;HomePage.xaml;LocationModifyWindow.xaml;LocationView.xaml;MemberView.xaml;SettingScreen.xaml;MySplashScreen.xaml;TripEditWindow.xaml;MainWindow.xaml;MemberModifyWindow.xaml;
 
-True
+False
 

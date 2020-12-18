@@ -148,7 +148,7 @@
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center">
             <GroupBox Name="TripStatus" Padding="0" BorderThickness="0">
                 <StackPanel Orientation="Horizontal">
-                    <RadioButton GroupName="TripStatus" Checked="All_Checked" Name="All" Margin="5">Tất cả</RadioButton>
+                    <RadioButton GroupName="TripStatus" Checked="All_Checked" Name="AllStatus" Margin="5">Tất cả</RadioButton>
                     <RadioButton GroupName="TripStatus" Checked="Plan_Checked" Name="Plan" Margin="5">Lên kế hoạch</RadioButton>
                     <RadioButton GroupName="TripStatus" Checked="Begin_Checked" Name="Begin" Margin="5">Bắt đầu</RadioButton>
                     <RadioButton GroupName="TripStatus" Checked="OnGoing_Checked" Name="OnGoing" Margin="5">Đang đi</RadioButton>
