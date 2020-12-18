@@ -1,0 +1,74 @@
+﻿<Window x:Class="WeSplitProject.MemberView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:WeSplitProject"
+        mc:Ignorable="d"
+        Title="MemberView" Height="460" Width="500"
+        WindowStartupLocation="CenterScreen" 
+        Loaded="Window_Loaded" WindowStyle="None"
+        AllowsTransparency="True">
+    <Grid>
+        <Grid Height="460" Width="500" Background="Transparent" PreviewMouseLeftButtonDown="Grid_PreviewMouseLeftButtonDown" Panel.ZIndex="5"></Grid>
+        <Border BorderThickness="1" BorderBrush="{DynamicResource PrimaryHueDarkBrush}">
+            <Grid>
+                <StackPanel>
+                    <Grid Name ="TitleBar"  Height="40" VerticalAlignment="Top" Background="{DynamicResource PrimaryHueDarkBrush}">
+                        
+                        <Label Content="Thành viên" Foreground="White" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" VerticalContentAlignment="Center"></Label>
+                    </Grid>
+                    <Canvas Height="420" Width="500">
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Width="200">
+                                <TextBlock Text="Tên thành viên" Margin="20,20,10,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                <TextBlock Foreground="{DynamicResource PrimaryHueMidBrush}" Name="memberNameTextBlock" Width="160" Margin="30,5,10,10" FontSize="16"/>
+                                <TextBlock Text="Số điện thoại" Margin="20,20,10,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                <TextBlock Foreground="{DynamicResource PrimaryHueMidBrush}" Name="memberPhoneTextBlock" Width="160" Margin="30,5,10,10" FontSize="16"/>
+                                <TextBlock Text="Email" Margin="20,20,10,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                <TextBlock Foreground="{DynamicResource PrimaryHueMidBrush}" Name="memberEmailTextBlock" Width="160" Margin="30,5,10,10" FontSize="16"/>
+
+                                <Border BorderThickness="1" BorderBrush="Black" Height="120" Width="120" Margin="0,20,10,0">
+                                    <Image Height="118" x:Name="avatarImage" Source="Resources/Icons/picture.png" Stretch="Fill" Width="118"/>
+                                </Border>
+                            </StackPanel>
+                            <StackPanel Width="300" Height="420">
+                                <StackPanel Orientation="Horizontal" Width="300">
+                                    <TextBlock Text="Tổng chi phí:" Margin="0,20,0,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                    <TextBlock Foreground="{DynamicResource PrimaryHueMidBrush}" Name="totalTextBlock" Width="160" Margin="0,20,0,10" FontSize="16"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Width="300">
+                                    <TextBlock Text="Đã trả:" Margin="0,20,0,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                    <TextBlock Foreground="{DynamicResource PrimaryHueMidBrush}" Name="paidCostTextBlock" Width="180" Margin="0,20,0,10" FontSize="16"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Width="300">
+                                    <TextBlock Text="Tiền dư (nợ):" Margin="0,20,0,0" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                    <TextBlock Foreground="{DynamicResource PrimaryHueMidBrush}" Name="refundTextBlock" Width="160" Margin="0,20,0,10" FontSize="16"/>
+                                </StackPanel>
+                                
+                                <TextBlock Text="Danh sách khoản chi" Margin="0,20,0,8" Padding="10,0,10,0" FontSize="18" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                <StackPanel Orientation="Horizontal" Name="expenseSPHint" Visibility="Collapsed">
+                                    <TextBlock Text="Khoản chi" Margin="0,0,0,10" Padding="10,0,10,0" Width="170" FontSize="17" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                    <TextBlock Text="Tiền thu" Margin="0,0,0,10" Padding="10,0,10,0" Width="70" FontSize="17" Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                                </StackPanel>
+                                <ListBox Foreground="{DynamicResource PrimaryHueMidBrush}" x:Name="expenseListBox" Margin="-5,-5,20,0" FontSize="14" MaxHeight="180" Width="270">
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal" Width="270" Height="20" Margin="0,-5,0,-5">
+                                                <TextBlock Text="{Binding PAYMENT_DESCRIPTION}" FontSize="16" Foreground="{DynamicResource PrimaryHueMidBrush}" Width="170"/>
+                                                <TextBlock Text="{Binding PAID_COST}" FontSize="16" Foreground="{DynamicResource PrimaryHueMidBrush}" Width="70"/>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                                
+                            </StackPanel>
+                        </StackPanel>
+                    </Canvas>
+
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

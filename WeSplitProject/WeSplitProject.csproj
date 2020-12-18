@@ -130,6 +130,9 @@
     <Compile Include="MEMBER.cs">
       <DependentUpon>WeSplitDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="MemberView.xaml.cs">
+      <DependentUpon>MemberView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="SettingScreen.xaml.cs">
       <DependentUpon>SettingScreen.xaml</DependentUpon>
     </Compile>
@@ -183,6 +186,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LocationView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MemberView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

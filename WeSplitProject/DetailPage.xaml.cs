@@ -29,6 +29,7 @@ namespace WeSplitProject
 		public SeriesCollection TotalCostCollection { get; set; } = new SeriesCollection();
 
 		List<VISIT_LOCATION> _visitLoc;
+		List<MEMVER_VIEW> _member;
 
 		TRIP _trip;
 		public string TripName { get; set; }
@@ -40,27 +41,6 @@ namespace WeSplitProject
 		public string ImageLink { get; set; }
 		public int MemberCount { get; set; }
 
-		class MEMVER_VIEW
-		{
-			public string MemberName { get; set; }
-			public string MemberId { get; set; }
-			public string Phone { get; set; }
-			public string Email { get; set; }
-			public int Expend { get; set; }
-			public int ExpendTotal { get; set; }
-			public int Paid { get; set; }
-			public string Charge { get; set; }
-			public ICollection<TRIP_SPLIT> expends { get; set; }
-			public void setExpend()
-			{
-				double result = 0;
-				foreach (var cost in expends)
-				{
-					result = result + (double)cost.PAID_COST;
-				}
-				Expend = (int)result;
-			}
-		}
 
 		public DetailPage(string ID)
 		{
@@ -82,16 +62,18 @@ namespace WeSplitProject
 
 			////////////
 			/// Member view
-			var query = _trip.MEMBERs.Select(c => new MEMVER_VIEW { Email = c.EMAIL, MemberName = c.MEMBER_NAME, MemberId = c.MEMBER_ID, Phone = c.PHONE, expends = c.TRIP_SPLIT, Paid = (int)c.PAID_MONEY }).ToList();
+			var query = _trip.MEMBERs.Select(c => new MEMVER_VIEW { Email = c.EMAIL, MemberName = c.MEMBER_NAME, MemberId = c.MEMBER_ID, Phone = c.PHONE, expends = c.TRIP_SPLIT, Paid = (long)c.PAID_MONEY, Avatar = c.AVATAR }).ToList();
+			_member = query;
+
 			foreach (var member in query)
 			{
 				member.setExpend();
 				member.ExpendTotal = member.Expend;
 				foreach (var cost in _trip.EXPENSEs)
 				{
-					member.ExpendTotal += ((int)cost.COST / MemberCount);
+					member.ExpendTotal += ((long)cost.COST / MemberCount);
 				}
-				int charge = (int)(member.ExpendTotal - member.Paid);
+				long charge = (long)(member.ExpendTotal - member.Paid);
 				if (charge > 0)
 				{
 					member.Charge = "Nợ " + charge.ToString();
@@ -197,7 +179,7 @@ namespace WeSplitProject
 
 		private void Row_DoubleClick(object sender, MouseButtonEventArgs e)
 		{
-			var cellInfo = members.SelectedCells[1];
+			/*var cellInfo = members.SelectedCells[1];
 			var content = (cellInfo.Column.GetCellContent(cellInfo.Item) as TextBlock).Text;
 
 			MEMBER myMember = _trip.MEMBERs.First(c => c.MEMBER_ID == content);
@@ -205,7 +187,13 @@ namespace WeSplitProject
 			foreach(var a in x)
 			{
 				//MessageBox.Show(a.MEMBER.ToString() + ":" + a.PAID_COST.ToString());
-			}
+			}*/
+			var index = members.SelectedIndex;
+			if (index >= 0) 
+            {
+				var newMemberView = new MemberView(_trip.TRIP_ID, _member[index].MemberId);
+				newMemberView.Show();
+            }
 
 		}
 
