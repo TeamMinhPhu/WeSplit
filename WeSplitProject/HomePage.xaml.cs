@@ -83,23 +83,43 @@ namespace WeSplitProject
 					{
 						viewModel.StartedDate += " - " + viewData.DATE_FINISH?.ToString("dd/MM/yyyy");
 					}
+
+					switch (viewData.TRIP_STATUS)
+					{
+						case 0:
+							viewModel.StartedDate += " - Lên kế hoạch";
+							break;
+						case 1:
+							viewModel.StartedDate += " - Bắt đầu";
+							break;
+						case 2:
+							viewModel.StartedDate += " - Đang đi";
+							break;
+						case 3:
+							viewModel.StartedDate += " - Kết thúc";
+							break;
+					}
+				}
+                else
+                {
+					switch (viewData.TRIP_STATUS)
+					{
+						case 0:
+							viewModel.StartedDate += "Lên kế hoạch";
+							break;
+						case 1:
+							viewModel.StartedDate += "Bắt đầu";
+							break;
+						case 2:
+							viewModel.StartedDate += "Đang đi";
+							break;
+						case 3:
+							viewModel.StartedDate += "Kết thúc";
+							break;
+					}
 				}
 
-				switch (viewData.TRIP_STATUS)
-				{
-					case 0:
-						viewModel.StartedDate += " - Lên kế hoạch";
-						break;
-					case 1:
-						viewModel.StartedDate += " - Bắt đầu";
-						break;
-					case 2:
-						viewModel.StartedDate += " - Đang đi";
-						break;
-					case 3:
-						viewModel.StartedDate += " - Kết thúc";
-						break;
-				}
+				
 
 				result.Add(viewModel);
 			}
