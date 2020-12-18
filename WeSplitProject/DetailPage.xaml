@@ -106,7 +106,7 @@
                 <RowDefinition Height="auto" />
             </Grid.RowDefinitions>
             <Label Grid.Row="0" FontSize="24" FontWeight="Light" Background="White">Các điểm tham quan</Label>
-            <ListView Grid.Row="1" VerticalAlignment="Center" VerticalContentAlignment="Top" ScrollViewer.CanContentScroll="False" HorizontalContentAlignment="Stretch" HorizontalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  ScrollViewer.VerticalScrollBarVisibility="Visible" x:Name="listDestination" Grid.Column="1">
+            <ListView Grid.Row="1" VerticalAlignment="Center" VerticalContentAlignment="Top" ScrollViewer.CanContentScroll="False" HorizontalContentAlignment="Stretch" HorizontalAlignment="Center" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  ScrollViewer.VerticalScrollBarVisibility="Visible" x:Name="listDestination" Grid.Column="1" PreviewMouseDoubleClick="listDestination_PreviewMouseDoubleClick">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid MaxWidth="300">

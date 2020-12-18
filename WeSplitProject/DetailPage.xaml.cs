@@ -27,6 +27,9 @@ namespace WeSplitProject
 	{
 		public SeriesCollection IndividualCostCollection { get; set; } = new SeriesCollection();
 		public SeriesCollection TotalCostCollection { get; set; } = new SeriesCollection();
+
+		List<VISIT_LOCATION> _visitLoc;
+
 		TRIP _trip;
 		public string TripName { get; set; }
 		public string Description { get; set; } = "Mô tả: ";
@@ -72,6 +75,10 @@ namespace WeSplitProject
 		{
 			MemberCount = _trip.MEMBERs.Count();
 			double totalIndividualCost = 0;
+
+			////////////
+			/// visit location
+			_visitLoc = _trip.VISIT_LOCATION.ToList();
 
 			////////////
 			/// Member view
@@ -212,19 +219,29 @@ namespace WeSplitProject
 			this.NavigationService.GoBack();
 		}
 
-		//public ImageSource BitmapFromUri(string source)
-		//{
-		//	var myFolder = AppDomain.CurrentDomain.BaseDirectory;
-		//	var imageFolder = $"{myFolder}{source}";
-		//	MessageBox.Show(imageFolder);
-		//	Uri myUri = new Uri(imageFolder, UriKind.Absolute);
-		//	var bitmap = new BitmapImage();
-		//	bitmap.BeginInit();
-		//	bitmap.UriSource = myUri;
-		//	bitmap.CacheOption = BitmapCacheOption.OnLoad;
-		//	bitmap.EndInit();
-		//	bitmap.Freeze();
-		//	return bitmap;
-		//}
-	}
+        private void listDestination_PreviewMouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+			var index = listDestination.SelectedIndex;
+            if (index >= 0)
+            {
+				var newVisitLocView = new LocationView(_visitLoc[index]);
+				newVisitLocView.Show();
+			}			
+        }
+
+        //public ImageSource BitmapFromUri(string source)
+        //{
+        //	var myFolder = AppDomain.CurrentDomain.BaseDirectory;
+        //	var imageFolder = $"{myFolder}{source}";
+        //	MessageBox.Show(imageFolder);
+        //	Uri myUri = new Uri(imageFolder, UriKind.Absolute);
+        //	var bitmap = new BitmapImage();
+        //	bitmap.BeginInit();
+        //	bitmap.UriSource = myUri;
+        //	bitmap.CacheOption = BitmapCacheOption.OnLoad;
+        //	bitmap.EndInit();
+        //	bitmap.Freeze();
+        //	return bitmap;
+        //}
+    }
 }
