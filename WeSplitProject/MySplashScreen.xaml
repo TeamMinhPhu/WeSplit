@@ -73,7 +73,7 @@
         <ProgressBar x:Name="progress" Width="200"  Minimum="0" Maximum="500" Value="0" Height="15" Canvas.Left="333" Canvas.Top="359"
                      VerticalAlignment="Bottom" Margin="0 0 0 30" BorderThickness="0"/>
         <Button Name="turnOffButton" Background="Transparent" FontWeight="Light" BorderThickness="0"
-                Foreground="White" Content="turn off splashscreen on application startup"
+                Foreground="White" Content="Tắt hộp thoại này khi khởi động"
                 Click="turnOffButton_Click" HorizontalAlignment="Right" Padding="5 1 5 1"
                 VerticalAlignment="Bottom" Style="{DynamicResource SplashScreenButtonStyle}">
         </Button>

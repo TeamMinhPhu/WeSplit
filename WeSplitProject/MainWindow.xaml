@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 
-        Height="600" Width="1100"
+        Height="650" Width="1100"
         WindowStartupLocation="CenterScreen" 
         Loaded="Window_Loaded" WindowStyle="None"
         AllowsTransparency="True"

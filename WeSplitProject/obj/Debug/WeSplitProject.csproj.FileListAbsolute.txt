@@ -166,55 +166,6 @@ D:\Minh\This Week\Window\Project2\version1.3\WeSplitProject\obj\Debug\WeSplitPro
 D:\Minh\This Week\Window\Project2\version1.3\WeSplitProject\obj\Debug\WeSplitProject.csproj.CopyComplete
 D:\Minh\This Week\Window\Project2\version1.3\WeSplitProject\obj\Debug\WeSplitProject.exe
 D:\Minh\This Week\Window\Project2\version1.3\WeSplitProject\obj\Debug\WeSplitProject.pdb
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\TripEditWindow.g.cs
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\MainWindow.g.cs
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\MemberModifyWindow.g.cs
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\App.g.cs
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\WeSplitProject_Content.g.cs
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\GeneratedInternalTypeHelper.g.cs
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\WeSplitProject_MarkupCompile.cache
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\WeSplitProject_MarkupCompile.lref
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.exe
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.pdb
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\Resources\Images\sora.jpg
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\WeSplitProject.exe.config
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\WeSplitProject.exe
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\WeSplitProject.pdb
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\EntityFramework.dll
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\EntityFramework.SqlServer.dll
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\MaterialDesignColors.dll
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\MaterialDesignThemes.Wpf.dll
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\Microsoft.WindowsAPICodePack.dll
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\EntityFramework.xml
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\EntityFramework.SqlServer.xml
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\MaterialDesignColors.pdb
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\MaterialDesignThemes.Wpf.pdb
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\MaterialDesignThemes.Wpf.xml
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\Microsoft.WindowsAPICodePack.xml
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\Microsoft.WindowsAPICodePack.Shell.xml
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\App.baml
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\TripEditWindow.baml
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\MainWindow.baml
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\MemberModifyWindow.baml
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.g.resources
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.Properties.Resources.resources
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.csproj.GenerateResource.cache
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.csproj.CoreCompileInputs.cache
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.csproj.CopyComplete
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\LocationModifyWindow.g.cs
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\LocationModifyWindow.baml
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\WeSplitDB_log.ldf
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\WeSplitDB.mdf
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\HomePage.g.cs
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\HomePage.baml
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\AboutUsPage.g.cs
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\AboutUsPage.baml
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\LiveCharts.dll
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\LiveCharts.pdb
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\LiveCharts.xml
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\DetailPage.g.cs
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\DetailPage.baml
 D:\Minh\This Week\Window\Project2\version1.8 main\WeSplitProject\bin\Debug\WeSplitDB_log.ldf
 D:\Minh\This Week\Window\Project2\version1.8 main\WeSplitProject\bin\Debug\Resources\Images\sora.jpg
 D:\Minh\This Week\Window\Project2\version1.8 main\WeSplitProject\bin\Debug\WeSplitDB.mdf
@@ -305,9 +256,6 @@ D:\Minh\This Week\Window\Project2\version1.9\WeSplitProject\obj\Debug\WeSplitPro
 D:\Minh\This Week\Window\Project2\version1.9\WeSplitProject\obj\Debug\WeSplitProject.csproj.CopyComplete
 D:\Minh\This Week\Window\Project2\version1.9\WeSplitProject\obj\Debug\WeSplitProject.exe
 D:\Minh\This Week\Window\Project2\version1.9\WeSplitProject\obj\Debug\WeSplitProject.pdb
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\LiveCharts.Wpf.dll
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\LiveCharts.Wpf.pdb
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\LiveCharts.Wpf.xml
 D:\Minh\This Week\Window\Project2\version2.1\WeSplitProject\bin\Debug\WeSplitDB_log.ldf
 D:\Minh\This Week\Window\Project2\version2.1\WeSplitProject\bin\Debug\Resources\Images\sora.jpg
 D:\Minh\This Week\Window\Project2\version2.1\WeSplitProject\bin\Debug\WeSplitDB.mdf
@@ -416,14 +364,67 @@ D:\Minh\This Week\Window\Project2\version2.2\WeSplitProject\obj\Debug\WeSplitPro
 D:\Minh\This Week\Window\Project2\version2.2\WeSplitProject\obj\Debug\WeSplitProject.csproj.CopyComplete
 D:\Minh\This Week\Window\Project2\version2.2\WeSplitProject\obj\Debug\WeSplitProject.exe
 D:\Minh\This Week\Window\Project2\version2.2\WeSplitProject\obj\Debug\WeSplitProject.pdb
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\WeSplitDB_log.ldf
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\Resources\Images\sora.jpg
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\WeSplitDB.mdf
 C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\Resources\Data\AppInfo.txt
 C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\Resources\Data\Members.txt
 C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\Resources\Images\18120206.jpg
 C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\Resources\Images\18120222.jpg
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.csprojAssemblyReference.cache
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\SettingScreen.g.cs
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\SettingScreen.baml
 C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\Resources\Data\facts.txt
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\MySplashScreen.g.cs
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\MySplashScreen.baml
 C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\Resources\Icons\wespliticon.ico
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\WeSplitProject.exe.config
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\WeSplitProject.exe
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\WeSplitProject.pdb
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\EntityFramework.dll
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\LiveCharts.dll
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\LiveCharts.Wpf.dll
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\MaterialDesignColors.dll
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\Microsoft.WindowsAPICodePack.dll
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\Microsoft.WindowsAPICodePack.Shell.dll
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\EntityFramework.xml
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\LiveCharts.pdb
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\LiveCharts.xml
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\LiveCharts.Wpf.pdb
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\LiveCharts.Wpf.xml
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\MaterialDesignColors.pdb
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\Microsoft.WindowsAPICodePack.xml
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\Microsoft.WindowsAPICodePack.Shell.xml
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\AboutUsPage.g.cs
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\DetailPage.g.cs
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\HomePage.g.cs
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\LocationModifyWindow.g.cs
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\LocationView.g.cs
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\SettingScreen.g.cs
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\MySplashScreen.g.cs
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\TripEditWindow.g.cs
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\MainWindow.g.cs
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\MemberModifyWindow.g.cs
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\App.g.cs
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\WeSplitProject_Content.g.cs
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\WeSplitProject_MarkupCompile.cache
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\WeSplitProject_MarkupCompile.lref
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\App.baml
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\AboutUsPage.baml
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\DetailPage.baml
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\HomePage.baml
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\LocationModifyWindow.baml
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\LocationView.baml
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\SettingScreen.baml
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\MySplashScreen.baml
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\TripEditWindow.baml
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\MainWindow.baml
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\MemberModifyWindow.baml
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.g.resources
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.Properties.Resources.resources
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.csproj.GenerateResource.cache
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.csproj.CopyComplete
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.exe
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.pdb

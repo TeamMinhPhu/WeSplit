@@ -76,9 +76,9 @@
                       GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" KeyDown="keywordTextBox_KeyDown"/>
                 </Grid>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 0">
-                    <RadioButton Checked="searchByPlaces_Checked" GroupName="searchType" Name="searchByPlaces" Margin="0 0 20 0">Tìm kiếm theo địa điểm</RadioButton>
-                    <RadioButton Checked="searchByMembers_Checked" GroupName="searchType" Name="searchByMembers">Tìm kiếm theo thành viên</RadioButton>
-                    <RadioButton Checked="searchByTripName_Checked" GroupName="searchType" Name="searchByTripName">Tìm kiếm theo tên chuyến đi</RadioButton>
+                    <RadioButton Checked="searchByPlaces_Checked" GroupName="searchType" Name="searchByPlaces" Margin="0 0 20 0">Tìm theo địa điểm</RadioButton>
+                    <RadioButton Checked="searchByMembers_Checked" GroupName="searchType" Name="searchByMembers" Margin="0 0 20 0">Tìm theo thành viên</RadioButton>
+                    <RadioButton Checked="searchByTripName_Checked" GroupName="searchType" Name="searchByTripName">Tìm theo tên chuyến đi</RadioButton>
                     
                 </StackPanel>
             </StackPanel>
