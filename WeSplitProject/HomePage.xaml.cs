@@ -64,7 +64,16 @@ namespace WeSplitProject
 				viewModel.ID = viewData.TRIP_ID;
 
 				viewModel.Name = viewData.TRIP_NAME;
-				viewModel.CoverImage = viewData.IMAGE_LINK;
+				
+                if (viewData.IMAGE_LINK.Length <= 0)
+                {
+					viewModel.CoverImage = "Resources/Images/sora.jpg";
+
+				}
+                else
+                {
+					viewModel.CoverImage = viewData.IMAGE_LINK;
+				}
 				
 				if(viewData.DATE_BEGIN != null)
                 {

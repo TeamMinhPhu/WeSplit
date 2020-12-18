@@ -458,50 +458,54 @@ namespace WeSplitProject
 
         private void addMemberBtn_Click(object sender, RoutedEventArgs e)
         {
-            if (memberPhoneTextBox.Text.Length > 10)
-            {
-                MessageBox.Show("Số điện thoại vượt quá 10 số", "Lỗi");
-            }
-            else
-            {
-                long temp;
-                if (long.TryParse(memberPhoneTextBox.Text, out temp))
-                {
-                    if (temp < 0 || temp > 9999999999)
-                    {
-                        MessageBox.Show("Số điện thoại vượt quá 10 số hoặc chứa kí tự không hợp lệ", "Lỗi");
-                        return;
-                    }
-                    else
-                    {
-                        if (memberNameTextBox.Text.Length <= 0)
-                        {
-                            MessageBox.Show("Chưa nhập tên thành viên", "Lỗi");
-                        }
-                        else
-                        {
-                            if (temp == 0)
-                            {
-                                memberPhoneTextBox.Text = "";
-                            }
+            long temp = 0;
 
-                            myMember.Add(new MEMBER { MEMBER_ID = $"M{memberCode}", MEMBER_NAME = memberNameTextBox.Text, PHONE = memberPhoneTextBox.Text, EMAIL = memberEmailTextBox.Text, AVATAR = _avatarImageLink, PAID_MONEY = 0 });
-                            memberNameTextBox.Text = "";
-                            memberPhoneTextBox.Text = "";
-                            memberEmailTextBox.Text = "";
-                            var Bitmap = new BitmapImage(new Uri("Resources/Icons/picture.png", UriKind.Relative));
-                            avatarImage.Source = Bitmap;
-                            avatarImageHint.Visibility = Visibility.Visible;
-                            _avatarImageLink = "";
-                            memberCode++;
-                        }
-                    }
+            if (memberPhoneTextBox.Text.Length > 0)
+            {
+                if (memberPhoneTextBox.Text.Length > 10)
+                {
+                    MessageBox.Show("Số điện thoại vượt quá 10 số", "Lỗi");
+                    return;
                 }
                 else
                 {
-                    MessageBox.Show("Số điện thoại vượt quá 10 số hoặc chứa kí tự không hợp lệ", "Lỗi");
-                    return;
+                    if (long.TryParse(memberPhoneTextBox.Text, out temp))
+                    {
+                        if (temp < 0 || temp > 9999999999)
+                        {
+                            MessageBox.Show("Số điện thoại chứa kí tự không hợp lệ", "Lỗi");
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Số điện thoại chứa kí tự không hợp lệ", "Lỗi");
+                        return;
+                    }
                 }
+            }
+
+            if (memberNameTextBox.Text.Length <= 0)
+            {
+                MessageBox.Show("Chưa nhập tên thành viên", "Lỗi");
+            }
+            else
+            {
+                if (temp == 0)
+                {
+                    memberPhoneTextBox.Text = "";
+                }
+
+                myMember.Add(new MEMBER { MEMBER_ID = $"M{memberCode}", MEMBER_NAME = memberNameTextBox.Text, PHONE = memberPhoneTextBox.Text, EMAIL = memberEmailTextBox.Text, AVATAR = _avatarImageLink, PAID_MONEY = 0 });
+                memberNameTextBox.Text = "";
+                memberPhoneTextBox.Text = "";
+                memberEmailTextBox.Text = "";
+                var Bitmap = new BitmapImage(new Uri("Resources/Icons/picture.png", UriKind.Relative));
+                avatarImage.Source = Bitmap;
+                avatarImageHint.Visibility = Visibility.Visible;
+                _avatarImageLink = "";
+                memberCode++;
+
             }
         }
 
