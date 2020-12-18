@@ -82,7 +82,7 @@ namespace WeSplitProject
 				member.ExpendTotal = member.Expend;
 				foreach (var cost in _trip.EXPENSEs)
 				{
-					member.ExpendTotal += ((int)cost.COST / 3);
+					member.ExpendTotal += ((int)cost.COST / MemberCount);
 				}
 				int charge = (int)(member.ExpendTotal - member.Paid);
 				if (charge > 0)
