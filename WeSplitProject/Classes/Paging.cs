@@ -27,6 +27,10 @@ namespace WeSplitProject.Classes
 		{
 			int result;
 			result = totalItems / itemsPerPage + ((totalItems % itemsPerPage) == 0 ? 0 : 1);
+			if (result < 1)
+			{
+				result = 1;
+			}
 			return result;
 		}
 

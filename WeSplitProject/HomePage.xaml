@@ -46,7 +46,7 @@
                     <TextBlock HorizontalAlignment="Center">Thông tin</TextBlock>
                 </StackPanel>
                 <StackPanel Width="50" HorizontalAlignment="Left" Margin="0 10 0 0" >
-                    <ListBoxItem Padding="0" Cursor="Hand">
+                    <ListBoxItem Padding="0" Cursor="Hand" MouseUp="settingsButton_MouseUp">
                         <materialDesign:PackIcon Width="50" Height="50" Kind="Settings" Background="Transparent" Foreground="{DynamicResource PrimaryHueDarkBrush}">
                         </materialDesign:PackIcon>
                     </ListBoxItem>
@@ -76,22 +76,10 @@
                       GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus" KeyDown="keywordTextBox_KeyDown"/>
                 </Grid>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 10 0 0">
-                    <RadioButton GroupName="searchType" Name="searchByPlaces" Margin="0 0 20 0">Tìm kiếm theo địa điểm</RadioButton>
-                    <RadioButton GroupName="searchType" Name="searchByMembers">Tìm kiếm theo thành viên</RadioButton>
-                    <ComboBox Cursor="Hand" Grid.Column="3" Name="filter" SelectionChanged="sort_SelectionChanged" Width="80" Margin="20 0 0 0" Foreground="Black">
-                        <ComboBoxItem>
-                            a - Z
-                        </ComboBoxItem>
-                        <ComboBoxItem>
-                            Z - a
-                        </ComboBoxItem>
-                        <ComboBoxItem>
-                            Cũ nhất
-                        </ComboBoxItem>
-                        <ComboBoxItem>
-                            Mới nhất
-                        </ComboBoxItem>
-                    </ComboBox>
+                    <RadioButton Checked="searchByPlaces_Checked" GroupName="searchType" Name="searchByPlaces" Margin="0 0 20 0">Tìm kiếm theo địa điểm</RadioButton>
+                    <RadioButton Checked="searchByMembers_Checked" GroupName="searchType" Name="searchByMembers">Tìm kiếm theo thành viên</RadioButton>
+                    <RadioButton Checked="searchByTripName_Checked" GroupName="searchType" Name="searchByTripName">Tìm kiếm theo tên chuyến đi</RadioButton>
+                    
                 </StackPanel>
             </StackPanel>
         </Grid>
@@ -157,10 +145,16 @@
         <!-- ~~~~~~~~~~~~~~~~~~~End View for paging~~~~~~~~~~~~~~~~~~~-->
 
         <!-- ~~~~~~~~~~~~~~~~~~~Begin View for items~~~~~~~~~~~~~~~~~~~-->
-        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
-            <RadioButton GroupName="Status" Name="All" Margin="20 5 5 5">Tất cả</RadioButton>
-            <RadioButton GroupName="Status" Name="OnGoing" Margin="5">Đang đi</RadioButton>
-            <RadioButton GroupName="Status" Name="Done" Margin="5">Hoàn thành</RadioButton>
+        <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center">
+            <GroupBox Name="TripStatus" Padding="0" BorderThickness="0">
+                <StackPanel Orientation="Horizontal">
+                    <RadioButton GroupName="TripStatus" Checked="All_Checked" Name="All" Margin="5">Tất cả</RadioButton>
+                    <RadioButton GroupName="TripStatus" Checked="Plan_Checked" Name="Plan" Margin="5">Lên kế hoạch</RadioButton>
+                    <RadioButton GroupName="TripStatus" Checked="Begin_Checked" Name="Begin" Margin="5">Bắt đầu</RadioButton>
+                    <RadioButton GroupName="TripStatus" Checked="OnGoing_Checked" Name="OnGoing" Margin="5">Đang đi</RadioButton>
+                    <RadioButton GroupName="TripStatus" Checked="Done_Checked" Name="Done" Margin="5">Hoàn thành</RadioButton>
+                </StackPanel>
+            </GroupBox>
         </StackPanel>
         <ScrollViewer Background="#fff" Name="itemsView">
             <StackPanel>
@@ -208,7 +202,7 @@
                             <ContextMenu x:Key="ItemContextMenu">
                                 <MenuItem Header="Chi tiết" PreviewMouseLeftButtonUp="trip_MouseLeftButtonUp" Command="{Binding Path=DataContext.Detail, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"/>
                                 <MenuItem Header="Chỉnh sửa" PreviewMouseLeftButtonUp="editButton_PreviewMouseLeftButtonUp" Command="{Binding Path=DataContext.Edit, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"/>
-                                <MenuItem Header="Xóa" PreviewMouseLeftButtonDown="MenuItem_PreviewMouseLeftButtonDown" Command="{Binding Path=DataContext.Delete, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"/>
+                                <MenuItem Header="Xóa" PreviewMouseLeftButtonDown="exitButton_PreviewMouseLeftButtonDown" Command="{Binding Path=DataContext.Delete, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ListView}}"/>
                             </ContextMenu>
                         </ListView.Resources>
 

@@ -25,12 +25,14 @@ namespace WeSplitProject
 	{
 		public delegate void NewWindowOpenHandler(string ID);
 		public event NewWindowOpenHandler NewWindowOpen;
-
+	
 		int _total_items;
 		int _current_page = 1;
 		int _itemPerPage = 12;
 		int _total_page;
-		string _search;
+		int _trip_status = -1;
+		int _search_type = 2;
+		string _search ="";
 		int _selected_index;
 		WeSplitDBEntities db = new WeSplitDBEntities();
 		bool selectionMode = false;
@@ -51,8 +53,10 @@ namespace WeSplitProject
 			////////
 			///Access Data base
 			//var query = TripDAO.GetAll().Skip((_current_page - 1) * _itemPerPage).Take(_itemPerPage).Select(c => new { c.ID, c.Name, c.StartedDate, c.EndedDate, c.CoverImage }).ToList();
-			var query = db.TRIPs.Where(c=>c.EXIST_STATUS == true).OrderBy(c => c.TRIP_ID).Skip((_current_page - 1) * _itemPerPage).Take(_itemPerPage).Select(c => new { c.TRIP_ID, c.TRIP_NAME, c.DATE_BEGIN, c.DATE_FINISH, c.IMAGE_LINK, c.TRIP_STATUS }).ToList();
-
+			//var unfilteredQuery = db.TRIPs.Where(c=>c.TRIP_NAME.Contains(_search) && c.EXIST_STATUS == true).Select(c => new { c.TRIP_ID, c.TRIP_NAME, c.DATE_BEGIN, c.DATE_FINISH, c.IMAGE_LINK, c.TRIP_STATUS }).ToList();
+			var unfilteredQuery = getNewData();
+			_total_items = unfilteredQuery.Count();
+			var query = unfilteredQuery.OrderBy(c => c.TRIP_ID).Skip((_current_page - 1) * _itemPerPage).Take(_itemPerPage).Select(c => new { c.TRIP_ID, c.TRIP_NAME, c.DATE_BEGIN, c.DATE_FINISH, c.IMAGE_LINK, c.TRIP_STATUS }).ToList();
 			foreach (var viewData in query)
 			{
 				ViewModel viewModel = new ViewModel();
@@ -114,7 +118,6 @@ namespace WeSplitProject
 			viewModels.Clear();
 			viewModels = GetViewModel();
 			ListViewTrips.ItemsSource = viewModels;
-			filter.SelectedIndex = 0;
 		}
 
 
@@ -133,21 +136,17 @@ namespace WeSplitProject
 
 		private void keywordTextBox_KeyDown(object sender, KeyEventArgs e)
 		{
-			if (e.Key == Key.Return)
+			//if (e.Key == Key.Return)
 			{
-				_current_page = 1;
 				_search = keywordTextBox.Text;
-				UpdateView();
-				UpdatePage();
+				RenewDataModel();
 			}
 		}
 
 		private void searchButton_Click(object sender, RoutedEventArgs e)
 		{
-			_current_page = 1;
 			_search = keywordTextBox.Text;
-			UpdateView();
-			UpdatePage();
+			RenewDataModel();
 		}
 
 		//Detail
@@ -223,7 +222,6 @@ namespace WeSplitProject
 			{
 				_current_page = 1;
 				UpdateView();
-				UpdatePage();
 			});
 			_timer.Stop();
 		}
@@ -232,11 +230,12 @@ namespace WeSplitProject
 			viewModels.Clear();
 			viewModels = GetViewModel();
 			ListViewTrips.ItemsSource = viewModels;
+			UpdatePage();
 		}
 
 		private void UpdatePage()
 		{
-			_total_items = db.TRIPs.Where(c => c.EXIST_STATUS == true).Count();
+			//_total_items = _trips.Where(c => c.EXIST_STATUS == true).Count();
 			_total_page = Paging.GetTotalPages(_total_items, _itemPerPage);
 			viewTotalPages.Text = "/ " + _total_page.ToString();
 			paging.ItemsSource = PagingViewModel.UpdatePage(_total_page);
@@ -274,10 +273,8 @@ namespace WeSplitProject
 		private void paging_SelectionChanged(object sender, SelectionChangedEventArgs e)
 		{
 			_current_page = paging.SelectedIndex + 1;
-			UpdatePage();
 			UpdateView();
 		}
-
 
 		#endregion
 
@@ -289,7 +286,6 @@ namespace WeSplitProject
 			{
 				_current_page = 1;
 				paging.SelectedIndex = 0;
-				UpdatePage();
 				UpdateView();
 			}
 		}
@@ -300,7 +296,7 @@ namespace WeSplitProject
 
 		}
 
-        private void MenuItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        private void exitButton_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
 			var index = ListViewTrips.SelectedIndex;
 			if (index >= 0)
@@ -316,7 +312,6 @@ namespace WeSplitProject
 
 						_current_page = 1;
 						paging.SelectedIndex = 0;
-						UpdatePage();
 						UpdateView();
 
 						MessageBox.Show("Đã xóa chuyến đi");
@@ -332,5 +327,111 @@ namespace WeSplitProject
 				}
 			}
 		}
-    }
+
+
+		private List<TRIP> getNewData()
+		{
+			List<TRIP> result = new List<TRIP>();
+			db.Dispose(); //prevent memory leak..
+
+			///filter
+			db = new WeSplitDBEntities();
+			if (_trip_status == -1)
+			{
+				result = db.TRIPs.Where(c =>c.EXIST_STATUS == true).ToList();
+			}
+			else
+			{
+				result = db.TRIPs.Where(c => c.EXIST_STATUS == true && c.TRIP_STATUS == _trip_status).ToList();
+			}
+
+			///search
+			if (_search_type == 0)
+			{
+				result = result.Where(c => c.TRIP_DESTINATION.Contains(_search)).ToList();
+			}
+			else if (_search_type == 1)
+			{
+				var memberList = db.MEMBERs.Where(c => c.MEMBER_NAME.Contains(_search));
+				List<string> Id = new List<string>();
+				foreach (var member in memberList)
+				{
+					if (Id.Contains(member.TRIP_ID))
+					{
+						// do nothing
+					}
+					else
+					{
+						Id.Add(member.TRIP_ID);
+					}
+				}
+				result = result.Where(c => c.EXIST_STATUS == true && Id.Contains(c.TRIP_ID)).ToList();
+			}
+			else
+			{
+				result = result.Where(c => c.TRIP_NAME.Contains(_search)).ToList();
+			}
+			return result;
+		}
+
+		private void All_Checked(object sender, RoutedEventArgs e)
+		{
+			_trip_status = -1;
+			RenewDataModel();
+		}
+
+		private void Plan_Checked(object sender, RoutedEventArgs e)
+		{
+			_trip_status = 0;
+			RenewDataModel();
+		}
+
+		private void Begin_Checked(object sender, RoutedEventArgs e)
+		{
+			_trip_status = 1;
+			RenewDataModel();
+		}
+
+		private void OnGoing_Checked(object sender, RoutedEventArgs e)
+		{
+			_trip_status = 2;
+			RenewDataModel();
+		}
+
+		private void Done_Checked(object sender, RoutedEventArgs e)
+		{
+			_trip_status = 3;
+			RenewDataModel();
+		}
+
+		private void RenewDataModel()
+		{
+			_current_page = 1;
+			UpdateView();
+		}
+
+		private void searchByPlaces_Checked(object sender, RoutedEventArgs e)
+		{
+			_search_type = 0;
+			UpdateView();
+		}
+
+		private void searchByMembers_Checked(object sender, RoutedEventArgs e)
+		{
+			_search_type = 1;
+			UpdateView();
+		}
+
+		private void searchByTripName_Checked(object sender, RoutedEventArgs e)
+		{
+			_search_type = 2;
+			UpdateView();
+		}
+
+		private void settingsButton_MouseUp(object sender, MouseButtonEventArgs e)
+		{
+			var settings = new SettingScreen();
+			settings.ShowDialog();
+		}
+	}
 }

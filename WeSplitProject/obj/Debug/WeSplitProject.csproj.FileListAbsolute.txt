@@ -213,7 +213,6 @@ C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\AboutUsPage.bam
 C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\LiveCharts.dll
 C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\LiveCharts.pdb
 C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\LiveCharts.xml
-C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.csprojAssemblyReference.cache
 C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\DetailPage.g.cs
 C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\DetailPage.baml
 D:\Minh\This Week\Window\Project2\version1.8 main\WeSplitProject\bin\Debug\WeSplitDB_log.ldf
@@ -419,3 +418,11 @@ D:\Minh\This Week\Window\Project2\version2.2\WeSplitProject\obj\Debug\WeSplitPro
 D:\Minh\This Week\Window\Project2\version2.2\WeSplitProject\obj\Debug\WeSplitProject.pdb
 C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\Resources\Data\AppInfo.txt
 C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\Resources\Data\Members.txt
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\Resources\Images\18120206.jpg
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\Resources\Images\18120222.jpg
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\WeSplitProject.csprojAssemblyReference.cache
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\SettingScreen.g.cs
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\SettingScreen.baml
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\bin\Debug\Resources\Data\facts.txt
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\MySplashScreen.g.cs
+C:\Users\Admin\Documents\GitHub\WeSplit\WeSplitProject\obj\Debug\MySplashScreen.baml

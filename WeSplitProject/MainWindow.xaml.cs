@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +26,7 @@ namespace WeSplitProject
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		
+
 		public MainWindow()
 		{
 			InitializeComponent();
@@ -40,7 +41,7 @@ namespace WeSplitProject
 			var myHomePage = new HomePage();
 			myHomePage.NewWindowOpen += NewWinDowHandler;
 			content.Navigate(myHomePage);
-			
+
 		}
 
 		//drag window
@@ -51,7 +52,7 @@ namespace WeSplitProject
 				if (e.ChangedButton == MouseButton.Left)
 					DragMove();
 			}
-			catch 
+			catch
 			{
 				// do nothing
 			}
@@ -60,7 +61,7 @@ namespace WeSplitProject
 		//close
 		private void closeProgramButton_Click(object sender, RoutedEventArgs e)
 		{
-			//saveConfig();
+			saveConfig();
 			Application.Current.Shutdown();
 		}
 		//maximize - unmaximize
@@ -87,10 +88,27 @@ namespace WeSplitProject
 		#endregion
 
 		private void NewWinDowHandler(string Id)
-        {
+		{
 			var newTrip = new CreateNewTrip(Id);
 			newTrip.Show();
 			this.Close();
-        }
+		}
+
+		private void loadConfig()
+		{
+			ConfigurationManager.RefreshSection("appSettings");
+			var configWidth = ConfigurationManager.AppSettings["Width"];
+			this.Width = double.Parse(configWidth);
+			var configHeight = ConfigurationManager.AppSettings["Height"];
+			this.Height = double.Parse(configHeight);
+		}
+		private void saveConfig()
+		{
+			WindowState = WindowState.Normal;
+			var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+			config.AppSettings.Settings["Width"].Value = this.Width.ToString();
+			config.AppSettings.Settings["Height"].Value = this.Height.ToString();
+			config.Save(ConfigurationSaveMode.Minimal);
+		}
 	}
 }

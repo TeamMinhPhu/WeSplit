@@ -81,6 +81,7 @@
       <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
@@ -122,6 +123,12 @@
     </Compile>
     <Compile Include="MEMBER.cs">
       <DependentUpon>WeSplitDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SettingScreen.xaml.cs">
+      <DependentUpon>SettingScreen.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MySplashScreen.xaml.cs">
+      <DependentUpon>MySplashScreen.xaml</DependentUpon>
     </Compile>
     <Compile Include="TRIP.cs">
       <DependentUpon>WeSplitDB.tt</DependentUpon>
@@ -166,6 +173,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="LocationModifyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="SettingScreen.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MySplashScreen.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -263,6 +278,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\Images\18120222.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\Data\facts.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="WeSplitDB.Context.tt">
